@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(300.dp))
 
                         val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
                             Text(text = "Camera Permission")
                         }
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(300.dp))
 
                         CameraPreview()
                     }
