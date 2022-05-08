@@ -1,6 +1,7 @@
 package com.barengific.posra
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -126,4 +127,34 @@ class MainActivity : ComponentActivity() {
         startActivity(intent)
     }
 
+}
+
+
+class QrCodeAnalyzer : ImageAnalysis.Analyzer {
+
+    @SuppressLint("UnsafeOptInUsageError")
+    override fun analyze(image: ImageProxy) {
+        val img = image.image
+        if (img != null) {
+            val inputImage = InputImage.fromMediaImage(img, image.imageInfo.rotationDegrees)
+
+            // Process image searching for barcodes
+//            val options = BarcodeScannerOptions.Builder()
+//                .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+//                .build()
+
+//            val scanner = BarcodeScanning.getClient(options)
+            val scanner = BarcodeScanning.getClient()
+
+            scanner.process(inputImage)
+                .addOnSuccessListener { barcodes ->
+                    for (barcode in barcodes) {
+                        // Handle received barcodes...
+                    }
+                }
+                .addOnFailureListener { }
+        }
+
+        image.close()
+    }
 }
