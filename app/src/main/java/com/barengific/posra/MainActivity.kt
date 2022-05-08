@@ -76,9 +76,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.DialogFragment
-//
-//import net.sqlcipher.database.SQLiteDatabase
-//import net.sqlcipher.database.SupportFactory
+import net.sqlcipher.database.SQLiteDatabase.getBytes
+import net.sqlcipher.database.SupportFactory
+
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -132,10 +132,10 @@ class MainActivity : AppCompatActivity() {
             .openHelperFactory(factory)
             .allowMainThreadQueries()
             .build()
-        val wordDao = room.wordDao()
+        val productDAO = room.productDao()
 
         //recycle view
-        val arr = staffDao.getAll()
+        val arr = productDAO.getAll()
         val adapter = CustomAdapter(arr)
         recyclerView = findViewById<View>(R.id.rView) as RecyclerView
         recyclerView.setHasFixedSize(false)
