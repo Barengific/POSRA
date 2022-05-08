@@ -2,12 +2,20 @@ package com.barengific.posra
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +28,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.barengific.posra.MainActivity.Companion.a
 import com.barengific.posra.MainActivity.Companion.baa
 import com.barengific.posra.MainActivity.Companion.myList
@@ -39,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         var baa: String = ""
         var myList : List<String> = mutableListOf("")
         fun a(aa: String) : String = aa
+        lateinit var recyclerView: RecyclerView
 
         private var instance: MainActivity? = null
 
@@ -71,6 +82,15 @@ class MainActivity : AppCompatActivity() {
 
 
         startCamera()
+
+        //recycle view
+        val arr = wordDao.getAll()
+        val adapter = CustomAdapter(arr)
+        recyclerView = findViewById<View>(R.id.rView) as RecyclerView
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
 
     }
 
@@ -207,4 +227,209 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
 
         image.close()
     }
+}
+
+
+class CustomAdapter(private val dataSet: List<Word>) :
+    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnCreateContextMenuListener {
+        var ivCopy: ImageView
+        var ivMore: ImageView
+
+        @SuppressLint("ResourceType")
+        override fun onCreateContextMenu(menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+            MainActivity.pos = adapterPosition
+            MainActivity.setPosi(layoutPosition)
+        }
+
+        val textView1: TextView
+        val textView2: TextView
+        val textView3: TextView
+        val textView4: TextView
+
+        init {
+            ivCopy = view.findViewById(R.id.ivCopy) as ImageView
+            ivMore = view.findViewById(R.id.ivMore) as ImageView
+            view.setOnCreateContextMenuListener(this)
+
+            // Define click listener for the ViewHolder's View.
+            textView1 = view.findViewById(R.id.textView1)
+            textView2 = view.findViewById(R.id.textView2)
+            textView3 = view.findViewById(R.id.textView3)
+            textView4 = view.findViewById(R.id.textView4)
+        }
+
+    }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        // Create a new view, which defines the UI of the list item
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.text_row_item, viewGroup, false)
+
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+        viewHolder.itemView.setOnLongClickListener {
+            setPosition(viewHolder.layoutPosition)
+            setPosition(viewHolder.adapterPosition)
+            false
+        }
+
+        viewHolder.ivMore.setOnClickListener { view ->
+            val wrapper: Context = ContextThemeWrapper(view?.context, R.style.PopupMenu)
+
+            val popup = PopupMenu(wrapper, viewHolder.ivMore)
+            //inflating menu from xml resource
+            popup.inflate(R.menu.rv_menu_context)
+            //adding click listener
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_copy -> {
+//                        Log.d("aaa menu", "copy")
+                        val clipboard =
+                            view?.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip: ClipData =
+                            ClipData.newPlainText("PGen", viewHolder.textView4.text.toString())
+                        clipboard.setPrimaryClip(clip)
+                        Toast.makeText(view.context, "Text Copied", Toast.LENGTH_LONG).show()
+
+                    }
+                    R.id.menu_delete -> {
+                        val passphrase: ByteArray = SQLiteDatabase.getBytes("bob".toCharArray())
+                        val factory = SupportFactory(passphrase)
+                        val room = view?.context?.let {
+                            Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
+                                .openHelperFactory(factory)
+                                .allowMainThreadQueries()
+                                .build()
+                        }
+                        val wordDao = room?.wordDao()
+
+                        val wid: TextView = viewHolder.textView1
+                        val pType: TextView = viewHolder.textView2
+                        val key: TextView = viewHolder.textView3
+                        val value: TextView = viewHolder.textView4
+
+                        val a = Word(
+                            wid.text.toString().toInt(),
+                            pType.text.toString(),
+                            key.text.toString(),
+                            value.text.toString()
+                        )
+                        room?.wordDao()?.delete(a)
+                        val arrr = wordDao?.getAll()
+                        val adapter = arrr?.let { CustomAdapter(it) }
+
+                        MainActivity.recyclerView.setHasFixedSize(false)
+                        MainActivity.recyclerView.adapter = adapter
+                        MainActivity.recyclerView.layoutManager =
+                            LinearLayoutManager(view?.context)
+                        room?.close()
+//                        Log.d("aaa menu", "DDDelete")
+
+                    }
+
+                    R.id.menu_cancel -> {
+//                        Log.d("aaa menu", "cancel")
+                    }
+                    R.id.menu_hide -> {
+                        val passphrase: ByteArray =
+                            SQLiteDatabase.getBytes("bob".toCharArray())//DB passphrase change
+                        val factory = SupportFactory(passphrase)
+                        val room = view?.context?.let {
+                            Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
+                                .openHelperFactory(factory)
+                                .allowMainThreadQueries()
+                                .build()
+                        }
+                        val wordDao = room?.wordDao()
+
+                        val arrr = wordDao?.getAll()
+
+                        if (MainActivity.posis.contains(viewHolder.adapterPosition)) {//if existent then show
+                            MainActivity.posis.remove(viewHolder.adapterPosition)
+
+                            val pSize = MainActivity.posis.size
+                            for (i in 0 until pSize) {
+//                                Log.d("aaaaCVCVCVQQ", MainActivity.posis[i].toString())
+                                if ((MainActivity.posis[i] != -1)) {
+                                    val qSize = MainActivity.posis[i]
+                                    arrr?.get(qSize)?.value = "****"
+                                    arrr?.get(qSize)?.key = "****"
+                                }
+                            }
+
+                            val adapter = arrr?.let { CustomAdapter(it) }
+                            MainActivity.recyclerView.setHasFixedSize(false)
+                            MainActivity.recyclerView.adapter = adapter
+                            MainActivity.recyclerView.layoutManager =
+                                LinearLayoutManager(view?.context)
+                            room?.close()
+
+                        } else {//if not existent then hide
+                            MainActivity.posis.add(viewHolder.adapterPosition)
+
+                            val pSize = MainActivity.posis.size
+                            for (i in 0 until pSize) {
+//                                Log.d("aaaaCVCVCV", MainActivity.posis[i].toString())
+                                if ((MainActivity.posis[i] != -1)) {
+                                    val qSize = MainActivity.posis[i]
+                                    arrr?.get(qSize)?.value = "****"
+                                    arrr?.get(qSize)?.key = "****"
+                                }
+                            }
+                            val adapter = arrr?.let { CustomAdapter(it) }
+                            MainActivity.recyclerView.setHasFixedSize(false)
+                            MainActivity.recyclerView.adapter = adapter
+                            MainActivity.recyclerView.layoutManager =
+                                LinearLayoutManager(view?.context)
+                            room?.close()
+
+                        }
+
+                    }
+
+                }
+                true
+            }
+            //displaying the popup
+            popup.show()
+        }
+
+        viewHolder.ivCopy.setOnClickListener { view ->
+//            Log.d("aaaaICONu", "inn copy")
+            val clipboard = view?.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip: ClipData = ClipData.newPlainText("PGen", viewHolder.textView4.text.toString())
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(view.context, "Text Copied", Toast.LENGTH_LONG).show()
+        }
+
+        // Get element from your dataset at this position and replace the
+        // contents of the view with that element
+        viewHolder.textView1.text = dataSet[position].wid.toString()
+        viewHolder.textView2.text = dataSet[position].pType.toString()
+        viewHolder.textView3.text = dataSet[position].key.toString()
+        viewHolder.textView4.text = dataSet[position].value.toString()
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.itemView.setOnLongClickListener(null)
+        super.onViewRecycled(holder)
+    }
+
+    override fun getItemCount() = dataSet.size
+
+    private var position: Int = 0
+
+//    fun getPosition(): Int {
+//        return position
+//    }
+
+    private fun setPosition(position: Int) {
+        this.position = position
+    }
+
 }
