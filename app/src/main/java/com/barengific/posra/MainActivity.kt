@@ -1,25 +1,18 @@
 package com.barengific.posra
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
-import android.util.Log
-import android.view.ContextMenu
+import android.database.sqlite.SQLiteDatabase
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -28,8 +21,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
 import com.barengific.posra.MainActivity.Companion.a
 import com.barengific.posra.MainActivity.Companion.baa
 import com.barengific.posra.MainActivity.Companion.myList
@@ -44,13 +37,62 @@ import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.*
+import android.os.Build
+import android.os.Bundle
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+
+import android.widget.Toast
+import android.text.Editable
+
+import android.text.TextWatcher
+import android.view.ContextMenu.ContextMenuInfo
+import android.util.Log
+import android.view.*
+
+import android.widget.TextView
+import android.view.MenuInflater
+
+import android.view.ContextMenu
+import android.content.Intent
+
+import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import android.content.Context.CLIPBOARD_SERVICE
+import android.graphics.Color.BLACK
+import android.os.Handler
+
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.DialogFragment
+//
+//import net.sqlcipher.database.SQLiteDatabase
+//import net.sqlcipher.database.SupportFactory
+import java.util.concurrent.TimeUnit
+
 class MainActivity : AppCompatActivity() {
     companion object {
         var baa: String = ""
+        var pos: Int = 0
         var myList : List<String> = mutableListOf("")
         fun a(aa: String) : String = aa
         lateinit var recyclerView: RecyclerView
-
+        var posis: MutableList<Int> = mutableListOf(-1)
+        fun getPosi(): Int = pos
+        fun setPosi(pos: Int) {
+            this.pos = pos
+        }
         private var instance: MainActivity? = null
 
         fun applicationContext() : Context {
@@ -83,8 +125,17 @@ class MainActivity : AppCompatActivity() {
 
         startCamera()
 
+        //db initialise
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("bob".toCharArray())
+        val factory = SupportFactory(passphrase)
+        val room = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
+            .openHelperFactory(factory)
+            .allowMainThreadQueries()
+            .build()
+        val wordDao = room.wordDao()
+
         //recycle view
-        val arr = wordDao.getAll()
+        val arr = staffDao.getAll()
         val adapter = CustomAdapter(arr)
         recyclerView = findViewById<View>(R.id.rView) as RecyclerView
         recyclerView.setHasFixedSize(false)
@@ -230,7 +281,7 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
 }
 
 
-class CustomAdapter(private val dataSet: List<Word>) :
+class CustomAdapter(private val dataSet: List<Product>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
@@ -306,21 +357,27 @@ class CustomAdapter(private val dataSet: List<Word>) :
                                 .allowMainThreadQueries()
                                 .build()
                         }
-                        val wordDao = room?.wordDao()
+                        val productDao = room?.wordDao()
 
-                        val wid: TextView = viewHolder.textView1
-                        val pType: TextView = viewHolder.textView2
-                        val key: TextView = viewHolder.textView3
-                        val value: TextView = viewHolder.textView4
+                        val pid: TextView = viewHolder.textView1
+                        val barcode: TextView = viewHolder.textView1
+                        val name: TextView = viewHolder.textView2
+                        val description: TextView = viewHolder.textView3
+                        val price: TextView = viewHolder.textView4
+                        val stockQty: TextView = viewHolder.textView3
+                        val category: TextView = viewHolder.textView4
 
-                        val a = Word(
-                            wid.text.toString().toInt(),
-                            pType.text.toString(),
-                            key.text.toString(),
-                            value.text.toString()
+                        val a = Product(
+                            pid.text.toString().toInt(),
+                            barcode.text.toString(),
+                            name.text.toString(),
+                            description.text.toString(),
+                            price.text.toString(),
+                            stockQty.text.toString(),
+                            category.text.toString()
                         )
                         room?.wordDao()?.delete(a)
-                        val arrr = wordDao?.getAll()
+                        val arrr = productDao?.getAll()
                         val adapter = arrr?.let { CustomAdapter(it) }
 
                         MainActivity.recyclerView.setHasFixedSize(false)
@@ -357,7 +414,7 @@ class CustomAdapter(private val dataSet: List<Word>) :
 //                                Log.d("aaaaCVCVCVQQ", MainActivity.posis[i].toString())
                                 if ((MainActivity.posis[i] != -1)) {
                                     val qSize = MainActivity.posis[i]
-                                    arrr?.get(qSize)?.value = "****"
+                                    arrr?.get(qSize)?.pid = "****"
                                     arrr?.get(qSize)?.key = "****"
                                 }
                             }
@@ -377,7 +434,7 @@ class CustomAdapter(private val dataSet: List<Word>) :
 //                                Log.d("aaaaCVCVCV", MainActivity.posis[i].toString())
                                 if ((MainActivity.posis[i] != -1)) {
                                     val qSize = MainActivity.posis[i]
-                                    arrr?.get(qSize)?.value = "****"
+                                    arrr?.get(qSize)?.pid = "****"
                                     arrr?.get(qSize)?.key = "****"
                                 }
                             }
@@ -409,10 +466,9 @@ class CustomAdapter(private val dataSet: List<Word>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView1.text = dataSet[position].wid.toString()
-        viewHolder.textView2.text = dataSet[position].pType.toString()
-        viewHolder.textView3.text = dataSet[position].key.toString()
-        viewHolder.textView4.text = dataSet[position].value.toString()
+        viewHolder.textView1.text = dataSet[position].id.toString()
+        viewHolder.textView2.text = dataSet[position].name.toString()
+        viewHolder.textView3.text = dataSet[position].price.toString()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
