@@ -13,10 +13,10 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(con: Context):AppDatabase= Room.databaseBuilder(
             con,
             AppDatabase::class.java,
-            "word"
+            "product"
         )
 
-            .createFromAsset("word.db")
+            .createFromAsset("product.db")
             .allowMainThreadQueries()
             .build()
 
