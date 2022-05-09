@@ -10,75 +10,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import com.barengific.posra.MainActivity.Companion.a
 import com.barengific.posra.MainActivity.Companion.baa
-import com.barengific.posra.MainActivity.Companion.myList
 import com.barengific.posra.databinding.MainActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
 import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.*
-import android.os.Build
 import android.os.Bundle
-import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 
 import android.widget.Toast
-import android.text.Editable
 
-import android.text.TextWatcher
-import android.view.ContextMenu.ContextMenuInfo
-import android.util.Log
 import android.view.*
 
 import android.widget.TextView
-import android.view.MenuInflater
 
 import android.view.ContextMenu
 import android.content.Intent
 
-import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
-import android.content.Context.CLIPBOARD_SERVICE
-import android.graphics.Color.BLACK
-import android.os.Handler
-
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.fragment.app.DialogFragment
-import net.sqlcipher.database.*
 import net.sqlcipher.database.SupportFactory
-
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     companion object {
