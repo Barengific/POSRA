@@ -5,7 +5,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
-import android.database.sqlite.SQLiteDatabase
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,7 +75,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.DialogFragment
-import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.*
 import net.sqlcipher.database.SupportFactory
 
 import java.util.concurrent.TimeUnit
@@ -126,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         startCamera()
 
         //db initialise
-        val passphrase: ByteArray = SQLiteDatabase.getBytes("bob".toCharArray())
+        val passphrase: ByteArray = net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
         val factory = SupportFactory(passphrase)
         val room = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
             .openHelperFactory(factory)
@@ -349,7 +348,7 @@ class CustomAdapter(private val dataSet: List<Product>) :
 
                     }
                     R.id.menu_delete -> {
-                        val passphrase: ByteArray = SQLiteDatabase.getBytes("bob".toCharArray())
+                        val passphrase: ByteArray = net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
                         val factory = SupportFactory(passphrase)
                         val room = view?.context?.let {
                             Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
@@ -391,62 +390,6 @@ class CustomAdapter(private val dataSet: List<Product>) :
 
                     R.id.menu_cancel -> {
 //                        Log.d("aaa menu", "cancel")
-                    }
-                    R.id.menu_hide -> {
-                        val passphrase: ByteArray =
-                            SQLiteDatabase.getBytes("bob".toCharArray())//DB passphrase change
-                        val factory = SupportFactory(passphrase)
-                        val room = view?.context?.let {
-                            Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
-                                .openHelperFactory(factory)
-                                .allowMainThreadQueries()
-                                .build()
-                        }
-                        val wordDao = room?.productDao()
-
-                        val arrr = wordDao?.getAll()
-
-                        if (MainActivity.posis.contains(viewHolder.adapterPosition)) {//if existent then show
-                            MainActivity.posis.remove(viewHolder.adapterPosition)
-
-                            val pSize = MainActivity.posis.size
-                            for (i in 0 until pSize) {
-//                                Log.d("aaaaCVCVCVQQ", MainActivity.posis[i].toString())
-                                if ((MainActivity.posis[i] != -1)) {
-                                    val qSize = MainActivity.posis[i]
-                                    arrr?.get(qSize)?.barcode = "****"
-                                    arrr?.get(qSize)?.name = "****"
-                                }
-                            }
-
-                            val adapter = arrr?.let { CustomAdapter(it) }
-                            MainActivity.recyclerView.setHasFixedSize(false)
-                            MainActivity.recyclerView.adapter = adapter
-                            MainActivity.recyclerView.layoutManager =
-                                LinearLayoutManager(view?.context)
-                            room?.close()
-
-                        } else {//if not existent then hide
-                            MainActivity.posis.add(viewHolder.adapterPosition)
-
-                            val pSize = MainActivity.posis.size
-                            for (i in 0 until pSize) {
-//                                Log.d("aaaaCVCVCV", MainActivity.posis[i].toString())
-                                if ((MainActivity.posis[i] != -1)) {
-                                    val qSize = MainActivity.posis[i]
-                                    arrr?.get(qSize)?.barcode = "****"
-                                    arrr?.get(qSize)?.name = "****"
-                                }
-                            }
-                            val adapter = arrr?.let { CustomAdapter(it) }
-                            MainActivity.recyclerView.setHasFixedSize(false)
-                            MainActivity.recyclerView.adapter = adapter
-                            MainActivity.recyclerView.layoutManager =
-                                LinearLayoutManager(view?.context)
-                            room?.close()
-
-                        }
-
                     }
 
                 }
