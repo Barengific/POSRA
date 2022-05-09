@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Product::class], version = 1)
+@Database(entities = [Product::class, Staff::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         private lateinit var INSTANCE:AppDatabase
@@ -13,15 +13,18 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(con: Context):AppDatabase= Room.databaseBuilder(
             con,
             AppDatabase::class.java,
-            "product"
+            "pos"
         )
 
-            .createFromAsset("product.db")
+            .createFromAsset("pos.db")
             .allowMainThreadQueries()
             .build()
 
     }
 
+
+    abstract fun staffDao(): StaffDAO
     abstract fun productDao(): ProductDAO
+
 
 }
