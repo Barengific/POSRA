@@ -76,7 +76,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.DialogFragment
-import net.sqlcipher.database.SQLiteDatabase.getBytes
+import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 
 import java.util.concurrent.TimeUnit
@@ -357,7 +357,7 @@ class CustomAdapter(private val dataSet: List<Product>) :
                                 .allowMainThreadQueries()
                                 .build()
                         }
-                        val productDao = room?.wordDao()
+                        val productDao = room?.productDao()
 
                         val pid: TextView = viewHolder.textView1
                         val barcode: TextView = viewHolder.textView1
@@ -376,7 +376,7 @@ class CustomAdapter(private val dataSet: List<Product>) :
                             stockQty.text.toString(),
                             category.text.toString()
                         )
-                        room?.wordDao()?.delete(a)
+                        room?.productDao()?.delete(a)
                         val arrr = productDao?.getAll()
                         val adapter = arrr?.let { CustomAdapter(it) }
 
@@ -402,7 +402,7 @@ class CustomAdapter(private val dataSet: List<Product>) :
                                 .allowMainThreadQueries()
                                 .build()
                         }
-                        val wordDao = room?.wordDao()
+                        val wordDao = room?.productDao()
 
                         val arrr = wordDao?.getAll()
 
@@ -414,8 +414,8 @@ class CustomAdapter(private val dataSet: List<Product>) :
 //                                Log.d("aaaaCVCVCVQQ", MainActivity.posis[i].toString())
                                 if ((MainActivity.posis[i] != -1)) {
                                     val qSize = MainActivity.posis[i]
-                                    arrr?.get(qSize)?.pid = "****"
-                                    arrr?.get(qSize)?.key = "****"
+                                    arrr?.get(qSize)?.barcode = "****"
+                                    arrr?.get(qSize)?.name = "****"
                                 }
                             }
 
@@ -434,8 +434,8 @@ class CustomAdapter(private val dataSet: List<Product>) :
 //                                Log.d("aaaaCVCVCV", MainActivity.posis[i].toString())
                                 if ((MainActivity.posis[i] != -1)) {
                                     val qSize = MainActivity.posis[i]
-                                    arrr?.get(qSize)?.pid = "****"
-                                    arrr?.get(qSize)?.key = "****"
+                                    arrr?.get(qSize)?.barcode = "****"
+                                    arrr?.get(qSize)?.name = "****"
                                 }
                             }
                             val adapter = arrr?.let { CustomAdapter(it) }
