@@ -14,11 +14,6 @@
         android:title="@string/delete" />
 
     <item
-        android:id="@+id/menu_hide"
-        android:showAsAction="always"
-        android:title="@string/hide" />
-
-    <item
         android:id="@+id/menu_cancel"
         android:showAsAction="always"
         android:title="@string/cancel" />
