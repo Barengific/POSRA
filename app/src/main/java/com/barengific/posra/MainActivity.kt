@@ -334,7 +334,7 @@ class CustomAdapter(private val dataSet: List<Product>) :
 
             val popup = PopupMenu(wrapper, viewHolder.ivMore)
             //inflating menu from xml resource
-            popup.inflate(R.menu.rv_menu_context)
+            popup.inflate(R.menu.rv_basket_context_menu)
             //adding click listener
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
