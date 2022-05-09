@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Product (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "barcode") val barcode: String?,
+    @ColumnInfo(name = "barcode") var barcode: String?,
     @ColumnInfo(name = "name") var name: String?,
     @ColumnInfo(name = "description") var description: String?,
     @ColumnInfo(name = "price") var price: String?,
