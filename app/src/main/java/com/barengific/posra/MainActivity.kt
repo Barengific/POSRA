@@ -1,15 +1,21 @@
 package com.barengific.posra
 
+
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Bundle
+import android.view.*
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -17,34 +23,21 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.barengific.posra.MainActivity.Companion.a
 import com.barengific.posra.MainActivity.Companion.baa
+import com.barengific.posra.MainActivity.Companion.rv_add
 import com.barengific.posra.databinding.MainActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
+import net.sqlcipher.database.SupportFactory
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
-import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-
-import android.widget.Toast
-
-import android.view.*
-
-import android.widget.TextView
-
-import android.view.ContextMenu
-import android.content.Intent
-
-import net.sqlcipher.database.SupportFactory
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -52,6 +45,53 @@ class MainActivity : AppCompatActivity() {
         var pos: Int = 0
         var myList : List<String> = mutableListOf("")
         fun a(aa: String) : String = aa
+        fun rv_add(aa: String, activity: Activity) {
+
+            //db initialise
+            val passphrase: ByteArray = net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+            val factory = SupportFactory(passphrase)
+            val room = Utilsz.context?.let {
+                Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
+                    .openHelperFactory(factory)
+                    .allowMainThreadQueries()
+                    .build()
+            }
+            val productDAO = room?.productDao()
+
+            val inflater = Utilsz.context
+                ?.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            val layout: View = inflater.inflate(
+                R.layout.main_activity,
+                activity.findViewById(R.id.rView) as ViewGroup
+            )
+
+
+            //recycle view
+            val arr = productDAO?.getAll()
+            val adapter = arr?.let { CustomAdapter(it) }
+            recyclerView = layout as RecyclerView
+            recyclerView.setHasFixedSize(false)
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(Utilsz.context)
+
+            val aa = Product(
+                0,
+                "pGen",
+                "aaaa",
+                "bbbbb",
+                "ccccc",
+                "ddddd",
+                "ddddd" )
+            productDAO?.insertAll(aa)
+
+            var arrr = productDAO?.getAll()
+            val adapterr = arrr?.let { CustomAdapter(it) }
+            recyclerView.setHasFixedSize(false)
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(Utilsz.context)
+
+        }
         lateinit var recyclerView: RecyclerView
         var posis: MutableList<Int> = mutableListOf(-1)
         fun getPosi(): Int = pos
@@ -65,8 +105,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    object Utilsz {
+        var context: Context? = applicationContext()
+            get() {
+                return applicationContext()
+            }
+            set(value) { field = value?.applicationContext }
+
+        fun show(){
+            Toast.makeText(context,"message",Toast.LENGTH_SHORT).show()
+        }
+    }
+
     init {
         instance = this
+    }
+
+    fun rv_add(aa: String){
+        Toast.makeText(this, aa, Toast.LENGTH_SHORT).show()
     }
 
     fun a(aa: String){
@@ -233,6 +289,9 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                         barcode.rawValue?.let { barcodeValue ->
                             baa = barcodeValue
                             a(baa)
+                        rv_add("paperboy", Activity())
+
+
                         }
                         //TOAST
                         a(barcode.toString())
