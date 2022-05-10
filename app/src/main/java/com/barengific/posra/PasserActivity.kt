@@ -24,11 +24,11 @@ class PasserActivity : AppCompatActivity() {
 
         var bundle: Bundle? = intent.extras
         var message = bundle!!.getString("barcodeScanned") // 1
-        var strUser: String? = intent.getStringExtra("value") // 2
-        Toast.makeText(this, "In passers: $message", Toast.LENGTH_SHORT).show()
+//        var strUser: String? = intent.getStringExtra("value") // 2
+//        Toast.makeText(this, "In passers: $message", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, PasserActivity::class.java)
-        intent.putExtra("barcodeScanned", message)
+        intent.putExtra("barcodeSca", message)
         startActivity(intent)
     }
 }
