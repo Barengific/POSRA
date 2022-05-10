@@ -157,9 +157,10 @@ class MainActivity : AppCompatActivity() {
 //        startActivity(intent)
 
         var bundle: Bundle? = intent.extras
-        var message = bundle?.getString("barcodeScanned") // 1
-        var strUser: String? = intent.getStringExtra("value") // 2
+        var message = bundle?.getString("barcodeSca") // 1
+        var strUser: String? = intent.getStringExtra("barcodeSca") // 2
         Toast.makeText(this, "barrrherere:: $message", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "barrrherere:: $strUser", Toast.LENGTH_SHORT).show()
 
 
 
