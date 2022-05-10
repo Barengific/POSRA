@@ -23,6 +23,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -43,12 +44,13 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var baa: String = ""
         var pos: Int = 0
-        var myList : List<String> = mutableListOf("")
-        fun a(aa: String) : String = aa
+        var myList: List<String> = mutableListOf("")
+        fun a(aa: String): String = aa
         fun rv_add(aa: String, activity: Activity) {
 
             //db initialise
-            val passphrase: ByteArray = net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+            val passphrase: ByteArray =
+                net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
             val factory = SupportFactory(passphrase)
             val room = Utilsz.context?.let {
                 Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
@@ -82,7 +84,8 @@ class MainActivity : AppCompatActivity() {
                 "bbbbb",
                 "ccccc",
                 "ddddd",
-                "ddddd" )
+                "ddddd"
+            )
             productDAO?.insertAll(aa)
 
             var arrr = productDAO?.getAll()
@@ -92,15 +95,17 @@ class MainActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(Utilsz.context)
 
         }
+
         lateinit var recyclerView: RecyclerView
         var posis: MutableList<Int> = mutableListOf(-1)
         fun getPosi(): Int = pos
         fun setPosi(pos: Int) {
             this.pos = pos
         }
+
         private var instance: MainActivity? = null
 
-        fun applicationContext() : Context {
+        fun applicationContext(): Context {
             return instance!!.applicationContext
         }
     }
@@ -110,10 +115,12 @@ class MainActivity : AppCompatActivity() {
             get() {
                 return applicationContext()
             }
-            set(value) { field = value?.applicationContext }
+            set(value) {
+                field = value?.applicationContext
+            }
 
-        fun show(){
-            Toast.makeText(context,"message",Toast.LENGTH_SHORT).show()
+        fun show() {
+            Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -121,11 +128,11 @@ class MainActivity : AppCompatActivity() {
         instance = this
     }
 
-    fun rv_add(aa: String){
+    fun rv_add(aa: String) {
         Toast.makeText(this, aa, Toast.LENGTH_SHORT).show()
     }
 
-    fun a(aa: String){
+    fun a(aa: String) {
         Toast.makeText(this, aa, Toast.LENGTH_SHORT).show()
     }
 
@@ -144,15 +151,29 @@ class MainActivity : AppCompatActivity() {
         cameraExecutor = Executors.newSingleThreadExecutor()
 
 
+//        val value: String = barcode.rawValue!! // or just your string
+//        val intent = Intent(context, PasserActivity::class.java)
+//        intent.putExtra("value", value)
+//        startActivity(intent)
+
+        var bundle: Bundle? = intent.extras
+        var message = bundle?.getString("barcodeScanned") // 1
+        var strUser: String? = intent.getStringExtra("value") // 2
+        Toast.makeText(this, "barrrherere:: $message", Toast.LENGTH_SHORT).show()
+
+
+
         startCamera()
 
         //db initialise
-        val passphrase: ByteArray = net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+        val passphrase: ByteArray =
+            net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
         val factory = SupportFactory(passphrase)
-        val room = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
-            .openHelperFactory(factory)
-            .allowMainThreadQueries()
-            .build()
+        val room =
+            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
+                .openHelperFactory(factory)
+                .allowMainThreadQueries()
+                .build()
         val productDAO = room.productDao()
 
         //recycle view
@@ -182,7 +203,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkIfCameraPermissionIsGranted() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             // Permission granted: start the preview
             startCamera()
         } else {
@@ -252,7 +277,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @OptIn(ExperimentalPermissionsApi::class)
-    private fun home(){
+    private fun home() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
@@ -267,11 +292,10 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
         if (img != null) {
             val inputImage = InputImage.fromMediaImage(img, image.imageInfo.rotationDegrees)
 
-            // Process image searching for barcodes
+//            Process image searching for barcodes
 //            val options = BarcodeScannerOptions.Builder()
 //                .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
 //                .build()
-
 //            val scanner = BarcodeScanning.getClient(options)
             val scanner = BarcodeScanning.getClient()
 
@@ -281,7 +305,8 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                         // Handle received barcodes...
                         val context: Context = MainActivity.applicationContext()
 
-                        Toast.makeText(context,
+                        Toast.makeText(
+                            context,
                             "Value: " + barcode.rawValue,
                             Toast.LENGTH_SHORT
                         )
@@ -289,8 +314,13 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                         barcode.rawValue?.let { barcodeValue ->
                             baa = barcodeValue
                             a(baa)
-                        rv_add("paperboy", Activity())
+//                        rv_add("paperboy", Activity().parent)
 
+                            val value: String = barcodeValue // or just your string
+                            val intent = Intent(context, PasserActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("barcodeScanned", value)
+                            context.startActivity(intent)
 
                         }
                         //TOAST
@@ -314,7 +344,11 @@ class CustomAdapter(private val dataSet: List<Product>) :
         var ivMore: ImageView
 
         @SuppressLint("ResourceType")
-        override fun onCreateContextMenu(menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        override fun onCreateContextMenu(
+            menu: ContextMenu,
+            v: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
+        ) {
             MainActivity.pos = adapterPosition
             MainActivity.setPosi(layoutPosition)
         }
@@ -330,10 +364,10 @@ class CustomAdapter(private val dataSet: List<Product>) :
             view.setOnCreateContextMenuListener(this)
 
             // Define click listener for the ViewHolder's View.
-            textView1 = view.findViewById(R.id.textView1)
+            textView1 = view.findViewById(R.id.tv_name)
             textView2 = view.findViewById(R.id.textView2)
-            textView3 = view.findViewById(R.id.textView3)
-            textView4 = view.findViewById(R.id.textView4)
+            textView3 = view.findViewById(R.id.tv_barcode)
+            textView4 = view.findViewById(R.id.tv_qty)
         }
 
     }
@@ -346,7 +380,10 @@ class CustomAdapter(private val dataSet: List<Product>) :
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(
+        viewHolder: ViewHolder,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
         viewHolder.itemView.setOnLongClickListener {
             setPosition(viewHolder.layoutPosition)
             setPosition(viewHolder.adapterPosition)
@@ -373,7 +410,8 @@ class CustomAdapter(private val dataSet: List<Product>) :
 
                     }
                     R.id.menu_delete -> {
-                        val passphrase: ByteArray = net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+                        val passphrase: ByteArray =
+                            net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
                         val factory = SupportFactory(passphrase)
                         val room = view?.context?.let {
                             Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
@@ -426,7 +464,8 @@ class CustomAdapter(private val dataSet: List<Product>) :
 
         viewHolder.ivCopy.setOnClickListener { view ->
 //            Log.d("aaaaICONu", "inn copy")
-            val clipboard = view?.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboard =
+                view?.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText("PGen", viewHolder.textView4.text.toString())
             clipboard.setPrimaryClip(clip)
             Toast.makeText(view.context, "Text Copied", Toast.LENGTH_LONG).show()
