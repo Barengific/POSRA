@@ -178,8 +178,8 @@ class MainActivity : AppCompatActivity() {
         val productDAO = room.productDao()
 
         //recycle view
-        val arr = productDAO.getAll()
-        val adapter = CustomAdapter(arr)
+//        val arr = productDAO.getAll()
+        val adapter = CustomAdapter(Deets.arrr)
         recyclerView = findViewById<View>(R.id.rView) as RecyclerView
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = adapter
@@ -317,10 +317,12 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                             a(baa)
 //                        rv_add("paperboy", Activity().parent)
 
+
+                            Deets.arrr.add(Product(0, "2", "22", "222", "2222", "22222", "222222"))
                             val value: String = barcodeValue // or just your string
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("barcodeScanned", value)
+//                            intent.putExtra("barcodeScanned", value)
                             context.startActivity(intent)
 
                         }
