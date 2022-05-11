@@ -27,9 +27,6 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.barengific.posra.MainActivity.Companion.a
-import com.barengific.posra.MainActivity.Companion.baa
-import com.barengific.posra.MainActivity.Companion.rv_add
 import com.barengific.posra.databinding.MainActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -38,64 +35,14 @@ import com.google.mlkit.vision.common.InputImage
 import net.sqlcipher.database.SupportFactory
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import android.media.MediaPlayer
+import com.barengific.posra.MainActivity.Companion.mediaPlayer
 
 
 class MainActivity : AppCompatActivity() {
     companion object {
-        var baa: String = ""
+        var mediaPlayer: MediaPlayer? = null
         var pos: Int = 0
-        var myList: List<String> = mutableListOf("")
-        fun a(aa: String): String = aa
-        fun rv_add(aa: String, activity: Activity) {
-
-            //db initialise
-            val passphrase: ByteArray =
-                net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
-            val factory = SupportFactory(passphrase)
-            val room = Utilsz.context?.let {
-                Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
-                    .openHelperFactory(factory)
-                    .allowMainThreadQueries()
-                    .build()
-            }
-            val productDAO = room?.productDao()
-
-            val inflater = Utilsz.context
-                ?.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-            val layout: View = inflater.inflate(
-                R.layout.main_activity,
-                activity.findViewById(R.id.rView) as ViewGroup
-            )
-
-
-            //recycle view
-            val arr = productDAO?.getAll()
-            val adapter = arr?.let { CustomAdapter(it) }
-            recyclerView = layout as RecyclerView
-            recyclerView.setHasFixedSize(false)
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(Utilsz.context)
-
-            val aa = Product(
-                0,
-                "pGen",
-                "aaaa",
-                "bbbbb",
-                "ccccc",
-                "ddddd",
-                "ddddd"
-            )
-            productDAO?.insertAll(aa)
-
-            var arrr = productDAO?.getAll()
-            val adapterr = arrr?.let { CustomAdapter(it) }
-            recyclerView.setHasFixedSize(false)
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(Utilsz.context)
-
-        }
-
         lateinit var recyclerView: RecyclerView
         var posis: MutableList<Int> = mutableListOf(-1)
         fun getPosi(): Int = pos
@@ -128,13 +75,6 @@ class MainActivity : AppCompatActivity() {
         instance = this
     }
 
-    fun rv_add(aa: String) {
-        Toast.makeText(this, aa, Toast.LENGTH_SHORT).show()
-    }
-
-    fun a(aa: String) {
-        Toast.makeText(this, aa, Toast.LENGTH_SHORT).show()
-    }
 
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var binding: MainActivityBinding
@@ -146,24 +86,7 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val context: Context = MainActivity.applicationContext()
-
         cameraExecutor = Executors.newSingleThreadExecutor()
-
-
-//        val value: String = barcode.rawValue!! // or just your string
-//        val intent = Intent(context, PasserActivity::class.java)
-//        intent.putExtra("value", value)
-//        startActivity(intent)
-
-        var bundle: Bundle? = intent.extras
-        var message = bundle?.getString("barcodeSca") // 1
-        var strUser: String? = intent.getStringExtra("barcodeSca") // 2
-        Toast.makeText(this, "barrrherere:: $message", Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, "barrrherere:: $strUser", Toast.LENGTH_SHORT).show()
-
-
-
         startCamera()
 
         //db initialise
@@ -313,12 +236,12 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                         )
                             .show()
                         barcode.rawValue?.let { barcodeValue ->
-                            baa = barcodeValue
-                            a(baa)
-//                        rv_add("paperboy", Activity().parent)
-
-
-                            Deets.arrr.add(Product(0, "2", "22", "222", "2222", "22222", "222222"))
+                            mediaPlayer = MediaPlayer.create(context, R.raw.scanner)
+                            mediaPlayer?.setOnPreparedListener{
+                                println("aa")
+                            }
+                            mediaPlayer?.start()
+                            Deets.arrr.add(Product(0, "2", "22", "222", "2222", barcodeValue, "222222"))
                             val value: String = barcodeValue // or just your string
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -326,8 +249,6 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                             context.startActivity(intent)
 
                         }
-                        //TOAST
-                        a(barcode.toString())
                     }
                 }
                 .addOnFailureListener { }
