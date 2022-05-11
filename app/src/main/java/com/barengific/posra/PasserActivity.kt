@@ -22,13 +22,13 @@ class PasserActivity : AppCompatActivity() {
         binding = PasserActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var bundle: Bundle? = intent.extras
-        var message = bundle!!.getString("barcodeScanned") // 1
+//        var bundle: Bundle? = intent.extras
+//        var message = bundle!!.getString("barcodeScanned") // 1
 //        var strUser: String? = intent.getStringExtra("value") // 2
 //        Toast.makeText(this, "In passers: $message", Toast.LENGTH_SHORT).show()
 
-        val intent = Intent(this, PasserActivity::class.java)
-        intent.putExtra("barcodeSca", message)
+        val intent = Intent(this, MainActivity::class.java)
+//        intent.putExtra("barcodeSca", message)
         startActivity(intent)
     }
 }
