@@ -13,99 +13,87 @@
 
         <TextView
             android:id="@+id/tv_Id"
-            android:layout_width="28dp"
+            android:layout_width="30dp"
             android:layout_height="24dp"
             android:text="id"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_barcode"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="24dp"
             android:text="barcode"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.115"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintStart_toEndOf="@+id/tv_Id"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="65dp"
+            android:layout_width="100dp"
             android:layout_height="24dp"
             android:text="name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintStart_toEndOf="@+id/tv_barcode"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/tv_qty"
-            android:layout_width="55dp"
+            android:id="@+id/tv_stockQty"
+            android:layout_width="30dp"
             android:layout_height="24dp"
             android:text="qty"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.694"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintStart_toEndOf="@+id/tv_name"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="24dp"
             android:layout_marginStart="4dp"
             android:text="price"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_stockQty"
             app:layout_constraintEnd_toStartOf="@+id/ivMore"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_qty"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/ivMore"
-            android:layout_width="25dp"
-            android:layout_height="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.979"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.088"
             app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
         <TextView
             android:id="@+id/tv_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
             android:text="cate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_barcode"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_barcode" />
+
+        <TextView
+            android:id="@+id/tv_unit"
+            android:layout_width="25dp"
+            android:layout_height="24dp"
+            android:text="unit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category" />
+
+        <TextView
+            android:id="@+id/tv_unit_as"
+            android:layout_width="25dp"
+            android:layout_height="24dp"
+            android:text="as"
+            app:layout_constraintStart_toEndOf="@+id/tv_unit"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
         <TextView
             android:id="@+id/tv_description"
-            android:layout_width="290dp"
-            android:layout_height="32dp"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:text="description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_category"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            app:layout_constraintVertical_bias="0.947" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
