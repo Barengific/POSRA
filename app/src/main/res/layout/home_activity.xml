@@ -29,6 +29,52 @@
         android:textSize="16sp"
         app:icon="@drawable/ic_baseline_add_24" />
 
+    <TableLayout
+        android:id="@+id/tblProduct"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+        <TableRow>
+            <Button
+                android:id="@+id/btnProductView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/view"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+
+            <Button
+                android:id="@+id/btnProductAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/add"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/btnProductRem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/remove"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+
+            <Button
+                android:id="@+id/btnProductUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/update"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+        </TableRow>
+    </TableLayout>
+
     <Button
         android:id="@+id/btnStaff"
         android:layout_width="match_parent"
@@ -36,5 +82,52 @@
         android:text="@string/staff"
         android:textSize="16sp"
         app:icon="@drawable/ic_baseline_add_24" />
+
+    <TableLayout
+        android:id="@+id/tblStaff"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+        <TableRow>
+            <Button
+                android:id="@+id/btnStaffView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/view"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+
+            <Button
+                android:id="@+id/btnStaffAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/add"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/btnStaffRem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/remove"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+
+            <Button
+                android:id="@+id/btnStaffUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/update"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_baseline_add_24" />
+        </TableRow>
+    </TableLayout>
+
 
 </LinearLayout>
