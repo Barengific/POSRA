@@ -3,6 +3,7 @@ package com.barengific.posra
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -12,12 +13,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.barengific.posra.MainActivity.Companion.recyclerView
 import com.barengific.posra.databinding.AddproductLayoutBinding
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 
 class AddProduct : AppCompatActivity() {
+    companion object {
+        var mediaPlayer: MediaPlayer? = null
+        var pos: Int = 0
+        lateinit var recyclerView: RecyclerView
+        var posis: MutableList<Int> = mutableListOf(-1)
+        fun getPosi(): Int = pos
+        fun setPosi(pos: Int) {
+            this.pos = pos
+        }
+
+        private var instance: AddProduct? = null
+
+        fun applicationContext(): Context {
+            return instance!!.applicationContext
+        }
+    }
+
     private lateinit var binding: AddproductLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,15 +63,6 @@ class AddProduct : AppCompatActivity() {
 
     }
 
-    private fun manageUsers(){
-
-    }
-    private fun serverCustomer(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-
-    }
-
     class CustomAdapter(private val dataSet: List<Product>) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -68,8 +76,8 @@ class AddProduct : AppCompatActivity() {
                 v: View?,
                 menuInfo: ContextMenu.ContextMenuInfo?
             ) {
-                MainActivity.pos = adapterPosition
-                MainActivity.setPosi(layoutPosition)
+                AddProduct.pos = adapterPosition
+                AddProduct.setPosi(layoutPosition)
             }
 
             val tv_id: TextView
@@ -94,6 +102,7 @@ class AddProduct : AppCompatActivity() {
                 tv_stockQty = view.findViewById(R.id.tv_stockQty)
                 tv_price = view.findViewById(R.id.tv_price)
                 tv_category = view.findViewById(R.id.tv_category)
+                tv_unit = view.findViewById(R.id.tv_unit)
                 tv_unit_as = view.findViewById(R.id.tv_unit_as)
             }
 
@@ -139,26 +148,34 @@ class AddProduct : AppCompatActivity() {
                             val productDao = room?.productDao()
 
                             val id: TextView = viewHolder.tv_id
+                            val barcode: TextView = viewHolder.tv_barcode
                             val name: TextView = viewHolder.tv_name
+                            val description: TextView = viewHolder.tv_description
+                            val stockQty: TextView = viewHolder.tv_stockQty
                             val price: TextView = viewHolder.tv_price
-                            val qty: TextView = viewHolder.tv_qty
-                            val total: TextView = viewHolder.tv_total
+                            val category: TextView = viewHolder.tv_category
+                            val unit: TextView = viewHolder.tv_unit
+                            val unit_as: TextView = viewHolder.tv_unit_as
 
-                            val a = Basket(
+                            val a = Product(
                                 id.text.toString().toInt(),
+                                barcode.text.toString(),
                                 name.text.toString(),
+                                description.text.toString(),
+                                stockQty.text.toString(),
                                 price.text.toString(),
-                                qty.text.toString(),
-                                total.text.toString()
+                                category.text.toString(),
+                                unit.text.toString(),
+                                unit_as.text.toString()
                             )
-                            Deets.arrr.remove(a)
+//                            Deets.arrr.remove(a)
                             val arrr = Deets.arrr
 
                             val adapter = arrr?.let { CustomAdapter(it) }
 
-                            MainActivity.recyclerView.setHasFixedSize(false)
-                            MainActivity.recyclerView.adapter = adapter
-                            MainActivity.recyclerView.layoutManager =
+                            AddProduct.recyclerView.setHasFixedSize(false)
+                            AddProduct.recyclerView.adapter = adapter
+                            AddProduct.recyclerView.layoutManager =
                                 LinearLayoutManager(view?.context)
                             room?.close()
 //                        Log.d("aaa menu", "DDDelete")
@@ -179,10 +196,15 @@ class AddProduct : AppCompatActivity() {
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
             viewHolder.tv_id.text = dataSet[position].id.toString()
+            viewHolder.tv_barcode.text = dataSet[position].barcode.toString()
             viewHolder.tv_name.text = dataSet[position].name.toString()
+            viewHolder.tv_description.text = dataSet[position].description.toString()
+            viewHolder.tv_stockQty.text = dataSet[position].stockQty.toString()
             viewHolder.tv_price.text = dataSet[position].price.toString()
-            viewHolder.tv_qty.text = dataSet[position].qty.toString()
-            viewHolder.tv_total.text = dataSet[position].total.toString()
+            viewHolder.tv_category.text = dataSet[position].category.toString()
+            viewHolder.tv_unit.text = dataSet[position].unit.toString()
+            viewHolder.tv_unit_as.text = dataSet[position].unit_as.toString()
+
         }
 
         override fun onViewRecycled(holder: ViewHolder) {
