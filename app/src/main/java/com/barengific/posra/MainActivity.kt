@@ -1,9 +1,7 @@
 package com.barengific.posra
 
-
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -23,7 +21,6 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -37,7 +34,6 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.media.MediaPlayer
 import com.barengific.posra.MainActivity.Companion.mediaPlayer
-
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -65,10 +61,6 @@ class MainActivity : AppCompatActivity() {
             set(value) {
                 field = value?.applicationContext
             }
-
-        fun show() {
-            Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
-        }
     }
 
     init {
@@ -99,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 .allowMainThreadQueries()
                 .build()
         val productDAO = room.productDao()
+        val staffDAO = room.staffDao()
 
         //recycle view
 //        val arr = productDAO.getAll()
@@ -241,7 +234,7 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                                 println("aa")
                             }
                             mediaPlayer?.start()
-                            Deets.arrr.add(Product(0, "2", "22", "222", "2222", barcodeValue, "222222"))
+                            Deets.arrr.add(Basket(0, "2", "barcodeValue", "222", "2222"))
                             val value: String = barcodeValue // or just your string
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -259,12 +252,11 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
 }
 
 
-class CustomAdapter(private val dataSet: List<Product>) :
+class CustomAdapter(private val dataSet: MutableList<Basket>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
         View.OnCreateContextMenuListener {
-        var ivCopy: ImageView
         var ivMore: ImageView
 
         @SuppressLint("ResourceType")
@@ -277,21 +269,22 @@ class CustomAdapter(private val dataSet: List<Product>) :
             MainActivity.setPosi(layoutPosition)
         }
 
-        val textView1: TextView
-        val textView2: TextView
-        val textView3: TextView
-        val textView4: TextView
+        val tv_id: TextView
+        val tv_name: TextView
+        val tv_price: TextView
+        val tv_qty: TextView
+        val tv_total: TextView
 
         init {
-            ivCopy = view.findViewById(R.id.ivCopy) as ImageView
             ivMore = view.findViewById(R.id.ivMore) as ImageView
             view.setOnCreateContextMenuListener(this)
 
             // Define click listener for the ViewHolder's View.
-            textView1 = view.findViewById(R.id.tv_name)
-            textView2 = view.findViewById(R.id.textView2)
-            textView3 = view.findViewById(R.id.tv_barcode)
-            textView4 = view.findViewById(R.id.tv_qty)
+            tv_id = view.findViewById(R.id.tv_id)
+            tv_name = view.findViewById(R.id.tv_name)
+            tv_price = view.findViewById(R.id.tv_price)
+            tv_qty = view.findViewById(R.id.tv_qty)
+            tv_total = view.findViewById(R.id.tv_total)
         }
 
     }
@@ -323,16 +316,6 @@ class CustomAdapter(private val dataSet: List<Product>) :
             //adding click listener
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.menu_copy -> {
-//                        Log.d("aaa menu", "copy")
-                        val clipboard =
-                            view?.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip: ClipData =
-                            ClipData.newPlainText("PGen", viewHolder.textView4.text.toString())
-                        clipboard.setPrimaryClip(clip)
-                        Toast.makeText(view.context, "Text Copied", Toast.LENGTH_LONG).show()
-
-                    }
                     R.id.menu_delete -> {
                         val passphrase: ByteArray =
                             net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
@@ -345,25 +328,22 @@ class CustomAdapter(private val dataSet: List<Product>) :
                         }
                         val productDao = room?.productDao()
 
-                        val pid: TextView = viewHolder.textView1
-                        val barcode: TextView = viewHolder.textView1
-                        val name: TextView = viewHolder.textView2
-                        val description: TextView = viewHolder.textView3
-                        val price: TextView = viewHolder.textView4
-                        val stockQty: TextView = viewHolder.textView3
-                        val category: TextView = viewHolder.textView4
+                        val id: TextView = viewHolder.tv_id
+                        val name: TextView = viewHolder.tv_name
+                        val price: TextView = viewHolder.tv_price
+                        val qty: TextView = viewHolder.tv_qty
+                        val total: TextView = viewHolder.tv_total
 
-                        val a = Product(
-                            pid.text.toString().toInt(),
-                            barcode.text.toString(),
+                        val a = Basket(
+                            id.text.toString().toInt(),
                             name.text.toString(),
-                            description.text.toString(),
                             price.text.toString(),
-                            stockQty.text.toString(),
-                            category.text.toString()
+                            qty.text.toString(),
+                            total.text.toString()
                         )
-                        room?.productDao()?.delete(a)
-                        val arrr = productDao?.getAll()
+                        Deets.arrr.remove(a)
+                        val arrr = Deets.arrr
+
                         val adapter = arrr?.let { CustomAdapter(it) }
 
                         MainActivity.recyclerView.setHasFixedSize(false)
@@ -386,20 +366,13 @@ class CustomAdapter(private val dataSet: List<Product>) :
             popup.show()
         }
 
-        viewHolder.ivCopy.setOnClickListener { view ->
-//            Log.d("aaaaICONu", "inn copy")
-            val clipboard =
-                view?.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip: ClipData = ClipData.newPlainText("PGen", viewHolder.textView4.text.toString())
-            clipboard.setPrimaryClip(clip)
-            Toast.makeText(view.context, "Text Copied", Toast.LENGTH_LONG).show()
-        }
-
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView1.text = dataSet[position].id.toString()
-        viewHolder.textView2.text = dataSet[position].name.toString()
-        viewHolder.textView3.text = dataSet[position].price.toString()
+        viewHolder.tv_id.text = dataSet[position].id.toString()
+        viewHolder.tv_name.text = dataSet[position].name.toString()
+        viewHolder.tv_price.text = dataSet[position].price.toString()
+        viewHolder.tv_qty.text = dataSet[position].qty.toString()
+        viewHolder.tv_total.text = dataSet[position].total.toString()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
