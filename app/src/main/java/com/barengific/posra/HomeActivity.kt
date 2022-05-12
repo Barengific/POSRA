@@ -1,75 +1,84 @@
 package com.barengific.posra
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.barengific.posra.databinding.HomeActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
+
 
 @ExperimentalPermissionsApi
-class HomeActivity : ComponentActivity() {
+class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: HomeActivityBinding
+    private val PERMISSION_REQUEST_CODE = 200
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            Surface(color = MaterialTheme.colors.background) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.height(300.dp))
+        setContentView(R.layout.main_activity)
 
-                    val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
+        binding = HomeActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-                    Button(
-                        onClick = {
-                            cameraPermissionState.launchPermissionRequest()
-                        }
-                    ) {
-                        Text(text = "Camera Permission")
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Button(
-                        onClick = {
-                            manageUsers()
-                        }
-                    ) {
-                        Text(text = "Manage users")
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Button(
-                        onClick = {
-                            serverCustomer()
-                        }
-                    ) {
-                        Text(text = "Server Customer")
-                    }
-
-                    Spacer(modifier = Modifier.height(300.dp))
-                }
-            }
-
+        binding.btnServeCustomer.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+//        intent.putExtra("barcodeSca", message)
+            startActivity(intent)
+        }
+        binding.btnCameraPermission.setOnClickListener {
+            setupPermissions()
+        }
+        binding.btnProduct.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("barcodeSca", message)
+//            startActivity(intent)
+        }
+        binding.btnStaff.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("barcodeSca", message)
+//            startActivity(intent)
         }
     }
 
-    private fun manageUsers(){
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(this,
+            Manifest.permission.CAMERA)
 
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            Log.i("TAG", "Permission denied")
+            makeRequest()
+        }
     }
-    private fun serverCustomer(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
 
+    val RECORD_REQUEST_CODE: Int = 101
+
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions(this,
+            arrayOf(Manifest.permission.CAMERA),
+            RECORD_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                             permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            RECORD_REQUEST_CODE -> {
+
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    Log.i("TAG", "Permission denied")
+                } else {
+                    Log.i("TAG", "Permission granted")
+                }
+            }
+        }
     }
 }
