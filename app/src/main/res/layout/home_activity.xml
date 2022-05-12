@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnServeCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/serveCustomer"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_baseline_add_24" />
+
+    <Button
+        android:id="@+id/btnCameraPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cameraPermission"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_baseline_add_24" />
+
+    <Button
+        android:id="@+id/btnProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/products"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_baseline_add_24" />
+
+    <Button
+        android:id="@+id/btnStaff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/staff"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_baseline_add_24" />
 
 </LinearLayout>
