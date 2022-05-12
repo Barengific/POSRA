@@ -44,7 +44,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_name"
+                android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:hint="@string/name"
@@ -62,13 +62,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_desc"
+                android:id="@+id/tvDesc"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:hint="@string/description"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.01"
@@ -80,13 +80,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_stockQty"
+                android:id="@+id/tvStockQty"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:hint="@string/stockQty"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_desc"
+                app:layout_constraintTop_toBottomOf="@id/tvDesc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.01"
@@ -99,13 +99,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_price"
+                android:id="@+id/tvPrice"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:hint="@string/price"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_stockQty"
+                app:layout_constraintTop_toBottomOf="@id/tvStockQty"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.01"
@@ -126,7 +126,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_price"
+                app:layout_constraintTop_toBottomOf="@id/tvPrice"
                 app:layout_constraintVertical_bias="0.01"
                 app:startIconDrawable="@drawable/ic_baseline_view_list_24">
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
