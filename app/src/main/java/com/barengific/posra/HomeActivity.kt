@@ -1,17 +1,24 @@
 package com.barengific.posra
 
 import android.Manifest
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.allViews
+import androidx.core.view.isVisible
 import com.barengific.posra.databinding.HomeActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
@@ -40,11 +47,57 @@ class HomeActivity : AppCompatActivity() {
 //            val intent = Intent(this, MainActivity::class.java)
 //            intent.putExtra("barcodeSca", message)
 //            startActivity(intent)
+            if(binding.tblProduct.isVisible){
+                binding.tblProduct.visibility = View.INVISIBLE
+            }else{
+                binding.tblProduct.visibility = View.VISIBLE
+            }
+            runOnUiThread{
+                binding.linearLays.invalidate()
+                binding.linearLays.requestLayout()
+            }
         }
         binding.btnStaff.setOnClickListener {
 //            val intent = Intent(this, MainActivity::class.java)
 //            intent.putExtra("barcodeSca", message)
 //            startActivity(intent)
+
+            if(binding.tblStaff.isVisible){
+                binding.tblStaff.visibility = View.INVISIBLE
+            }else{
+                binding.tblStaff.visibility = View.VISIBLE
+            }
+            binding.linearLays.invalidate()
+            binding.linearLays.requestLayout()
+
+        }
+
+
+        binding.btnProductAdd.setOnClickListener {
+
+        }
+        binding.btnProductView.setOnClickListener {
+
+        }
+        binding.btnProductRem.setOnClickListener {
+
+        }
+        binding.btnProductUpdate.setOnClickListener {
+
+        }
+
+
+        binding.btnStaffAdd.setOnClickListener {
+
+        }
+        binding.btnStaffView.setOnClickListener {
+
+        }
+        binding.btnProductRem.setOnClickListener {
+
+        }
+        binding.btnStaffUpdate.setOnClickListener {
+
         }
     }
 
