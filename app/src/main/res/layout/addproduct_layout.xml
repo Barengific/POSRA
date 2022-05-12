@@ -26,9 +26,9 @@
             tools:layout_editor_absoluteY="-16dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_barcode"
+                android:id="@+id/tvBarcode"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:hint="@string/barcode"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,18 +40,17 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tv_name"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:hint="@string/name"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_barcode"
+                app:layout_constraintTop_toBottomOf="@id/tvBarcode"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.01"
@@ -59,14 +58,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tv_desc"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:hint="@string/description"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -78,14 +76,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tv_stockQty"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:hint="@string/stockQty"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -97,14 +94,14 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword"
+                    android:inputType="number"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tv_price"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:hint="@string/price"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -116,7 +113,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword"
+                    android:inputType="numberDecimal"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +121,7 @@
                 android:id="@+id/ddCate"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="57dp"
+                android:layout_height="55dp"
                 android:hint="@string/category"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +140,7 @@
                 android:id="@+id/ddUnit"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="57dp"
+                android:layout_height="55dp"
                 android:hint="@string/Unit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +158,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tv_unit_as"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:hint="@string/unitAmount"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -173,7 +170,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword"
+                    android:inputType="numberDecimal"
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -190,6 +187,24 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_unit_as"
                 app:layout_constraintVertical_bias="0.01" />
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tvDone"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSave"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.01">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:ignore="TextContrastCheck,TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rView"
                 android:layout_width="0dp"
@@ -197,7 +212,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnSave"
+                app:layout_constraintTop_toBottomOf="@id/tvDone"
                 app:layout_constraintVertical_bias="0.01" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
