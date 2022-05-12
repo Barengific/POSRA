@@ -74,6 +74,9 @@ class HomeActivity : AppCompatActivity() {
 
 
         binding.btnProductAdd.setOnClickListener {
+            val intent = Intent(this, AddProduct::class.java)
+//            intent.putExtra("barcodeSca", message)
+            startActivity(intent)
 
         }
         binding.btnProductView.setOnClickListener {
