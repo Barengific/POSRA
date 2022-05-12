@@ -3,4 +3,13 @@
     <string name="copy">Copy</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="barcode">Barcode</string>
+    <string name="btnSave">Save</string>
+    <string name="category">Category</string>
+    <string name="Unit">Unit</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="stockQty">Stock Quantity</string>
+    <string name="price">Price</string>
+    <string name="unitAmount">Amount Per Unit</string>
 </resources>
