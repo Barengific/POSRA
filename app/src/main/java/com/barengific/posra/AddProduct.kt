@@ -60,7 +60,6 @@ class AddProduct : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-
     }
 
     class CustomAdapter(private val dataSet: List<Product>) :
@@ -168,7 +167,7 @@ class AddProduct : AppCompatActivity() {
                                 unit.text.toString(),
                                 unit_as.text.toString()
                             )
-//                            Deets.arrr.remove(a)
+                            room?.productDao()?.delete(a)
                             val arrr = Deets.arrr
 
                             val adapter = arrr?.let { CustomAdapter(it) }
