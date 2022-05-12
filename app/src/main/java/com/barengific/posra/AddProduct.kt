@@ -49,10 +49,11 @@ class AddProduct : AppCompatActivity() {
         //db initialise
         val passphrase: ByteArray = SQLiteDatabase.getBytes("bob".toCharArray())
         val factory = SupportFactory(passphrase)
-        val room = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
-            .openHelperFactory(factory)
-            .allowMainThreadQueries()
-            .build()
+        val room =
+            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
+                .openHelperFactory(factory)
+                .allowMainThreadQueries()
+                .build()
         val productDAO = room.productDao()
 
         //recycle view
@@ -105,7 +106,56 @@ class AddProduct : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 binding.tvDone.editText?.setText(binding.tvBarcode.editText?.text.toString())
             }
-            })
+        })
+        binding.tvName.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.tvDone.editText?.setText(binding.tvName.editText?.text.toString())
+            }
+        })
+        binding.tvDesc.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.tvDone.editText?.setText(binding.tvDesc.editText?.text.toString())
+            }
+        })
+        binding.tvStockQty.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.tvDone.editText?.setText(binding.tvStockQty.editText?.text.toString())
+            }
+        })
+        binding.tvPrice.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.tvDone.editText?.setText(binding.tvPrice.editText?.text.toString())
+            }
+        })
+        binding.tvUnitAs.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.tvDone.editText?.setText(binding.tvUnitAs.editText?.text.toString())
+            }
+        })
+
+
+        binding.ddCateFilled.setOnItemClickListener { parent, _, position, _ ->
+            Int
+            val selection = parent.getItemAtPosition(position) as String
+            binding.tvDone.editText?.setText(selection)
+
+        }
+        binding.ddUnitFilled.setOnItemClickListener { parent, _, position, _ ->
+            Int
+            val selection = parent.getItemAtPosition(position) as String
+            binding.tvDone.editText?.setText(selection)
+
+        }
 
     }
 
@@ -127,14 +177,14 @@ class AddProduct : AppCompatActivity() {
             }
 
             val tvId: TextView
-            val tvBarcode: TextView
-            val tv_name: TextView
-            val tv_description: TextView
-            val tv_stockQty: TextView
-            val tv_price: TextView
-            val tv_category: TextView
-            val tv_unit: TextView
-            val tv_unit_as: TextView
+            val tvBarcode: TextView?
+            val tv_name: TextView?
+            val tv_description: TextView?
+            val tv_stockQty: TextView?
+            val tv_price: TextView?
+            val tv_category: TextView?
+            val tv_unit: TextView?
+            val tv_unit_as: TextView?
 
             init {
                 ivMore = view.findViewById(R.id.ivMore) as ImageView
@@ -194,25 +244,25 @@ class AddProduct : AppCompatActivity() {
                             val productDao = room?.productDao()
 
                             val id: TextView = viewHolder.tvId
-                            val barcode: TextView = viewHolder.tvBarcode
-                            val name: TextView = viewHolder.tv_name
-                            val description: TextView = viewHolder.tv_description
-                            val stockQty: TextView = viewHolder.tv_stockQty
-                            val price: TextView = viewHolder.tv_price
-                            val category: TextView = viewHolder.tv_category
-                            val unit: TextView = viewHolder.tv_unit
-                            val unit_as: TextView = viewHolder.tv_unit_as
+                            val barcode: TextView? = viewHolder.tvBarcode
+                            val name: TextView? = viewHolder.tv_name
+                            val description: TextView? = viewHolder.tv_description
+                            val stockQty: TextView? = viewHolder.tv_stockQty
+                            val price: TextView? = viewHolder.tv_price
+                            val category: TextView? = viewHolder.tv_category
+                            val unit: TextView? = viewHolder.tv_unit
+                            val unitAs: TextView? = viewHolder.tv_unit_as
 
                             val a = Product(
                                 id.text.toString().toInt(),
-                                barcode.text.toString(),
-                                name.text.toString(),
-                                description.text.toString(),
-                                stockQty.text.toString(),
-                                price.text.toString(),
-                                category.text.toString(),
-                                unit.text.toString(),
-                                unit_as.text.toString()
+                                barcode?.text.toString(),
+                                name?.text.toString(),
+                                description?.text.toString(),
+                                stockQty?.text.toString(),
+                                price?.text.toString(),
+                                category?.text.toString(),
+                                unit?.text.toString(),
+                                unitAs?.text.toString()
                             )
                             room?.productDao()?.delete(a)
                             val arrr = Deets.arrr
@@ -242,14 +292,14 @@ class AddProduct : AppCompatActivity() {
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
             viewHolder.tvId.text = dataSet[position].id.toString()
-            viewHolder.tvBarcode.text = dataSet[position].barcode.toString()
-            viewHolder.tv_name.text = dataSet[position].name.toString()
-            viewHolder.tv_description.text = dataSet[position].description.toString()
-            viewHolder.tv_stockQty.text = dataSet[position].stockQty.toString()
-            viewHolder.tv_price.text = dataSet[position].price.toString()
-            viewHolder.tv_category.text = dataSet[position].category.toString()
-            viewHolder.tv_unit.text = dataSet[position].unit.toString()
-            viewHolder.tv_unit_as.text = dataSet[position].unit_as.toString()
+            viewHolder.tvBarcode?.text = dataSet[position].barcode.toString()
+            viewHolder.tv_name?.text = dataSet[position].name.toString()
+            viewHolder.tv_description?.text = dataSet[position].description.toString()
+            viewHolder.tv_stockQty?.text = dataSet[position].stockQty.toString()
+            viewHolder.tv_price?.text = dataSet[position].price.toString()
+            viewHolder.tv_category?.text = dataSet[position].category.toString()
+            viewHolder.tv_unit?.text = dataSet[position].unit.toString()
+            viewHolder.tv_unit_as?.text = dataSet[position].unit_as.toString()
 
         }
 
