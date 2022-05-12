@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/linearLays">
 
     <Button
         android:id="@+id/btnServeCustomer"
@@ -31,10 +32,13 @@
 
     <TableLayout
         android:id="@+id/tblProduct"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone">
+
         <TableRow>
+
             <Button
                 android:id="@+id/btnProductView"
                 android:layout_width="match_parent"
@@ -55,6 +59,7 @@
         </TableRow>
 
         <TableRow>
+
             <Button
                 android:id="@+id/btnProductRem"
                 android:layout_width="match_parent"
@@ -85,10 +90,13 @@
 
     <TableLayout
         android:id="@+id/tblStaff"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone">
+
         <TableRow>
+
             <Button
                 android:id="@+id/btnStaffView"
                 android:layout_width="match_parent"
@@ -109,6 +117,7 @@
         </TableRow>
 
         <TableRow>
+
             <Button
                 android:id="@+id/btnStaffRem"
                 android:layout_width="match_parent"
