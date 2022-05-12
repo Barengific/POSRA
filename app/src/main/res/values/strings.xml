@@ -12,4 +12,10 @@
     <string name="stockQty">Stock Quantity</string>
     <string name="price">Price</string>
     <string name="unitAmount">Amount Per Unit</string>
+    <string name="addProduct">Add Product</string>
+    <string name="serveCustomer">Serve Customer</string>
+    <string name="addStaff">Add Staff</string>
+    <string name="products">Products</string>
+    <string name="staff">Staff</string>
+    <string name="cameraPermission">Camera Permission</string>
 </resources>
