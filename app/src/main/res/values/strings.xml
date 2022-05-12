@@ -22,4 +22,25 @@
     <string name="add">Add</string>
     <string name="remove">Remove</string>
     <string name="update">Update</string>
+    <string name="totalPrice">Total Price</string>
+    <string name="totalQuantity">Total Quantity</string>
+
+    <string-array name="dd_cate">
+        <item>Dairy</item>
+        <item>Fruits &amp; Veg</item>
+        <item>Sources</item>
+        <item>Drinks</item>
+        <item>Gardening</item>
+        <item>Electrical</item>
+    </string-array>
+
+    <string-array name="dd_unit">
+        <item>Piece</item>
+        <item>Pair</item>
+        <item>Grams</item>
+        <item>KG</item>
+        <item>IBs</item>
+        <item>Pack</item>
+        <item>Set</item>
+    </string-array>
 </resources>
