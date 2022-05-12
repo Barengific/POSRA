@@ -232,7 +232,7 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                                 println("aa")
                             }
                             mediaPlayer?.start()
-                            Deets.arrr.add(Basket(0, "2", "barcodeValue", "222", "2222"))
+                            Deets.arrr.add(Basket(0,"2", barcodeValue, "222", "2222"))
                             val value: String = barcodeValue // or just your string
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
