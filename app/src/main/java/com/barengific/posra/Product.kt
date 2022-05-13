@@ -10,7 +10,6 @@ data class Product (
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "barcode") var barcode: String?,
     @ColumnInfo(name = "name") var name: String?,
-    @ColumnInfo(name = "description") var description: String?,
     @ColumnInfo(name = "stockQty") var stockQty: String?,
     @ColumnInfo(name = "price") var price: String?,
     @ColumnInfo(name = "category") var category: String?,
