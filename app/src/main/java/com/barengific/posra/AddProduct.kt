@@ -59,7 +59,7 @@ class AddProduct : AppCompatActivity() {
         //recycle view
         val arr = productDAO.getAll()
         val adapter = CustomAdapter(arr)
-        recyclerView = findViewById<View>(R.id.rView) as RecyclerView
+        recyclerView = binding.rvAddProduct
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -69,7 +69,6 @@ class AddProduct : AppCompatActivity() {
                 0,
                 binding.tvBarcode.editText?.text.toString(),
                 binding.tvName.editText?.text.toString(),
-                binding.tvDesc.editText?.text.toString(),
                 binding.tvStockQty.editText?.text.toString(),
                 binding.tvPrice.editText?.text.toString(),
                 binding.ddCate.editText?.text.toString(),
@@ -98,65 +97,6 @@ class AddProduct : AppCompatActivity() {
         var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
         binding.ddUnitFilled.setAdapter(adapterDDUnit)
 
-
-        binding.tvDone.editText?.setText("changeMe")
-        binding.tvBarcode.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.tvDone.editText?.setText(binding.tvBarcode.editText?.text.toString())
-            }
-        })
-        binding.tvName.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.tvDone.editText?.setText(binding.tvName.editText?.text.toString())
-            }
-        })
-        binding.tvDesc.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.tvDone.editText?.setText(binding.tvDesc.editText?.text.toString())
-            }
-        })
-        binding.tvStockQty.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.tvDone.editText?.setText(binding.tvStockQty.editText?.text.toString())
-            }
-        })
-        binding.tvPrice.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.tvDone.editText?.setText(binding.tvPrice.editText?.text.toString())
-            }
-        })
-        binding.tvUnitAs.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.tvDone.editText?.setText(binding.tvUnitAs.editText?.text.toString())
-            }
-        })
-
-
-        binding.ddCateFilled.setOnItemClickListener { parent, _, position, _ ->
-            Int
-            val selection = parent.getItemAtPosition(position) as String
-            binding.tvDone.editText?.setText(selection)
-
-        }
-        binding.ddUnitFilled.setOnItemClickListener { parent, _, position, _ ->
-            Int
-            val selection = parent.getItemAtPosition(position) as String
-            binding.tvDone.editText?.setText(selection)
-
-        }
-
     }
 
     class CustomAdapter(private val dataSet: List<Product>) :
@@ -179,7 +119,6 @@ class AddProduct : AppCompatActivity() {
             val tvId: TextView
             val tvBarcode: TextView?
             val tv_name: TextView?
-            val tv_description: TextView?
             val tv_stockQty: TextView?
             val tv_price: TextView?
             val tv_category: TextView?
@@ -191,10 +130,9 @@ class AddProduct : AppCompatActivity() {
                 view.setOnCreateContextMenuListener(this)
 
                 // Define click listener for the ViewHolder's View.
-                tvId = view.findViewById(R.id.tv_id)
+                tvId = view.findViewById(R.id.tv_Id)
                 tvBarcode = view.findViewById(R.id.tv_barcode)
                 tv_name = view.findViewById(R.id.tv_name)
-                tv_description = view.findViewById(R.id.tv_description)
                 tv_stockQty = view.findViewById(R.id.tv_stockQty)
                 tv_price = view.findViewById(R.id.tv_price)
                 tv_category = view.findViewById(R.id.tv_category)
@@ -207,7 +145,7 @@ class AddProduct : AppCompatActivity() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
             // Create a new view, which defines the UI of the list item
             val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.rv_basket, viewGroup, false)
+                .inflate(R.layout.rv_product, viewGroup, false)
 
             return ViewHolder(view)
         }
@@ -246,7 +184,6 @@ class AddProduct : AppCompatActivity() {
                             val id: TextView = viewHolder.tvId
                             val barcode: TextView? = viewHolder.tvBarcode
                             val name: TextView? = viewHolder.tv_name
-                            val description: TextView? = viewHolder.tv_description
                             val stockQty: TextView? = viewHolder.tv_stockQty
                             val price: TextView? = viewHolder.tv_price
                             val category: TextView? = viewHolder.tv_category
@@ -257,7 +194,6 @@ class AddProduct : AppCompatActivity() {
                                 id.text.toString().toInt(),
                                 barcode?.text.toString(),
                                 name?.text.toString(),
-                                description?.text.toString(),
                                 stockQty?.text.toString(),
                                 price?.text.toString(),
                                 category?.text.toString(),
@@ -294,7 +230,6 @@ class AddProduct : AppCompatActivity() {
             viewHolder.tvId.text = dataSet[position].id.toString()
             viewHolder.tvBarcode?.text = dataSet[position].barcode.toString()
             viewHolder.tv_name?.text = dataSet[position].name.toString()
-            viewHolder.tv_description?.text = dataSet[position].description.toString()
             viewHolder.tv_stockQty?.text = dataSet[position].stockQty.toString()
             viewHolder.tv_price?.text = dataSet[position].price.toString()
             viewHolder.tv_category?.text = dataSet[position].category.toString()
