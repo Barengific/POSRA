@@ -8,14 +8,14 @@
     android:gravity="center_vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_Id"
             android:layout_width="30dp"
             android:layout_height="24dp"
-            android:text="id"
+            android:text="id_-"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,23 +23,23 @@
             android:id="@+id/tv_barcode"
             android:layout_width="100dp"
             android:layout_height="24dp"
-            android:text="barcode"
+            android:text="barcode___---"
             app:layout_constraintStart_toEndOf="@+id/tv_Id"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="100dp"
             android:layout_height="24dp"
-            android:text="name"
+            android:text="name_---------------"
             app:layout_constraintStart_toEndOf="@+id/tv_barcode"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_stockQty"
             android:layout_width="30dp"
             android:layout_height="24dp"
-            android:text="qty"
+            android:text="qty_--"
             app:layout_constraintStart_toEndOf="@+id/tv_name"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,10 +48,10 @@
             android:layout_width="70dp"
             android:layout_height="24dp"
             android:layout_marginStart="4dp"
-            android:text="price"
-            app:layout_constraintStart_toEndOf="@+id/tv_stockQty"
+            android:text="price_-"
             app:layout_constraintEnd_toStartOf="@+id/ivMore"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toEndOf="@+id/tv_stockQty"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivMore"
@@ -65,7 +65,7 @@
             android:id="@+id/tv_category"
             android:layout_width="50dp"
             android:layout_height="20dp"
-            android:text="cate"
+            android:text="category_---"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_barcode" />
 
@@ -73,7 +73,7 @@
             android:id="@+id/tv_unit"
             android:layout_width="25dp"
             android:layout_height="24dp"
-            android:text="unit"
+            android:text="unit_-"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
@@ -81,7 +81,7 @@
             android:id="@+id/tv_unit_as"
             android:layout_width="25dp"
             android:layout_height="24dp"
-            android:text="as"
+            android:text="as_____-"
             app:layout_constraintStart_toEndOf="@+id/tv_unit"
             app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
@@ -89,7 +89,7 @@
             android:id="@+id/tv_description"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:text="description"
+            android:text="description______________________________________-"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_category"
