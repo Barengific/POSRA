@@ -15,7 +15,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.barengific.posra.AddProduct.Companion.applicationContext
 import com.barengific.posra.databinding.CamActivityBinding
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -110,7 +112,13 @@ class BarcodeAnalyzer : ImageAnalysis.Analyzer {
         val img = image.image
         if (img != null) {
             val inputImage = InputImage.fromMediaImage(img, image.imageInfo.rotationDegrees)
-            val scanner = BarcodeScanning.getClient()
+
+            val options = BarcodeScannerOptions.Builder()
+                .setBarcodeFormats(Barcode.FORMAT_EAN_13,Barcode.FORMAT_EAN_8,Barcode.FORMAT_UPC_A,Barcode.FORMAT_UPC_E)
+                .build()
+            val scanner = BarcodeScanning.getClient(options)
+
+//            val scanner = BarcodeScanning.getClient()
 
             scanner.process(inputImage)
                 .addOnSuccessListener { barcodes ->
