@@ -64,6 +64,8 @@ class AddProduct : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        binding.tvBarcode.editText?.setText(Deets.bc_value)
+
         binding.btnSave.setOnClickListener {
             val aa = Product(
                 0,
@@ -96,6 +98,11 @@ class AddProduct : AppCompatActivity() {
         var linesUnit = resources.getStringArray(R.array.dd_unit).toList()
         var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
         binding.ddUnitFilled.setAdapter(adapterDDUnit)
+
+        binding.tvBarcode.setEndIconOnClickListener {
+            val intent = Intent(this, CamActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
