@@ -187,32 +187,14 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_unit_as"
                 app:layout_constraintVertical_bias="0.01" />
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvDone"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnSave"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.01">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:ignore="TextContrastCheck,TextContrastCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rView"
+                android:id="@+id/rvAddProduct"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvDone"
+                app:layout_constraintTop_toBottomOf="@id/btnSave"
                 app:layout_constraintVertical_bias="0.01" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
