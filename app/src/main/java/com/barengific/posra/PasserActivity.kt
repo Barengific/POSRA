@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.barengific.posra.databinding.AddproductLayoutBinding
+import com.barengific.posra.databinding.AddProductActivityBinding
 import com.barengific.posra.databinding.PasserActivityBinding
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
