@@ -14,22 +14,22 @@ interface ProductDAO {
     fun loadAllByIds(productIds: IntArray): List<Product>
 
     @Query("SELECT * FROM product WHERE id LIKE :k")
-    fun findByID(k: String): Product
+    fun findByID(k: String): List<Product>
 
-    @Query("SELECT * FROM product WHERE barcode LIKE :k")
-    fun findByBarcode(k: String): Product
+    @Query("SELECT * FROM product WHERE barcode LIKE '%' || :k || '%'")
+    fun findByBarcode(k: String): List<Product>
 
-    @Query("SELECT * FROM product WHERE name LIKE :k")
-    fun findByName(k: String): Product
+    @Query("SELECT * FROM product WHERE name LIKE '%' || :k || '%'")
+    fun findByName(k: String): List<Product>
 
-    @Query("SELECT * FROM product WHERE price LIKE :k")
-    fun findByPrice(k: String): Product
+    @Query("SELECT * FROM product WHERE price LIKE '%' || :k || '%'")
+    fun findByPrice(k: String): List<Product>
 
-    @Query("SELECT * FROM product WHERE category LIKE :k")
-    fun findByCategory(k: String): Product
+    @Query("SELECT * FROM product WHERE category LIKE '%' || :k || '%'")
+    fun findByCategory(k: String): List<Product>
 
-    @Query("SELECT * FROM product WHERE unit LIKE :k")
-    fun findByUnit(k: String): Product
+    @Query("SELECT * FROM product WHERE unit LIKE '%' || :k || '%'")
+    fun findByUnit(k: String): List<Product>
 
     @Insert
     fun insertAll(vararg products: Product)
