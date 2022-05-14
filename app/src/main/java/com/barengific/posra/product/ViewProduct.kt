@@ -2,6 +2,7 @@ package com.barengific.posra.product
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import com.barengific.posra.HomeActivity
@@ -22,7 +23,6 @@ class ViewProduct : AppCompatActivity() {
 
         binding = ViewProductActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_view
@@ -50,6 +50,10 @@ class ViewProduct : AppCompatActivity() {
                 true
             }
         }
+
+        var linesUnit = resources.getStringArray(R.array.dd_product_search).toList()
+        var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
+        binding.ddProductSearchFilled.setAdapter(adapterDDUnit)
 
     }
 }
