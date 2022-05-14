@@ -13,8 +13,23 @@ interface ProductDAO {
     @Query("SELECT * FROM product WHERE id IN (:productIds)")
     fun loadAllByIds(productIds: IntArray): List<Product>
 
+    @Query("SELECT * FROM product WHERE id LIKE :k")
+    fun findByID(k: String): Product
+
     @Query("SELECT * FROM product WHERE barcode LIKE :k")
-    fun findByKey(k: String): Product
+    fun findByBarcode(k: String): Product
+
+    @Query("SELECT * FROM product WHERE name LIKE :k")
+    fun findByName(k: String): Product
+
+    @Query("SELECT * FROM product WHERE price LIKE :k")
+    fun findByPrice(k: String): Product
+
+    @Query("SELECT * FROM product WHERE category LIKE :k")
+    fun findByCategory(k: String): Product
+
+    @Query("SELECT * FROM product WHERE unit LIKE :k")
+    fun findByUnit(k: String): Product
 
     @Insert
     fun insertAll(vararg products: Product)
