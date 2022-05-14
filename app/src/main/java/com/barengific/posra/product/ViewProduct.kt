@@ -104,15 +104,8 @@ class ViewProduct : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.tvSearch.setStartIconOnClickListener {
-            Log.d("aaaaa", "qqqqq")
-            Log.d("aaaaa", binding.ddProductSearchFilled.editableText.toString())
-            Log.d("aaaaa1", binding.tvSearch.editText!!.text.toString())
-            Log.d("aaaaa2", binding.tvSearch.editText!!.editableText.toString())
-            Log.d("aaaaa", binding.ddProductSearchFilled.editableText.toString())
-
             when {
                 binding.ddProductSearchFilled.text.toString().isNullOrEmpty() == null -> {
-                    Log.d("aaaaa","noonononon")
                     val arr = productDAO.getAll()
                     val adapter = CustomAdapter(arr)
                     recyclerView = binding.rvAddProduct
@@ -122,10 +115,9 @@ class ViewProduct : AppCompatActivity() {
 
                 }
                 binding.ddProductSearchFilled.text.toString() == "ID" -> {
-                    Log.d("aaaaa","idddd")
                     val arr =
                         productDAO.findByID(binding.tvSearch.editText?.text.toString())
-                    val adapter = CustomAdapter(listOf(arr))
+                    val adapter = CustomAdapter(arr)
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -138,7 +130,7 @@ class ViewProduct : AppCompatActivity() {
                 binding.ddProductSearchFilled.text.toString() == "Barcode" -> {
                     val arr =
                         productDAO.findByBarcode(binding.tvSearch.editText!!.text.toString())
-                    val adapter = CustomAdapter(listOf(arr))
+                    val adapter = CustomAdapter(arr)
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -151,7 +143,7 @@ class ViewProduct : AppCompatActivity() {
                 binding.ddProductSearchFilled.text.toString() == "Name" -> {
                     val arr =
                         productDAO.findByName(binding.tvSearch.editText!!.text.toString())
-                    val adapter = CustomAdapter(listOf(arr))
+                    val adapter = CustomAdapter(arr)
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -164,7 +156,7 @@ class ViewProduct : AppCompatActivity() {
                 binding.ddProductSearchFilled.text.toString() == "Price" -> {
                     val arr =
                         productDAO.findByPrice(binding.tvSearch.editText!!.text.toString())
-                    val adapter = CustomAdapter(listOf(arr))
+                    val adapter = CustomAdapter(arr)
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -177,7 +169,7 @@ class ViewProduct : AppCompatActivity() {
                 binding.ddProductSearchFilled.text.toString() == "Category" -> {
                     val arr =
                         productDAO.findByCategory(binding.tvSearch.editText!!.text.toString())
-                    val adapter = CustomAdapter(listOf(arr))
+                    val adapter = CustomAdapter(arr)
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -190,7 +182,7 @@ class ViewProduct : AppCompatActivity() {
                 binding.ddProductSearchFilled.text.toString() == "Unit" -> {
                     val arr =
                         productDAO.findByUnit(binding.tvSearch.editText!!.text.toString())
-                    val adapter = CustomAdapter(listOf(arr))
+                    val adapter = CustomAdapter(arr)
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
