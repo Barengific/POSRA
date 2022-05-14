@@ -98,7 +98,9 @@ class RemoveProduct : AppCompatActivity() {
         AddProduct.recyclerView.setHasFixedSize(false)
         AddProduct.recyclerView.adapter = adapter
         AddProduct.recyclerView.layoutManager = LinearLayoutManager(this)
-        
+
+
+
         binding.tvRemove.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
