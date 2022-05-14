@@ -25,7 +25,6 @@
     <string name="totalPrice">Total Price</string>
     <string name="totalQuantity">Total Quantity</string>
     <string name="btnSearch">Search</string>
-    <string name="seach_by">Search By...</string>
     <string name="search_by">Search by...</string>
     <string name="productSearch">Product Search</string>
     <string name="productRemove">Product Remove</string>
@@ -48,5 +47,23 @@
         <item>IBs</item>
         <item>Pack</item>
         <item>Set</item>
+    </string-array>
+
+    <string-array name="dd_product_search">
+        <item>ID</item>
+        <item>Barcode</item>
+        <item>Name</item>
+        <item>Price</item>
+        <item>Category</item>
+        <item>Unit</item>
+    </string-array>
+
+    <string-array name="dd_staff_search">
+        <item>ID</item>
+        <item>Barcode</item>
+        <item>Name</item>
+        <item>Price</item>
+        <item>Category</item>
+        <item>Unit</item>
     </string-array>
 </resources>
