@@ -36,7 +36,7 @@
         </activity>
 
         <activity
-            android:name=".AddProduct"
+            android:name=".product.AddProduct"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.POSRA">
@@ -44,6 +44,29 @@
 
         <activity
             android:name=".CamActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.POSRA">
+        </activity>
+
+        <activity
+            android:name=".product.ViewProduct"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.POSRA">
+        </activity>
+
+
+        <activity
+            android:name=".product.UpdateProduct"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.POSRA">
+        </activity>
+
+
+        <activity
+            android:name=".product.RemoveProduct"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.POSRA">
