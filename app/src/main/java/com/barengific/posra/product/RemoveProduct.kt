@@ -2,6 +2,7 @@ package com.barengific.posra.product
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.barengific.posra.HomeActivity
 import com.barengific.posra.R
@@ -48,6 +49,10 @@ class RemoveProduct : AppCompatActivity() {
                 true
             }
         }
+
+        var linesUnit = resources.getStringArray(R.array.dd_product_search).toList()
+        var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
+        binding.ddProductRemoveFilled.setAdapter(adapterDDUnit)
 
     }
 }
