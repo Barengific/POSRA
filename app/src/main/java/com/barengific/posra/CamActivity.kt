@@ -13,8 +13,8 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.barengific.posra.AddProduct.Companion.applicationContext
 import com.barengific.posra.databinding.CamActivityBinding
+import com.barengific.posra.product.AddProduct
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
