@@ -60,10 +60,12 @@
 
     <string-array name="dd_staff_search">
         <item>ID</item>
-        <item>Barcode</item>
-        <item>Name</item>
-        <item>Price</item>
-        <item>Category</item>
-        <item>Unit</item>
+        <item>First Name</item>
+        <item>Last Name</item>
+        <item>Email</item>
+        <item>Phone Number</item>
+        <item>Job Title</item>
+        <item>Hired Date</item>
+        <item>Location</item>
     </string-array>
 </resources>
