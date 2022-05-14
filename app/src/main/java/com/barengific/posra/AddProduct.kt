@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.barengific.posra.databinding.AddproductLayoutBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 
@@ -39,6 +40,7 @@ class AddProduct : AppCompatActivity() {
     }
 
     private lateinit var binding: AddproductLayoutBinding
+    lateinit var bottomNav: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,65 +48,94 @@ class AddProduct : AppCompatActivity() {
         binding = AddproductLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //db initialise
-        val passphrase: ByteArray = SQLiteDatabase.getBytes("bob".toCharArray())
-        val factory = SupportFactory(passphrase)
-        val room =
-            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
-                .openHelperFactory(factory)
-                .allowMainThreadQueries()
-                .build()
-        val productDAO = room.productDao()
 
-        //recycle view
-        val arr = productDAO.getAll()
-        val adapter = CustomAdapter(arr)
-        recyclerView = binding.rvAddProduct
-        recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.setOnItemSelectedListener { menuItem ->
+            if (menuItem.itemId == R.id.nav_home) {
+                binding.tvUnitAs.editText?.setText("HOmeeee")
+                false
+            }
+            else if(menuItem.itemId == R.id.nav_add)  {
+                binding.tvUnitAs.editText?.setText("addddd")
+                true
+            }
+            else if(menuItem.itemId == R.id.nav_view)  {
+                binding.tvUnitAs.editText?.setText("viewww")
+                true
+            }
+            else if(menuItem.itemId == R.id.nav_remove)  {
+                binding.tvUnitAs.editText?.setText("removeee")
+                true
+            }
+            else if(menuItem.itemId == R.id.nav_update)  {
+                binding.tvUnitAs.editText?.setText("updateee")
+                true
+            }
+            else  {
+                true
+            }
+        }
 
-        binding.tvBarcode.editText?.setText(Deets.bc_value)
+            //db initialise
+            val passphrase: ByteArray = SQLiteDatabase.getBytes("bob".toCharArray())
+            val factory = SupportFactory(passphrase)
+            val room =
+                Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
+                    .openHelperFactory(factory)
+                    .allowMainThreadQueries()
+                    .build()
+            val productDAO = room.productDao()
 
-        binding.btnSave.setOnClickListener {
-            val aa = Product(
-                0,
-                binding.tvBarcode.editText?.text.toString(),
-                binding.tvName.editText?.text.toString(),
-                binding.tvStockQty.editText?.text.toString(),
-                binding.tvPrice.editText?.text.toString(),
-                binding.ddCate.editText?.text.toString(),
-                binding.ddUnit.editText?.text.toString(),
-                binding.tvUnitAs.editText?.text.toString()
-            )
-            productDAO.insertAll(aa)
-
-            val arrr = productDAO.getAll()
-            val adapter = CustomAdapter(arrr)
+            //recycle view
+            val arr = productDAO.getAll()
+            val adapter = CustomAdapter(arr)
+            recyclerView = binding.rvAddProduct
             recyclerView.setHasFixedSize(false)
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(this)
 
-            runOnUiThread {
-                adapter.notifyDataSetChanged()
+            binding.tvBarcode.editText?.setText(Deets.bc_value)
+
+            binding.btnSave.setOnClickListener {
+                val aa = Product(
+                    0,
+                    binding.tvBarcode.editText?.text.toString(),
+                    binding.tvName.editText?.text.toString(),
+                    binding.tvStockQty.editText?.text.toString(),
+                    binding.tvPrice.editText?.text.toString(),
+                    binding.ddCate.editText?.text.toString(),
+                    binding.ddUnit.editText?.text.toString(),
+                    binding.tvUnitAs.editText?.text.toString()
+                )
+                productDAO.insertAll(aa)
+
+                val arrr = productDAO.getAll()
+                val adapter = CustomAdapter(arrr)
+                recyclerView.setHasFixedSize(false)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(this)
+
+                runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
+                //TODO check for duplicates
             }
-            //TODO check for duplicates
+
+            var linesCate = resources.getStringArray(R.array.dd_cate).toList()
+            var adapterDDCate = ArrayAdapter(this, R.layout.dd_layout, linesCate)
+            binding.ddCateFilled.setAdapter(adapterDDCate)
+
+            var linesUnit = resources.getStringArray(R.array.dd_unit).toList()
+            var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
+            binding.ddUnitFilled.setAdapter(adapterDDUnit)
+
+            binding.tvBarcode.setEndIconOnClickListener {
+                val intent = Intent(this, CamActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
-        var linesCate = resources.getStringArray(R.array.dd_cate).toList()
-        var adapterDDCate = ArrayAdapter(this, R.layout.dd_layout, linesCate)
-        binding.ddCateFilled.setAdapter(adapterDDCate)
-
-        var linesUnit = resources.getStringArray(R.array.dd_unit).toList()
-        var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
-        binding.ddUnitFilled.setAdapter(adapterDDUnit)
-
-        binding.tvBarcode.setEndIconOnClickListener {
-            val intent = Intent(this, CamActivity::class.java)
-            startActivity(intent)
-        }
-
-    }
 
     class CustomAdapter(private val dataSet: List<Product>) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
