@@ -103,17 +103,15 @@ class ViewProduct : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        Log.d("aaaaa", binding.tvSearch.editText!!.text.toString())
-        Log.d("aaaaa", "herere")
-
         binding.tvSearch.setStartIconOnClickListener {
             Log.d("aaaaa", "qqqqq")
             Log.d("aaaaa", binding.ddProductSearchFilled.editableText.toString())
             Log.d("aaaaa1", binding.tvSearch.editText!!.text.toString())
             Log.d("aaaaa2", binding.tvSearch.editText!!.editableText.toString())
             Log.d("aaaaa", binding.ddProductSearchFilled.editableText.toString())
+
             when {
-                binding.ddProductSearchFilled.editableText.toString().toIntOrNull() == null -> {
+                binding.ddProductSearchFilled.text.toString().isNullOrEmpty() == null -> {
                     Log.d("aaaaa","noonononon")
                     val arr = productDAO.getAll()
                     val adapter = CustomAdapter(arr)
@@ -123,11 +121,11 @@ class ViewProduct : AppCompatActivity() {
                     recyclerView.layoutManager = LinearLayoutManager(instance)
 
                 }
-                binding.ddProductSearchFilled.editableText.toString() == "ID" -> {
+                binding.ddProductSearchFilled.text.toString() == "ID" -> {
                     Log.d("aaaaa","idddd")
                     val arr =
-                        productDAO.findByID(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
+                        productDAO.findByID(binding.tvSearch.editText?.text.toString())
+                    val adapter = CustomAdapter(listOf(arr))
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -137,10 +135,10 @@ class ViewProduct : AppCompatActivity() {
                     }
 
                 }
-                binding.ddProductSearchFilled.editableText.toString() == "Barcode" -> {
+                binding.ddProductSearchFilled.text.toString() == "Barcode" -> {
                     val arr =
-                        productDAO.findByBarcode(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
+                        productDAO.findByBarcode(binding.tvSearch.editText!!.text.toString())
+                    val adapter = CustomAdapter(listOf(arr))
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -150,10 +148,10 @@ class ViewProduct : AppCompatActivity() {
                     }
 
                 }
-                binding.ddProductSearchFilled.editableText.toString() == "Name" -> {
+                binding.ddProductSearchFilled.text.toString() == "Name" -> {
                     val arr =
-                        productDAO.findByName(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
+                        productDAO.findByName(binding.tvSearch.editText!!.text.toString())
+                    val adapter = CustomAdapter(listOf(arr))
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -163,10 +161,10 @@ class ViewProduct : AppCompatActivity() {
                     }
 
                 }
-                binding.ddProductSearchFilled.editableText.toString() == "Price" -> {
+                binding.ddProductSearchFilled.text.toString() == "Price" -> {
                     val arr =
-                        productDAO.findByPrice(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
+                        productDAO.findByPrice(binding.tvSearch.editText!!.text.toString())
+                    val adapter = CustomAdapter(listOf(arr))
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -176,10 +174,10 @@ class ViewProduct : AppCompatActivity() {
                     }
 
                 }
-                binding.ddProductSearchFilled.editableText.toString() == "Category" -> {
+                binding.ddProductSearchFilled.text.toString() == "Category" -> {
                     val arr =
-                        productDAO.findByCategory(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
+                        productDAO.findByCategory(binding.tvSearch.editText!!.text.toString())
+                    val adapter = CustomAdapter(listOf(arr))
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -189,10 +187,10 @@ class ViewProduct : AppCompatActivity() {
                     }
 
                 }
-                binding.ddProductSearchFilled.editableText.toString() == "Unit" -> {
+                binding.ddProductSearchFilled.text.toString() == "Unit" -> {
                     val arr =
-                        productDAO.findByUnit(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
+                        productDAO.findByUnit(binding.tvSearch.editText!!.text.toString())
+                    val adapter = CustomAdapter(listOf(arr))
                     recyclerView = binding.rvAddProduct
                     recyclerView.setHasFixedSize(false)
                     recyclerView.adapter = adapter
@@ -206,94 +204,6 @@ class ViewProduct : AppCompatActivity() {
 
         }
 
-        binding.tvSearch.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (binding.ddProductSearchFilled.editableText.toString().toIntOrNull() == null) {
-                    val arr = productDAO.getAll()
-                    val adapter = CustomAdapter(arr)
-                    recyclerView = binding.rvAddProduct
-                    recyclerView.setHasFixedSize(false)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(instance)
-
-                } else if (binding.ddProductSearchFilled.editableText.toString() == "ID") {
-                    val arr =
-                        productDAO.findByID(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
-                    recyclerView = binding.rvAddProduct
-                    recyclerView.setHasFixedSize(false)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(instance)
-                    runOnUiThread {
-                        adapter.notifyDataSetChanged()
-                    }
-
-                } else if (binding.ddProductSearchFilled.editableText.toString() == "Barcode") {
-                    val arr =
-                        productDAO.findByBarcode(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
-                    recyclerView = binding.rvAddProduct
-                    recyclerView.setHasFixedSize(false)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(instance)
-                    runOnUiThread {
-                        adapter.notifyDataSetChanged()
-                    }
-
-                } else if (binding.ddProductSearchFilled.editableText.toString() == "Name") {
-                    val arr =
-                        productDAO.findByName(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
-                    recyclerView = binding.rvAddProduct
-                    recyclerView.setHasFixedSize(false)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(instance)
-                    runOnUiThread {
-                        adapter.notifyDataSetChanged()
-                    }
-
-                } else if (binding.ddProductSearchFilled.editableText.toString() == "Price") {
-                    val arr =
-                        productDAO.findByPrice(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
-                    recyclerView = binding.rvAddProduct
-                    recyclerView.setHasFixedSize(false)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(instance)
-                    runOnUiThread {
-                        adapter.notifyDataSetChanged()
-                    }
-
-                } else if (binding.ddProductSearchFilled.editableText.toString() == "Category") {
-                    val arr =
-                        productDAO.findByCategory(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
-                    recyclerView = binding.rvAddProduct
-                    recyclerView.setHasFixedSize(false)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(instance)
-                    runOnUiThread {
-                        adapter.notifyDataSetChanged()
-                    }
-
-                } else if (binding.ddProductSearchFilled.editableText.toString() == "Unit") {
-                    val arr =
-                        productDAO.findByUnit(binding.tvSearch.editText!!.text.toString()) as List<Product>
-                    val adapter = CustomAdapter(arr)
-                    recyclerView = binding.rvAddProduct
-                    recyclerView.setHasFixedSize(false)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(instance)
-
-                    runOnUiThread {
-                        adapter.notifyDataSetChanged()
-                    }
-                }
-
-            }
-        })
 
     }
 
@@ -425,14 +335,14 @@ class ViewProduct : AppCompatActivity() {
 
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
-            viewHolder.tvId.text = dataSet[position].id.toString()
-            viewHolder.tvBarcode?.text = dataSet[position].barcode.toString()
-            viewHolder.tv_name?.text = dataSet[position].name.toString()
-            viewHolder.tv_stockQty?.text = dataSet[position].stockQty.toString()
-            viewHolder.tv_price?.text = dataSet[position].price.toString()
-            viewHolder.tv_category?.text = dataSet[position].category.toString()
-            viewHolder.tv_unit?.text = dataSet[position].unit.toString()
-            viewHolder.tv_unit_as?.text = dataSet[position].unit_as.toString()
+            viewHolder.tvId?.text = dataSet[position]?.id?.toString()
+            viewHolder.tvBarcode?.text = dataSet[position]?.barcode?.toString()
+            viewHolder.tv_name?.text = dataSet[position]?.name?.toString()
+            viewHolder.tv_stockQty?.text = dataSet[position]?.stockQty?.toString()
+            viewHolder.tv_price?.text = dataSet[position]?.price?.toString()
+            viewHolder.tv_category?.text = dataSet[position]?.category?.toString()
+            viewHolder.tv_unit?.text = dataSet[position]?.unit?.toString()
+            viewHolder.tv_unit_as?.text = dataSet[position]?.unit_as?.toString()
 
         }
 
