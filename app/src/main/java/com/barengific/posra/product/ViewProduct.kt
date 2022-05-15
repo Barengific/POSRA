@@ -404,7 +404,7 @@ class ViewProduct : AppCompatActivity() {
 
                         }
                         R.id.menu_update -> {
-                            Deets.upId = viewHolder.tvId.text.toString()
+                            Deets.upIdProduct = viewHolder.tvId.text.toString()
                             Deets.upBarcode = viewHolder.tvBarcode?.text.toString()
                             Deets.upName = viewHolder.tv_name?.text.toString()
                             Deets.upStockQty = viewHolder.tv_stockQty?.text.toString()
