@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.barengific.posra.databinding.HomeActivityBinding
 import com.barengific.posra.product.AddProduct
+import com.barengific.posra.product.ViewProduct
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 
@@ -36,64 +37,19 @@ class HomeActivity : AppCompatActivity() {
             setupPermissions()
         }
         binding.btnProduct.setOnClickListener {
-//            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ViewProduct::class.java)
 //            intent.putExtra("barcodeSca", message)
-//            startActivity(intent)
-            if(binding.tblProduct.isVisible){
-                binding.tblProduct.visibility = View.INVISIBLE
-            }else{
-                binding.tblProduct.visibility = View.VISIBLE
-            }
-            runOnUiThread{
-                binding.linearLays.invalidate()
-                binding.linearLays.requestLayout()
-            }
+            startActivity(intent)
+
         }
         binding.btnStaff.setOnClickListener {
 //            val intent = Intent(this, MainActivity::class.java)
 //            intent.putExtra("barcodeSca", message)
 //            startActivity(intent)
 
-            if(binding.tblStaff.isVisible){
-                binding.tblStaff.visibility = View.INVISIBLE
-            }else{
-                binding.tblStaff.visibility = View.VISIBLE
-            }
-            binding.linearLays.invalidate()
-            binding.linearLays.requestLayout()
 
         }
 
-
-        binding.btnProductAdd.setOnClickListener {
-            val intent = Intent(this, AddProduct::class.java)
-//            intent.putExtra("barcodeSca", message)
-            startActivity(intent)
-
-        }
-        binding.btnProductView.setOnClickListener {
-
-        }
-        binding.btnProductRem.setOnClickListener {
-
-        }
-        binding.btnProductUpdate.setOnClickListener {
-
-        }
-
-
-        binding.btnStaffAdd.setOnClickListener {
-
-        }
-        binding.btnStaffView.setOnClickListener {
-
-        }
-        binding.btnProductRem.setOnClickListener {
-
-        }
-        binding.btnStaffUpdate.setOnClickListener {
-
-        }
     }
 
     private fun setupPermissions() {
