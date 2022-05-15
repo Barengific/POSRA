@@ -67,16 +67,6 @@ class AddProduct : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
-            else if(menuItem.itemId == R.id.nav_remove)  {
-                val intent = Intent(this, RemoveProduct::class.java)
-                startActivity(intent)
-                true
-            }
-            else if(menuItem.itemId == R.id.nav_update)  {
-                val intent = Intent(this, UpdateProduct::class.java)
-                startActivity(intent)
-                true
-            }
             else  {
                 true
             }
