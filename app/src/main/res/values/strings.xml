@@ -29,6 +29,7 @@
     <string name="productSearch">Product Search</string>
     <string name="productRemove">Product Remove</string>
     <string name="remove_by">Remove By</string>
+    <string name="btnUpdate">Update</string>
 
     <string-array name="dd_cate">
         <item>Dairy</item>
@@ -47,6 +48,8 @@
         <item>IBs</item>
         <item>Pack</item>
         <item>Set</item>
+        <item>ml</item>
+        <item>Ltr</item>
     </string-array>
 
     <string-array name="dd_product_search">
