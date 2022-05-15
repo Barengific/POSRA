@@ -40,8 +40,8 @@ class ViewProduct : AppCompatActivity() {
 
         private var instance: ViewProduct? = null
 
-        fun applicationContext(): Context {
-            return instance!!.applicationContext
+        fun applicationContext(): Context? {
+            return instance?.applicationContext
         }
     }
 
@@ -409,6 +409,20 @@ class ViewProduct : AppCompatActivity() {
 
                             room?.close()
 
+                        }
+                        R.id.menu_update -> {
+                            Deets.upId = viewHolder.tvId.text.toString()
+                            Deets.upBarcode = viewHolder.tvBarcode?.text.toString()
+                            Deets.upName = viewHolder.tv_name?.text.toString()
+                            Deets.upStockQty = viewHolder.tv_stockQty?.text.toString()
+                            Deets.upPrice = viewHolder.tv_price?.text.toString()
+                            Deets.upCategory = viewHolder.tv_category?.text.toString()
+                            Deets.upUnit = viewHolder.tv_unit?.text.toString()
+                            Deets.upUnitAs = viewHolder.tv_unit_as?.text.toString()
+
+                            val intent = Intent(applicationContext(), UpdateProduct::class.java)
+                            applicationContext()?.startActivity(intent)
+//
                         }
 
                         R.id.menu_cancel -> {
