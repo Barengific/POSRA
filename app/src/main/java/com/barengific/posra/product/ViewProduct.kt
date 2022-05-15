@@ -44,10 +44,6 @@ class ViewProduct : AppCompatActivity() {
             return instance?.applicationContext
         }
 
-        fun openUpdateActvity(){
-            val intent = Intent(instance, UpdateProduct::class.java)
-            instance?.startActivity(intent)
-        }
     }
 
     @OptIn(ExperimentalPermissionsApi::class)
@@ -298,10 +294,6 @@ class ViewProduct : AppCompatActivity() {
 
 
     }
-    fun openUpdateActvitys(){
-        val intent = Intent(this, UpdateProduct::class.java)
-        startActivity(intent)
-    }
 
     class CustomAdapter(private val dataSet: List<Product>) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -428,14 +420,10 @@ class ViewProduct : AppCompatActivity() {
                             Deets.upCategory = viewHolder.tv_category?.text.toString()
                             Deets.upUnit = viewHolder.tv_unit?.text.toString()
                             Deets.upUnitAs = viewHolder.tv_unit_as?.text.toString()
-//
-//                            val intent = Intent(applicationContext(), UpdateProduct::class.java)
-//                            applicationContext()?.startActivity(intent)
-                            openUpdateActvity()
+
                             val intent = Intent(view.context, UpdateProduct::class.java)
                             view.context.startActivity(intent)
 
-//
                         }
 
                         R.id.menu_cancel -> {
