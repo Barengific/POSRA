@@ -1,7 +1,6 @@
 package com.barengific.posra.product
 
 import android.content.Context
-import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.barengific.posra.AppDatabase
-import com.barengific.posra.HomeActivity
-import com.barengific.posra.Product
 import com.barengific.posra.R
 import com.barengific.posra.databinding.RemoveProductActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
