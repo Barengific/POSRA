@@ -162,10 +162,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/btnSave"
+                android:id="@+id/btnUpdate"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
-                android:text="@string/btnSave"
+                android:text="@string/btnUpdate"
                 android:textSize="16sp"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -181,7 +181,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnSave"
+                app:layout_constraintTop_toBottomOf="@id/btnUpdate"
                 app:layout_constraintVertical_bias="0.01" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
