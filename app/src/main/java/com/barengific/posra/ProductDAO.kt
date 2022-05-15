@@ -1,9 +1,7 @@
 package com.barengific.posra
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+
 
 @Dao
 interface ProductDAO {
@@ -31,8 +29,12 @@ interface ProductDAO {
     @Query("SELECT * FROM product WHERE unit LIKE '%' || :k || '%'")
     fun findByUnit(k: String): List<Product>
 
-    @Query("UPDATE product SET barcode = :barcode WHERE id = :i")
-    fun update(i: String, barcode: String, name: String, stockQty: String, price: String, category: String, unit: String, unitas: String ): List<Product>
+    @Query("UPDATE product SET barcode = :barcode, name = :name, stockQty = :stockQty, " +
+            "price = :price, category = :category, unit = :unit, unit_as = :unitas WHERE id = :i")
+    fun update(i: String, barcode: String, name: String, stockQty: String, price: String, category: String, unit: String, unitas: String )
+
+    @Update
+    fun updateProduct(product: Product?)
 
     @Insert
     fun insertAll(vararg products: Product)
