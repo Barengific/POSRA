@@ -43,7 +43,9 @@ class CustomAdapter(private val dataSet: List<Staff>) :
         }
 
         val tvId: TextView
-        val tvName: TextView?
+        val tvPus: TextView
+        val tvFirstName: TextView?
+        val tvLastName: TextView?
         val tvEmail: TextView?
         val tvPhone: TextView?
         val tvDateHired: TextView?
@@ -56,7 +58,9 @@ class CustomAdapter(private val dataSet: List<Staff>) :
 
             // Define click listener for the ViewHolder's View.
             tvId = view.findViewById(R.id.tv_id_staff)
-            tvName = view.findViewById(R.id.tv_full_name)
+            tvPus = view.findViewById(R.id.tvPus)
+            tvFirstName = view.findViewById(R.id.tv_first_name)
+            tvLastName = view.findViewById(R.id.tv_last_name)
             tvEmail = view.findViewById(R.id.tv_email)
             tvPhone = view.findViewById(R.id.tv_phone)
             tvDateHired = view.findViewById(R.id.tv_date_hired)
@@ -103,10 +107,12 @@ class CustomAdapter(private val dataSet: List<Staff>) :
                                 .allowMainThreadQueries()
                                 .build()
                         }
-                        val productDao = room?.productDao()
+                        val staffDao = room?.staffDao()
 
                         val id: TextView = viewHolder.tvId
-                        val fullname: TextView? = viewHolder.tvName
+                        val pus: TextView = viewHolder.tvPus
+                        val firstname: TextView? = viewHolder.tvFirstName
+                        val lastname: TextView? = viewHolder.tvLastName
                         val email: TextView? = viewHolder.tvEmail
                         val phone: TextView? = viewHolder.tvPhone
                         val dateHired: TextView? = viewHolder.tvDateHired
@@ -115,17 +121,18 @@ class CustomAdapter(private val dataSet: List<Staff>) :
 
                         val a = Staff(
                             id.text.toString().toInt(),
-                            fullname?.text.toString(),
+                            pus.text.toString(),
+                            firstname?.text.toString(),
+                            lastname?.text.toString(),
                             email?.text.toString(),
                             phone?.text.toString(),
                             dateHired?.text.toString(),
                             location?.text.toString(),
-                            jobTitle?.text.toString(),
-                            unitAs?.text.toString()
+                            jobTitle?.text.toString()
                         )
-                        room?.productDao()?.delete(a)
+                        room?.staffDao()?.delete(a)
 
-                        val arr = productDao?.getAll()
+                        val arr = staffDao?.getAll()
                         val adapter = arr?.let { CustomAdapter(it) }
                         ViewStaff.recyclerView.setHasFixedSize(false)
                         ViewStaff.recyclerView.adapter = adapter
@@ -139,16 +146,17 @@ class CustomAdapter(private val dataSet: List<Staff>) :
 
                     }
                     R.id.menu_update -> {
-                        Deets.upId = viewHolder.tvId.text.toString()
-                        Deets.upBarcode = viewHolder.tvBarcode?.text.toString()
-                        Deets.upName = viewHolder.tv_name?.text.toString()
-                        Deets.upStockQty = viewHolder.tv_stockQty?.text.toString()
-                        Deets.upPrice = viewHolder.tv_price?.text.toString()
-                        Deets.upCategory = viewHolder.tv_category?.text.toString()
-                        Deets.upUnit = viewHolder.tv_unit?.text.toString()
-                        Deets.upUnitAs = viewHolder.tv_unit_as?.text.toString()
+                        Deets.upIdProduct = viewHolder.tvId.text.toString()
+                        Deets.upPus = viewHolder.tvPus.text.toString()
+                        Deets.upFirst = viewHolder.tvFirstName?.text.toString()
+                        Deets.upLast = viewHolder.tvLastName?.text.toString()
+                        Deets.upEmail = viewHolder.tvEmail?.text.toString()
+                        Deets.upPhone = viewHolder.tvPhone?.text.toString()
+                        Deets.upDateHired = viewHolder.tvDateHired?.text.toString()
+                        Deets.upLocation = viewHolder.tvLocation?.text.toString()
+                        Deets.upJobTitle = viewHolder.tvJobTitle?.text.toString()
 
-                        val intent = Intent(view.context, UpdateProduct::class.java)
+                        val intent = Intent(view.context, UpdateStaff::class.java)
                         view.context.startActivity(intent)
 
                     }
@@ -167,13 +175,14 @@ class CustomAdapter(private val dataSet: List<Staff>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.tvId?.text = dataSet[position]?.id?.toString()
-        viewHolder.tvName?.text = dataSet[position]?.firstName?.toString()
-        viewHolder.tv_name?.text = dataSet[position]?.name?.toString()
-        viewHolder.tv_stockQty?.text = dataSet[position]?.stockQty?.toString()
-        viewHolder.tv_price?.text = dataSet[position]?.price?.toString()
-        viewHolder.tv_category?.text = dataSet[position]?.category?.toString()
-        viewHolder.tv_unit?.text = dataSet[position]?.unit?.toString()
-        viewHolder.tv_unit_as?.text = dataSet[position]?.unit_as?.toString()
+        viewHolder.tvPus?.text = dataSet[position]?.password?.toString()
+        viewHolder.tvFirstName?.text = dataSet[position]?.firstName?.toString()
+        viewHolder.tvLastName?.text = dataSet[position]?.lastName?.toString()
+        viewHolder.tvEmail?.text = dataSet[position]?.email?.toString()
+        viewHolder.tvPhone?.text = dataSet[position]?.phoneNumber?.toString()
+        viewHolder.tvDateHired?.text = dataSet[position]?.dateHired?.toString()
+        viewHolder.tvLocation?.text = dataSet[position]?.location?.toString()
+        viewHolder.tvJobTitle?.text = dataSet[position]?.jobTitle?.toString()
 
     }
 
