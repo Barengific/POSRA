@@ -58,7 +58,7 @@ class UpdateProduct : AppCompatActivity() {
         binding.tvUnitAs.editText?.setText(Deets.upUnitAs)
 
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav.selectedItemId = R.id.nav_update
+//        bottomNav.selectedItemId = R.id.nav_update
         bottomNav.setOnItemSelectedListener { menuItem ->
             if (menuItem.itemId == R.id.nav_home) {
                 val intent = Intent(this, HomeActivity::class.java)
@@ -73,14 +73,6 @@ class UpdateProduct : AppCompatActivity() {
             else if(menuItem.itemId == R.id.nav_view)  {
                 val intent = Intent(this, ViewProduct::class.java)
                 startActivity(intent)
-                true
-            }
-            else if(menuItem.itemId == R.id.nav_remove)  {
-                val intent = Intent(this, RemoveProduct::class.java)
-                startActivity(intent)
-                true
-            }
-            else if(menuItem.itemId == R.id.nav_update)  {
                 true
             }
             else  {
