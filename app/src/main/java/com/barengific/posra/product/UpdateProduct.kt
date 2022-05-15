@@ -6,6 +6,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.*
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -48,6 +49,13 @@ class UpdateProduct : AppCompatActivity() {
         binding = UpdateProductActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvBarcode.editText?.setText(Deets.upBarcode)
+        binding.tvName.editText?.setText(Deets.upName)
+        binding.tvStockQty.editText?.setText(Deets.upStockQty)
+        binding.tvPrice.editText?.setText(Deets.upPrice)
+        binding.ddCateFilled.setText(Deets.upCategory)
+        binding.ddUnitFilled.setText(Deets.upUnit)
+        binding.tvUnitAs.editText?.setText(Deets.upUnitAs)
 
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_update
@@ -91,12 +99,12 @@ class UpdateProduct : AppCompatActivity() {
         val productDAO = room.productDao()
 
 //        //recycle view
-//        val arr = productDAO.getAll()
-//        val adapter = CustomAdapter(arr)
-//        recyclerView = binding.rvAddProduct
-//        recyclerView.setHasFixedSize(false)
-//        recyclerView.adapter = adapter
-//        recyclerView.layoutManager = LinearLayoutManager(this)
+        val arr = productDAO.getAll()
+        val adapter = CustomAdapter(arr)
+        recyclerView = binding.rvAddProduct
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 //
 //        binding.tvBarcode.editText?.setText(Deets.bc_value)
 //
@@ -125,18 +133,18 @@ class UpdateProduct : AppCompatActivity() {
 //            //TODO check for duplicates
 //        }
 //
-//        var linesCate = resources.getStringArray(R.array.dd_cate).toList()
-//        var adapterDDCate = ArrayAdapter(this, R.layout.dd_layout, linesCate)
-//        binding.ddCateFilled.setAdapter(adapterDDCate)
+        var linesCate = resources.getStringArray(R.array.dd_cate).toList()
+        var adapterDDCate = ArrayAdapter(this, R.layout.dd_layout, linesCate)
+        binding.ddCateFilled.setAdapter(adapterDDCate)
+
+        var linesUnit = resources.getStringArray(R.array.dd_unit).toList()
+        var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
+        binding.ddUnitFilled.setAdapter(adapterDDUnit)
 //
-//        var linesUnit = resources.getStringArray(R.array.dd_unit).toList()
-//        var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
-//        binding.ddUnitFilled.setAdapter(adapterDDUnit)
-//
-//        binding.tvBarcode.setEndIconOnClickListener {
-//            val intent = Intent(this, CamActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding.tvBarcode.setEndIconOnClickListener {
+            val intent = Intent(this, CamActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
