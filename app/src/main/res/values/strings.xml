@@ -30,6 +30,7 @@
     <string name="productRemove">Product Remove</string>
     <string name="remove_by">Remove By</string>
     <string name="btnUpdate">Update</string>
+    <string name="staffSearch">Staff Search</string>
 
     <string-array name="dd_cate">
         <item>Dairy</item>
