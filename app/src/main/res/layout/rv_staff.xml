@@ -20,11 +20,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_full_name"
-            android:layout_width="210dp"
+            android:id="@+id/tv_first_name"
+            android:layout_width="110dp"
             android:layout_height="24dp"
-            android:text="firstname_lastname___________-"
+            android:text="firstname___________-"
             app:layout_constraintStart_toEndOf="@+id/tv_id_staff"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_last_name"
+            android:layout_width="110dp"
+            android:layout_height="24dp"
+            android:text="lastname___________-"
+            app:layout_constraintStart_toEndOf="@+id/tv_first_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -32,7 +40,7 @@
             android:layout_width="80dp"
             android:layout_height="24dp"
             android:text="phone_____-"
-            app:layout_constraintStart_toEndOf="@+id/tv_full_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_last_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -51,7 +59,7 @@
             android:layout_marginTop="10dp"
             android:text="email________________________-"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
 
         <TextView
             android:id="@+id/tv_date_hired"
@@ -60,7 +68,7 @@
             android:layout_marginTop="10dp"
             android:text="date_____-"
             app:layout_constraintStart_toEndOf="@+id/tv_email"
-            app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
 
         <TextView
             android:id="@+id/tv_location"
@@ -69,7 +77,7 @@
             android:layout_marginTop="10dp"
             android:text="location_-"
             app:layout_constraintStart_toEndOf="@+id/tv_date_hired"
-            app:layout_constraintTop_toBottomOf="@+id/tv_full_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
 
         <TextView
             android:id="@+id/tv_job_title"
@@ -78,8 +86,14 @@
             android:layout_marginTop="10dp"
             android:text="jobtitle_-"
             app:layout_constraintStart_toEndOf="@+id/tv_location"
-            app:layout_constraintTop_toBottomOf="@+id/tv_full_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_first_name"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvPus"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="" />
 
 </FrameLayout>
