@@ -398,16 +398,18 @@ class ViewProduct : AppCompatActivity() {
                                 unitAs?.text.toString()
                             )
                             room?.productDao()?.delete(a)
-                            val arrr = Deets.arrr
 
-                            val adapter = arrr?.let { CustomAdapter(it) }
-
+                            val arr = productDao?.getAll()
+                            val adapter = arr?.let { CustomAdapter(it) }
                             recyclerView.setHasFixedSize(false)
                             recyclerView.adapter = adapter
-                            recyclerView.layoutManager =
-                                LinearLayoutManager(view?.context)
+                            recyclerView.layoutManager = LinearLayoutManager(instance)
+
+                            ViewProduct.instance?.runOnUiThread {
+                                adapter?.notifyDataSetChanged()
+                            }
+
                             room?.close()
-//                        Log.d("aaa menu", "DDDelete")
 
                         }
 
