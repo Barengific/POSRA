@@ -6,7 +6,6 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.*
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -208,7 +207,7 @@ class UpdateProduct : AppCompatActivity() {
 
                 val popup = PopupMenu(wrapper, viewHolder.ivMore)
                 //inflating menu from xml resource
-                popup.inflate(R.menu.rv_basket_context_menu)
+                popup.inflate(R.menu.rv_context_menu)
                 //adding click listener
                 popup.setOnMenuItemClickListener { item ->
                     when (item.itemId) {
