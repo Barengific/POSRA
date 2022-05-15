@@ -209,7 +209,7 @@ class AddProduct : AppCompatActivity() {
 
                 val popup = PopupMenu(wrapper, viewHolder.ivMore)
                 //inflating menu from xml resource
-                popup.inflate(R.menu.rv_basket_context_menu)
+                popup.inflate(R.menu.rv_context_menu)
                 //adding click listener
                 popup.setOnMenuItemClickListener { item ->
                     when (item.itemId) {
