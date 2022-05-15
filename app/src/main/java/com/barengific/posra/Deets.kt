@@ -6,7 +6,7 @@ class Deets {
         var bc_value = ""
 
         //update product row
-        var upId = ""
+        var upIdProduct = ""
         var upBarcode = ""
         var upName = ""
         var upStockQty = ""
@@ -14,5 +14,16 @@ class Deets {
         var upCategory = ""
         var upUnit = ""
         var upUnitAs = ""
+
+        //update staff row
+        var upIdStaff = ""
+        var upPus = ""
+        var upFirst = ""
+        var upLast = ""
+        var upEmail = ""
+        var upPhone = ""
+        var upDateHired = ""
+        var upLocation = ""
+        var upJobTitle = ""
     }
 }
