@@ -108,9 +108,9 @@ class UpdateProduct : AppCompatActivity() {
 //
 //        binding.tvBarcode.editText?.setText(Deets.bc_value)
 //
-//        binding.btnSave.setOnClickListener {
+        binding.btnUpdate.setOnClickListener {
 //            val aa = Product(
-//                0,
+//                Deets.upId.toInt(),
 //                binding.tvBarcode.editText?.text.toString(),
 //                binding.tvName.editText?.text.toString(),
 //                binding.tvStockQty.editText?.text.toString(),
@@ -119,7 +119,16 @@ class UpdateProduct : AppCompatActivity() {
 //                binding.ddUnit.editText?.text.toString(),
 //                binding.tvUnitAs.editText?.text.toString()
 //            )
-//            productDAO.insertAll(aa)
+            productDAO.update(Deets.upId, binding.tvBarcode.editText?.text.toString(),
+                binding.tvName.editText?.text.toString(),
+                binding.tvStockQty.editText?.text.toString(),
+                binding.tvPrice.editText?.text.toString(),
+                binding.ddCate.editText?.text.toString(),
+                binding.ddUnit.editText?.text.toString(),
+                binding.tvUnitAs.editText?.text.toString())
+
+            val intent = Intent(this, ViewProduct::class.java)
+            startActivity(intent)
 //
 //            val arrr = productDAO.getAll()
 //            val adapter = CustomAdapter(arrr)
@@ -130,8 +139,7 @@ class UpdateProduct : AppCompatActivity() {
 //            runOnUiThread {
 //                adapter.notifyDataSetChanged()
 //            }
-//            //TODO check for duplicates
-//        }
+        }
 //
         var linesCate = resources.getStringArray(R.array.dd_cate).toList()
         var adapterDDCate = ArrayAdapter(this, R.layout.dd_layout, linesCate)
