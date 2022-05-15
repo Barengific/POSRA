@@ -51,30 +51,30 @@ class RemoveProduct : AppCompatActivity() {
 
 
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav.selectedItemId = R.id.nav_remove
-        bottomNav.setOnItemSelectedListener { menuItem ->
-            if (menuItem.itemId == R.id.nav_home) {
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                false
-            } else if (menuItem.itemId == R.id.nav_add) {
-                val intent = Intent(this, AddProduct::class.java)
-                startActivity(intent)
-                false
-            } else if (menuItem.itemId == R.id.nav_view) {
-                val intent = Intent(this, ViewProduct::class.java)
-                startActivity(intent)
-                true
-            } else if (menuItem.itemId == R.id.nav_remove) {
-                true
-            } else if (menuItem.itemId == R.id.nav_update) {
-                val intent = Intent(this, UpdateProduct::class.java)
-                startActivity(intent)
-                true
-            } else {
-                true
-            }
-        }
+//        bottomNav.selectedItemId = R.id.nav_remove
+//        bottomNav.setOnItemSelectedListener { menuItem ->
+//            if (menuItem.itemId == R.id.nav_home) {
+//                val intent = Intent(this, HomeActivity::class.java)
+//                startActivity(intent)
+//                false
+//            } else if (menuItem.itemId == R.id.nav_add) {
+//                val intent = Intent(this, AddProduct::class.java)
+//                startActivity(intent)
+//                false
+//            } else if (menuItem.itemId == R.id.nav_view) {
+//                val intent = Intent(this, ViewProduct::class.java)
+//                startActivity(intent)
+//                true
+//            } else if (menuItem.itemId == R.id.nav_remove) {
+//                true
+//            } else if (menuItem.itemId == R.id.nav_update) {
+//                val intent = Intent(this, UpdateProduct::class.java)
+//                startActivity(intent)
+//                true
+//            } else {
+//                true
+//            }
+//        }
 
         var linesUnit = resources.getStringArray(R.array.dd_product_search).toList()
         var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
