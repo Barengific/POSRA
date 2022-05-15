@@ -111,7 +111,7 @@ class UpdateProduct : AppCompatActivity() {
 //                binding.ddUnit.editText?.text.toString(),
 //                binding.tvUnitAs.editText?.text.toString()
 //            )
-            productDAO.update(Deets.upId, binding.tvBarcode.editText?.text.toString(),
+            productDAO.update(Deets.upIdProduct, binding.tvBarcode.editText?.text.toString(),
                 binding.tvName.editText?.text.toString(),
                 binding.tvStockQty.editText?.text.toString(),
                 binding.tvPrice.editText?.text.toString(),
