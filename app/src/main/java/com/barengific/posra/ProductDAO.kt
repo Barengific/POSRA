@@ -31,6 +31,9 @@ interface ProductDAO {
     @Query("SELECT * FROM product WHERE unit LIKE '%' || :k || '%'")
     fun findByUnit(k: String): List<Product>
 
+    @Query("UPDATE product SET barcode = :barcode WHERE id = :i")
+    fun update(i: String, barcode: String, name: String, stockQty: String, price: String, category: String, unit: String, unitas: String ): List<Product>
+
     @Insert
     fun insertAll(vararg products: Product)
 
