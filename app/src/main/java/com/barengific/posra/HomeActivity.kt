@@ -28,6 +28,9 @@ class HomeActivity : AppCompatActivity() {
         binding = HomeActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide();
+        actionBar?.hide();
+
         binding.btnServeCustomer.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
 //        intent.putExtra("barcodeSca", message)
