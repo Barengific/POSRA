@@ -251,7 +251,8 @@ class UpdateProduct : AppCompatActivity() {
                                 price?.text.toString(),
                                 category?.text.toString(),
                                 unit?.text.toString(),
-                                unitAs?.text.toString()
+                                unitAs?.text.toString(),
+                                AddProduct.imageString
                             )
                             room?.productDao()?.delete(a)
                             val arrr = Deets.arrr
