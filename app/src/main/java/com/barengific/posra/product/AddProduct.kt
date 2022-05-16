@@ -5,7 +5,9 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
@@ -27,6 +29,7 @@ import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import java.io.ByteArrayOutputStream
 
+
 class AddProduct : AppCompatActivity() {
     companion object {
         var mediaPlayer: MediaPlayer? = null
@@ -38,10 +41,27 @@ class AddProduct : AppCompatActivity() {
             Companion.pos = pos
         }
 
+        var imageString = ""
+        var imageBitmap: Bitmap? = null
         private var instance: AddProduct? = null
 
         fun applicationContext(): Context {
             return instance!!.applicationContext
+        }
+
+        fun encodeImage(bm: Bitmap): String? {
+            val baos = ByteArrayOutputStream()
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val b = baos.toByteArray()
+            imageString = Base64.encodeToString(b, Base64.DEFAULT)
+            return Base64.encodeToString(b, Base64.DEFAULT)
+        }
+
+        fun decodeImage(bm: String): Bitmap? {
+            val decodedString: ByteArray = Base64.decode(bm, Base64.DEFAULT)
+            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+            imageBitmap = decodedByte
+            return decodedByte
         }
     }
 
@@ -105,7 +125,8 @@ class AddProduct : AppCompatActivity() {
                 binding.tvPrice.editText?.text.toString(),
                 binding.ddCate.editText?.text.toString(),
                 binding.ddUnit.editText?.text.toString(),
-                binding.tvUnitAs.editText?.text.toString()
+                binding.tvUnitAs.editText?.text.toString(),
+                imageString
             )
             productDAO.insertAll(aa)
 
@@ -167,6 +188,7 @@ class AddProduct : AppCompatActivity() {
 //            binding.imageView.setImageBitmap(newBitmap)
 //            imgg(newBitmap)
             binding.imageView.setImageBitmap(newBitmap)
+            newBitmap?.let { encodeImage(it) }
         }
     }
 
@@ -192,14 +214,21 @@ class AddProduct : AppCompatActivity() {
         return resizedBitmap
     }
 
-    private fun encodeImage(bm: Bitmap): String? {
+    fun encodeImage(bm: Bitmap): String? {
         val baos = ByteArrayOutputStream()
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val b = baos.toByteArray()
+        val str: String = Base64.encodeToString(b, Base64.DEFAULT)
+
+        binding.tvUnitAs.editText?.setText(str.length.toString())
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    fun String.base64ToByteCode() = Base64.decode(this.substring(this.indexOf(",")  + 1), Base64.DEFAULT)
+    fun decodeImage(bm: String): Bitmap? {
+        val decodedString: ByteArray = Base64.decode(bm, Base64.DEFAULT)
+        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        return decodedByte
+    }
 
 
     class CustomAdapter(private val dataSet: List<Product>) :
@@ -208,6 +237,7 @@ class AddProduct : AppCompatActivity() {
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
             View.OnCreateContextMenuListener {
             var ivMore: ImageView
+            var ivItem: ImageView
 
             @SuppressLint("ResourceType")
             override fun onCreateContextMenu(
@@ -230,6 +260,7 @@ class AddProduct : AppCompatActivity() {
 
             init {
                 ivMore = view.findViewById(R.id.ivMore) as ImageView
+                ivItem = view.findViewById(R.id.ivItem) as ImageView
                 view.setOnCreateContextMenuListener(this)
 
                 // Define click listener for the ViewHolder's View.
@@ -292,6 +323,7 @@ class AddProduct : AppCompatActivity() {
                             val category: TextView? = viewHolder.tv_category
                             val unit: TextView? = viewHolder.tv_unit
                             val unitAs: TextView? = viewHolder.tv_unit_as
+                            val ivItem: ImageView? = viewHolder.ivItem
 
                             val a = Product(
                                 id.text.toString().toInt(),
@@ -301,7 +333,8 @@ class AddProduct : AppCompatActivity() {
                                 price?.text.toString(),
                                 category?.text.toString(),
                                 unit?.text.toString(),
-                                unitAs?.text.toString()
+                                unitAs?.text.toString(),
+                                encodeImage((ivItem?.drawable as BitmapDrawable).bitmap)
                             )
                             room?.productDao()?.delete(a)
                             val arrr = Deets.arrr
@@ -338,6 +371,7 @@ class AddProduct : AppCompatActivity() {
             viewHolder.tv_category?.text = dataSet[position].category.toString()
             viewHolder.tv_unit?.text = dataSet[position].unit.toString()
             viewHolder.tv_unit_as?.text = dataSet[position].unit_as.toString()
+            viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { decodeImage(it) })
 
         }
 
