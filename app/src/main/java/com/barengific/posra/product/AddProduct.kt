@@ -145,12 +145,12 @@ class AddProduct : AppCompatActivity() {
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 //        takePictureIntent.type = "image/*";
-        takePictureIntent.putExtra("crop", "true");
-        takePictureIntent.putExtra("outputX", 150);
-        takePictureIntent.putExtra("outputY", 150);
-        takePictureIntent.putExtra("aspectX", 1);
-        takePictureIntent.putExtra("aspectY", 1);
-        takePictureIntent.putExtra("scale", true);
+//        takePictureIntent.putExtra("crop", "true");
+//        takePictureIntent.putExtra("outputX", 150);
+//        takePictureIntent.putExtra("outputY", 150);
+//        takePictureIntent.putExtra("aspectX", 1);
+//        takePictureIntent.putExtra("aspectY", 1);
+//        takePictureIntent.putExtra("scale", true);
         try {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         } catch (e: ActivityNotFoundException) {
@@ -165,11 +165,13 @@ class AddProduct : AppCompatActivity() {
             // display error state to the user
             val newBitmap: Bitmap? = getResizedBitmap(imageBitmap, 100,100)
 //            binding.imageView.setImageBitmap(newBitmap)
-            imgg(newBitmap)
+//            imgg(newBitmap)
+            binding.imageView.setImageBitmap(newBitmap)
         }
     }
+
     fun imgg(aa: Bitmap?){
-        binding.imageView.setImageBitmap(aa)
+
     }
 
     fun getResizedBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap? {
@@ -196,6 +198,8 @@ class AddProduct : AppCompatActivity() {
         val b = baos.toByteArray()
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
+
+    fun String.base64ToByteCode() = Base64.decode(this.substring(this.indexOf(",")  + 1), Base64.DEFAULT)
 
 
     class CustomAdapter(private val dataSet: List<Product>) :
