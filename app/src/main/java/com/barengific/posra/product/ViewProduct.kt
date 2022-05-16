@@ -56,6 +56,9 @@ class ViewProduct : AppCompatActivity() {
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_view
 
+        supportActionBar?.hide();
+        actionBar?.hide();
+
         bottomNav.setOnItemSelectedListener { menuItem ->
             if (menuItem.itemId == R.id.nav_home) {
                 val intent = Intent(this, HomeActivity::class.java)
