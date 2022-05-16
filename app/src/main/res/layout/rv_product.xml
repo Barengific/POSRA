@@ -67,6 +67,7 @@
             app:layout_constraintStart_toEndOf="@+id/ivItem"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="5dp"
             app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
         <TextView
