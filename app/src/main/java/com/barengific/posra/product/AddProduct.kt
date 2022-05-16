@@ -22,9 +22,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.barengific.posra.*
+import com.barengific.posra.MainActivity.Utilsz.context
 import com.barengific.posra.databinding.AddProductActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.squareup.picasso.Picasso
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import java.io.ByteArrayOutputStream
@@ -371,7 +373,22 @@ class AddProduct : AppCompatActivity() {
             viewHolder.tv_category?.text = dataSet[position].category.toString()
             viewHolder.tv_unit?.text = dataSet[position].unit.toString()
             viewHolder.tv_unit_as?.text = dataSet[position].unit_as.toString()
+
+
+            val imageVieee: Bitmap? = dataSet[position].image?.let { decodeImage(it) }
             viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { decodeImage(it) })
+            viewHolder.ivItem.setImageBitmap(imageVieee)
+
+            viewHolder.ivItem.setImageBitmap(imageVieee)
+
+
+            val qwe = viewHolder.ivItem
+//
+//            val ivBasicImage = findViewById(R.id.ivBasicImage) as ImageView
+//            Picasso.get().load(imageVieee).into(qwe)
+//
+//            val cloth = dataSet[position].image
+//            viewHolder.ivItem.setImageBitmap(cloth.)
 
         }
 
