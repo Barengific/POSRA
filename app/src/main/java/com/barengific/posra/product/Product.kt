@@ -14,5 +14,6 @@ data class Product (
     @ColumnInfo(name = "price") var price: String?,
     @ColumnInfo(name = "category") var category: String?,
     @ColumnInfo(name = "unit") var unit: String?,
-    @ColumnInfo(name = "unit_as") var unit_as: String?
+    @ColumnInfo(name = "unit_as") var unit_as: String?,
+    @ColumnInfo(name = "image") var image: String?
     )
