@@ -12,7 +12,6 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -23,11 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.barengific.posra.*
-import com.barengific.posra.MainActivity.Utilsz.context
 import com.barengific.posra.databinding.AddProductActivityBinding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.squareup.picasso.Picasso
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import java.io.ByteArrayOutputStream
@@ -182,13 +179,8 @@ class AddProduct : AppCompatActivity() {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             val newBitmap: Bitmap? = getResizedBitmap(imageBitmap, 100,100)
 
-            val ien = newBitmap?.let { encodeImage(it) }
-            ien?.let { Log.d("aaaaaaaimg", it) }
-            val ide = ien?.let { decodeImage(it) }
-
-            binding.imageView.setImageBitmap(ide)
+            binding.imageView.setImageBitmap(newBitmap)
             newBitmap?.let { encodeImage(it) }
-
         }
     }
 
@@ -197,12 +189,11 @@ class AddProduct : AppCompatActivity() {
         val height = bm.height
         val scaleWidth = newWidth.toFloat() / width
         val scaleHeight = newHeight.toFloat() / height
-        // CREATE A MATRIX FOR THE MANIPULATION
+
         val matrix = Matrix()
-        // RESIZE THE BIT MAP
+
         matrix.postScale(scaleWidth, scaleHeight)
 
-        // "RECREATE" THE NEW BITMAP
         val resizedBitmap = Bitmap.createBitmap(
             bm, 0, 0, width, height, matrix, false
         )
@@ -227,184 +218,167 @@ class AddProduct : AppCompatActivity() {
         return decodedByte
     }
 
+}
 
-    class CustomAdapter(private val dataSet: List<Product>) :
-        RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val dataSet: List<Product>) :
+    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-        class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
-            View.OnCreateContextMenuListener {
-            var ivMore: ImageView
-            var ivItem: ImageView
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnCreateContextMenuListener {
+        var ivMore: ImageView
+        var ivItem: ImageView
 
-            @SuppressLint("ResourceType")
-            override fun onCreateContextMenu(
-                menu: ContextMenu,
-                v: View?,
-                menuInfo: ContextMenu.ContextMenuInfo?
-            ) {
-                pos = adapterPosition
-                setPosi(layoutPosition)
-            }
-
-            val tvId: TextView
-            val tvBarcode: TextView?
-            val tv_name: TextView?
-            val tv_stockQty: TextView?
-            val tv_price: TextView?
-            val tv_category: TextView?
-            val tv_unit: TextView?
-            val tv_unit_as: TextView?
-
-            init {
-                ivMore = view.findViewById(R.id.ivMore) as ImageView
-                ivItem = view.findViewById(R.id.ivItem) as ImageView
-                view.setOnCreateContextMenuListener(this)
-
-                // Define click listener for the ViewHolder's View.
-                tvId = view.findViewById(R.id.tv_Id)
-                tvBarcode = view.findViewById(R.id.tv_barcode)
-                tv_name = view.findViewById(R.id.tv_name)
-                tv_stockQty = view.findViewById(R.id.tv_stockQty)
-                tv_price = view.findViewById(R.id.tv_price)
-                tv_category = view.findViewById(R.id.tv_category)
-                tv_unit = view.findViewById(R.id.tv_unit)
-                tv_unit_as = view.findViewById(R.id.tv_unit_as)
-            }
-
-        }
-
-        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-            // Create a new view, which defines the UI of the list item
-            val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.rv_product, viewGroup, false)
-
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(
-            viewHolder: ViewHolder,
-            @SuppressLint("RecyclerView") position: Int
+        @SuppressLint("ResourceType")
+        override fun onCreateContextMenu(
+            menu: ContextMenu,
+            v: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
         ) {
-            viewHolder.itemView.setOnLongClickListener {
-                setPosition(viewHolder.layoutPosition)
-                setPosition(viewHolder.adapterPosition)
-                false
-            }
-
-            viewHolder.ivMore.setOnClickListener { view ->
-                val wrapper: Context = ContextThemeWrapper(view?.context, R.style.PopupMenu)
-
-                val popup = PopupMenu(wrapper, viewHolder.ivMore)
-                //inflating menu from xml resource
-                popup.inflate(R.menu.rv_context_menu)
-                //adding click listener
-                popup.setOnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.menu_delete -> {
-                            val passphrase: ByteArray =
-                                net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
-                            val factory = SupportFactory(passphrase)
-                            val room = view?.context?.let {
-                                Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
-                                    .openHelperFactory(factory)
-                                    .allowMainThreadQueries()
-                                    .build()
-                            }
-                            val productDao = room?.productDao()
-
-                            val id: TextView = viewHolder.tvId
-                            val barcode: TextView? = viewHolder.tvBarcode
-                            val name: TextView? = viewHolder.tv_name
-                            val stockQty: TextView? = viewHolder.tv_stockQty
-                            val price: TextView? = viewHolder.tv_price
-                            val category: TextView? = viewHolder.tv_category
-                            val unit: TextView? = viewHolder.tv_unit
-                            val unitAs: TextView? = viewHolder.tv_unit_as
-                            val ivItem: ImageView? = viewHolder.ivItem
-
-                            val a = Product(
-                                id.text.toString().toInt(),
-                                barcode?.text.toString(),
-                                name?.text.toString(),
-                                stockQty?.text.toString(),
-                                price?.text.toString(),
-                                category?.text.toString(),
-                                unit?.text.toString(),
-                                unitAs?.text.toString(),
-                                encodeImage((ivItem?.drawable as BitmapDrawable).bitmap)
-                            )
-                            room?.productDao()?.delete(a)
-                            val arrr = Deets.arrr
-
-                            val adapter = arrr?.let { CustomAdapter(it) }
-
-                            recyclerView.setHasFixedSize(false)
-                            recyclerView.adapter = adapter
-                            recyclerView.layoutManager =
-                                LinearLayoutManager(view?.context)
-                            room?.close()
-//                        Log.d("aaa menu", "DDDelete")
-
-                        }
-
-                        R.id.menu_cancel -> {
-//                        Log.d("aaa menu", "cancel")
-                        }
-
-                    }
-                    true
-                }
-                //displaying the popup
-                popup.show()
-            }
-
-            // Get element from your dataset at this position and replace the
-            // contents of the view with that element
-            viewHolder.tvId.text = dataSet[position].id.toString()
-            viewHolder.tvBarcode?.text = dataSet[position].barcode.toString()
-            viewHolder.tv_name?.text = dataSet[position].name.toString()
-            viewHolder.tv_stockQty?.text = dataSet[position].stockQty.toString()
-            viewHolder.tv_price?.text = dataSet[position].price.toString()
-            viewHolder.tv_category?.text = dataSet[position].category.toString()
-            viewHolder.tv_unit?.text = dataSet[position].unit.toString()
-            viewHolder.tv_unit_as?.text = dataSet[position].unit_as.toString()
-
-
-            val imageVieee: Bitmap? = dataSet[position].image?.let { decodeImage(it) }
-            viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { decodeImage(it) })
-            viewHolder.ivItem.setImageBitmap(imageVieee)
-
-            viewHolder.ivItem.setImageBitmap(imageVieee)
-
-            dataSet[position].image?.let { Log.d("aaaaaaaimg", it) }
-
-
-            val qwe = viewHolder.ivItem
-//
-//            val ivBasicImage = findViewById(R.id.ivBasicImage) as ImageView
-//            Picasso.get().load(imageVieee).into(qwe)
-//
-//            val cloth = dataSet[position].image
-//            viewHolder.ivItem.setImageBitmap(cloth.)
-
+            AddProduct.pos = adapterPosition
+            AddProduct.setPosi(layoutPosition)
         }
 
-        override fun onViewRecycled(holder: ViewHolder) {
-            holder.itemView.setOnLongClickListener(null)
-            super.onViewRecycled(holder)
-        }
+        val tvId: TextView
+        val tvBarcode: TextView?
+        val tv_name: TextView?
+        val tv_stockQty: TextView?
+        val tv_price: TextView?
+        val tv_category: TextView?
+        val tv_unit: TextView?
+        val tv_unit_as: TextView?
 
-        override fun getItemCount() = dataSet.size
+        init {
+            ivMore = view.findViewById(R.id.ivMore) as ImageView
+            ivItem = view.findViewById(R.id.ivItem) as ImageView
+            view.setOnCreateContextMenuListener(this)
 
-        private var position: Int = 0
-
-//    fun getPosition(): Int {
-//        return position
-//    }
-
-        private fun setPosition(position: Int) {
-            this.position = position
+            // Define click listener for the ViewHolder's View.
+            tvId = view.findViewById(R.id.tv_Id)
+            tvBarcode = view.findViewById(R.id.tv_barcode)
+            tv_name = view.findViewById(R.id.tv_name)
+            tv_stockQty = view.findViewById(R.id.tv_stockQty)
+            tv_price = view.findViewById(R.id.tv_price)
+            tv_category = view.findViewById(R.id.tv_category)
+            tv_unit = view.findViewById(R.id.tv_unit)
+            tv_unit_as = view.findViewById(R.id.tv_unit_as)
         }
 
     }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        // Create a new view, which defines the UI of the list item
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.rv_product, viewGroup, false)
+
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(
+        viewHolder: ViewHolder,
+        @SuppressLint("RecyclerView") position: Int
+    ) {
+        viewHolder.itemView.setOnLongClickListener {
+            setPosition(viewHolder.layoutPosition)
+            setPosition(viewHolder.adapterPosition)
+            false
+        }
+
+        viewHolder.ivMore.setOnClickListener { view ->
+            val wrapper: Context = ContextThemeWrapper(view?.context, R.style.PopupMenu)
+
+            val popup = PopupMenu(wrapper, viewHolder.ivMore)
+            //inflating menu from xml resource
+            popup.inflate(R.menu.rv_context_menu)
+            //adding click listener
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_delete -> {
+                        val passphrase: ByteArray =
+                            net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+                        val factory = SupportFactory(passphrase)
+                        val room = view?.context?.let {
+                            Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
+                                .openHelperFactory(factory)
+                                .allowMainThreadQueries()
+                                .build()
+                        }
+                        val productDao = room?.productDao()
+
+                        val id: TextView = viewHolder.tvId
+                        val barcode: TextView? = viewHolder.tvBarcode
+                        val name: TextView? = viewHolder.tv_name
+                        val stockQty: TextView? = viewHolder.tv_stockQty
+                        val price: TextView? = viewHolder.tv_price
+                        val category: TextView? = viewHolder.tv_category
+                        val unit: TextView? = viewHolder.tv_unit
+                        val unitAs: TextView? = viewHolder.tv_unit_as
+                        val ivItem: ImageView? = viewHolder.ivItem
+
+                        val a = Product(
+                            id.text.toString().toInt(),
+                            barcode?.text.toString(),
+                            name?.text.toString(),
+                            stockQty?.text.toString(),
+                            price?.text.toString(),
+                            category?.text.toString(),
+                            unit?.text.toString(),
+                            unitAs?.text.toString(),
+                            AddProduct.encodeImage((ivItem?.drawable as BitmapDrawable).bitmap)
+                        )
+                        room?.productDao()?.delete(a)
+                        val arrr = Deets.arrr
+
+                        val adapter = arrr?.let { CustomAdapter(it) }
+
+                        AddProduct.recyclerView.setHasFixedSize(false)
+                        AddProduct.recyclerView.adapter = adapter
+                        AddProduct.recyclerView.layoutManager =
+                            LinearLayoutManager(view?.context)
+                        room?.close()
+//                        Log.d("aaa menu", "DDDelete")
+
+                    }
+
+                    R.id.menu_cancel -> {
+//                        Log.d("aaa menu", "cancel")
+                    }
+
+                }
+                true
+            }
+            //displaying the popup
+            popup.show()
+        }
+
+        // Get element from your dataset at this position and replace the
+        // contents of the view with that element
+        viewHolder.tvId.text = dataSet[position].id.toString()
+        viewHolder.tvBarcode?.text = dataSet[position].barcode.toString()
+        viewHolder.tv_name?.text = dataSet[position].name.toString()
+        viewHolder.tv_stockQty?.text = dataSet[position].stockQty.toString()
+        viewHolder.tv_price?.text = dataSet[position].price.toString()
+        viewHolder.tv_category?.text = dataSet[position].category.toString()
+        viewHolder.tv_unit?.text = dataSet[position].unit.toString()
+        viewHolder.tv_unit_as?.text = dataSet[position].unit_as.toString()
+        viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { AddProduct.decodeImage(it) })
+
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        holder.itemView.setOnLongClickListener(null)
+        super.onViewRecycled(holder)
+    }
+
+    override fun getItemCount() = dataSet.size
+
+    private var position: Int = 0
+
+    fun getPosition(): Int {
+        return position
+    }
+
+    private fun setPosition(position: Int) {
+        this.position = position
+    }
+
 }
