@@ -15,11 +15,11 @@
 
         <ImageView
             android:id="@+id/ivItem"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_unit_as"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
 
@@ -48,16 +48,6 @@
             android:text="name_______________-"
             app:layout_constraintStart_toEndOf="@+id/tv_barcode"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_stockQty"
-            android:layout_width="50dp"
-            android:layout_height="24dp"
-            android:text="qty__-"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_category"/>
 
         <ImageView
             android:id="@+id/ivMore"
@@ -99,13 +89,23 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_barcode" />
 
         <TextView
+            android:id="@+id/tv_stockQty"
+            android:layout_width="50dp"
+            android:layout_height="24dp"
+            android:text="qty__-"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category"/>
+
+        <TextView
             android:id="@+id/tv_price"
             android:layout_width="60dp"
             android:layout_height="24dp"
             android:layout_marginTop="10dp"
             android:text="price_-"
-            app:layout_constraintStart_toEndOf="@+id/tv_unit_as"
-            app:layout_constraintTop_toBottomOf="@+id/tv_barcode" />
+            app:layout_constraintStart_toEndOf="@+id/tv_stockQty"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
