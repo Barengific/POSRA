@@ -49,6 +49,9 @@ class UpdateProduct : AppCompatActivity() {
         binding = UpdateProductActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide();
+        actionBar?.hide();
+
         binding.tvBarcode.editText?.setText(Deets.upBarcode)
         binding.tvName.editText?.setText(Deets.upName)
         binding.tvStockQty.editText?.setText(Deets.upStockQty)
