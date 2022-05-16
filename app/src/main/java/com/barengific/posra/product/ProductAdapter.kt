@@ -120,6 +120,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
                             AddProduct.encodeImage((ivItem?.drawable as BitmapDrawable).bitmap)
                         )
                         room?.productDao()?.delete(a)
+
                         val arrr = Deets.arrProduct
 
                         val adapter = ProductAdapter(arrr)
