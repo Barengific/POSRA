@@ -12,6 +12,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -167,13 +168,6 @@ class AddProduct : AppCompatActivity() {
 
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        takePictureIntent.type = "image/*";
-//        takePictureIntent.putExtra("crop", "true");
-//        takePictureIntent.putExtra("outputX", 150);
-//        takePictureIntent.putExtra("outputY", 150);
-//        takePictureIntent.putExtra("aspectX", 1);
-//        takePictureIntent.putExtra("aspectY", 1);
-//        takePictureIntent.putExtra("scale", true);
         try {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         } catch (e: ActivityNotFoundException) {
@@ -184,18 +178,18 @@ class AddProduct : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            // display error state to the user
             val newBitmap: Bitmap? = getResizedBitmap(imageBitmap, 100,100)
-//            binding.imageView.setImageBitmap(newBitmap)
-//            imgg(newBitmap)
-            binding.imageView.setImageBitmap(newBitmap)
+
+            val ien = newBitmap?.let { encodeImage(it) }
+            ien?.let { Log.d("aaaaaaaimg", it) }
+            val ide = ien?.let { decodeImage(it) }
+
+            binding.imageView.setImageBitmap(ide)
             newBitmap?.let { encodeImage(it) }
+
         }
-    }
-
-    fun imgg(aa: Bitmap?){
-
     }
 
     fun getResizedBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap? {
@@ -221,7 +215,7 @@ class AddProduct : AppCompatActivity() {
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val b = baos.toByteArray()
         val str: String = Base64.encodeToString(b, Base64.DEFAULT)
-
+        imageString = Base64.encodeToString(b, Base64.DEFAULT)
         binding.tvUnitAs.editText?.setText(str.length.toString())
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
@@ -229,6 +223,7 @@ class AddProduct : AppCompatActivity() {
     fun decodeImage(bm: String): Bitmap? {
         val decodedString: ByteArray = Base64.decode(bm, Base64.DEFAULT)
         val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        imageBitmap = decodedByte
         return decodedByte
     }
 
@@ -380,6 +375,8 @@ class AddProduct : AppCompatActivity() {
             viewHolder.ivItem.setImageBitmap(imageVieee)
 
             viewHolder.ivItem.setImageBitmap(imageVieee)
+
+            dataSet[position].image?.let { Log.d("aaaaaaaimg", it) }
 
 
             val qwe = viewHolder.ivItem
