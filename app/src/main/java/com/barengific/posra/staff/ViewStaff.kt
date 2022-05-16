@@ -31,7 +31,6 @@ class ViewStaff : AppCompatActivity() {
     lateinit var bottomNav: BottomNavigationView
 
     companion object {
-        var mediaPlayer: MediaPlayer? = null
         var pos: Int = 0
         lateinit var recyclerView: RecyclerView
         var posis: MutableList<Int> = mutableListOf(-1)
@@ -54,6 +53,9 @@ class ViewStaff : AppCompatActivity() {
 
         binding = ViewStaffActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.hide();
+        actionBar?.hide();
 
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_view
