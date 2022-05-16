@@ -1,8 +1,13 @@
 package com.barengific.posra
 
+import com.barengific.posra.product.Product
+import com.barengific.posra.staff.Staff
+
 class Deets {
     companion object{
-        var arrr: MutableList<Basket> = mutableListOf(Basket(0, "", "", "", ""))
+        var arrBasket: MutableList<Basket> = mutableListOf(Basket(0, "", "", "", ""))
+        var arrProduct: MutableList<Product> = mutableListOf(Product(0, "", "", "", "","","","",""))
+        var arrStaff: MutableList<Staff> = mutableListOf(Staff(0, "", "", "", "","","","",""))
         var bc_value = ""
 
         //update product row
