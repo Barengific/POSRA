@@ -66,81 +66,97 @@
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvStockQty"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:hint="@string/stockQty"
-                android:textSize="20sp"
+            <LinearLayout
+                android:id="@+id/ll_qty_price"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.01"
-                app:startIconDrawable="@drawable/ic_baseline_confirmation_number_24">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="number"
-                    tools:ignore="TextContrastCheck,TextContrastCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:gravity="center">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvPrice"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:hint="@string/price"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvStockQty"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.01"
-                app:startIconDrawable="@drawable/ic_baseline_monetization_on_24">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="numberDecimal"
-                    tools:ignore="TextContrastCheck,TextContrastCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tvStockQty"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:hint="@string/stockQty"
+                    android:textSize="20sp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    app:startIconDrawable="@drawable/ic_baseline_confirmation_number_24">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        tools:ignore="TextContrastCheck,TextContrastCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ddCate"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="55dp"
-                android:hint="@string/category"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPrice"
-                app:layout_constraintVertical_bias="0.01"
-                app:startIconDrawable="@drawable/ic_baseline_view_list_24">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/dd_cate_filled"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tvPrice"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:hint="@string/price"
+                    android:textSize="20sp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    app:startIconDrawable="@drawable/ic_baseline_monetization_on_24">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="numberDecimal"
+                        tools:ignore="TextContrastCheck,TextContrastCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ddUnit"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="55dp"
-                android:hint="@string/Unit"
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_cate_unit"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ddCate"
-                app:layout_constraintVertical_bias="0.01"
-                app:startIconDrawable="@drawable/ic_baseline_view_list_24">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/dd_unit_filled"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@id/ll_qty_price"
+                app:layout_constraintVertical_bias="0.001"
+                android:gravity="center">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ddCate"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="200dp"
+                    android:layout_height="55dp"
+                    android:hint="@string/category"
+                    app:startIconDrawable="@drawable/ic_baseline_view_list_24">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/dd_cate_filled"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ddUnit"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="200dp"
+                    android:layout_height="55dp"
+                    android:hint="@string/Unit"
+                    app:startIconDrawable="@drawable/ic_baseline_view_list_24">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/dd_unit_filled"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tv_unit_as"
@@ -149,7 +165,7 @@
                 android:hint="@string/unitAmount"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ddUnit"
+                app:layout_constraintTop_toBottomOf="@id/ll_cate_unit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.01"
@@ -161,6 +177,17 @@
                     tools:ignore="TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/ic_baseline_camera_alt_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_unit_as"
+                app:layout_constraintVertical_bias="0.01" />
+
             <Button
                 android:id="@+id/btnSave"
                 android:layout_width="0dp"
@@ -171,7 +198,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_unit_as"
+                app:layout_constraintTop_toBottomOf="@id/imageView"
                 app:layout_constraintVertical_bias="0.01" />
 
             <androidx.recyclerview.widget.RecyclerView
