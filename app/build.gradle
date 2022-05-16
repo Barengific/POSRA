@@ -105,4 +105,6 @@ dependencies {
 
     implementation "net.zetetic:android-database-sqlcipher:4.5.0"
     implementation "androidx.sqlite:sqlite-ktx:2.2.0"
+
+    implementation 'com.squareup.picasso:picasso:2.8'
 }
