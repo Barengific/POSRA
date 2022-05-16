@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         //recycle view
 //        val arr = productDAO.getAll()
-        val adapter = CustomAdapter(Deets.arrr)
+        val adapter = CustomAdapter(Deets.arrBasket)
         recyclerView = findViewById<View>(R.id.rView) as RecyclerView
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = adapter
@@ -232,7 +232,7 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                                 println("aa")
                             }
                             mediaPlayer?.start()
-                            Deets.arrr.add(Basket(0,"2", barcodeValue, "222", "2222"))
+                            Deets.arrBasket.add(Basket(0,"2", barcodeValue, "222", "2222"))
                             val value: String = barcodeValue // or just your string
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -248,7 +248,6 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
         image.close()
     }
 }
-
 
 class CustomAdapter(private val dataSet: MutableList<Basket>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -339,8 +338,8 @@ class CustomAdapter(private val dataSet: MutableList<Basket>) :
                             qty.text.toString(),
                             total.text.toString()
                         )
-                        Deets.arrr.remove(a)
-                        val arrr = Deets.arrr
+                        Deets.arrBasket.remove(a)
+                        val arrr = Deets.arrBasket
 
                         val adapter = arrr?.let { CustomAdapter(it) }
 
