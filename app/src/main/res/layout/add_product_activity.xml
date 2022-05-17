@@ -26,7 +26,7 @@
             tools:layout_editor_absoluteY="-16dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvBarcode"
+                android:id="@+id/tvBarcodes"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:hint="@string/barcode"
@@ -55,7 +55,7 @@
                 android:hint="@string/name"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvBarcode"
+                app:layout_constraintTop_toBottomOf="@id/tvBarcodes"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.01"
