@@ -31,6 +31,8 @@ class Deets {
         var upCategory = ""
         var upUnit = ""
         var upUnitAs = ""
+        var upImage = ""
+        var upImageBitmap: Bitmap? = null
 
         //update staff row
         var upIdStaff = ""
