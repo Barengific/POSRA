@@ -255,7 +255,7 @@ class UpdateProduct : AppCompatActivity() {
                                 AddProduct.imageString
                             )
                             room?.productDao()?.delete(a)
-                            val arrr = Deets.arrr
+                            val arrr = Deets.arrProduct
 
                             val adapter = arrr?.let { CustomAdapter(it) }
 
