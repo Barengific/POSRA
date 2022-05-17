@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -144,6 +145,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
                         Deets.upCategory = viewHolder.tv_category?.text.toString()
                         Deets.upUnit = viewHolder.tv_unit?.text.toString()
                         Deets.upUnitAs = viewHolder.tv_unit_as?.text.toString()
+                        Deets.upImageBitmap = viewHolder.ivItem.drawToBitmap()
 
                         val intent = Intent(view.context, AddProduct::class.java)
                         view.context.startActivity(intent)
