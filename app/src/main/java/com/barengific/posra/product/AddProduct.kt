@@ -76,6 +76,8 @@ class AddProduct : AppCompatActivity() {
         supportActionBar?.hide();
         actionBar?.hide();
 
+        binding.btnSave.text = Deets.btnSaveUpdateState
+
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_add
         bottomNav.setOnItemSelectedListener { menuItem ->
@@ -84,6 +86,7 @@ class AddProduct : AppCompatActivity() {
                 startActivity(intent)
                 false
             } else if (menuItem.itemId == R.id.nav_add) {
+                Deets.btnSaveUpdateState = "SAVE"
                 true
             } else if (menuItem.itemId == R.id.nav_view) {
                 val intent = Intent(this, ViewProduct::class.java)
