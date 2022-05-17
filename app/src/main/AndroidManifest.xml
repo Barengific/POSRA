@@ -57,23 +57,6 @@
         </activity>
 
 
-        <activity
-            android:name=".product.UpdateProduct"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.POSRA">
-        </activity>
-
-
-        <activity
-            android:name=".product.RemoveProduct"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.POSRA">
-        </activity>
-
-
-
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature
