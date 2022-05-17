@@ -15,6 +15,7 @@ class Deets {
         var arrProduct: MutableList<Product> = mutableListOf(Product(0, "", "", "", "","","","",""))
         var arrStaff: MutableList<Staff> = mutableListOf(Staff(0, "", "", "", "","","","",""))
         var bc_value = ""
+        var btnSaveUpdateState = ""
 
         var posProduct: Int = 0
         fun setPosiProduct(pos: Int) {
