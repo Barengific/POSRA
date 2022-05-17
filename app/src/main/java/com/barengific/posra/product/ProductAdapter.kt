@@ -2,6 +2,7 @@ package com.barengific.posra.product
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.view.*
 import android.widget.ImageView
@@ -15,7 +16,6 @@ import com.barengific.posra.Deets
 import com.barengific.posra.R
 import net.sqlcipher.database.SupportFactory
 
-
 class ProductAdapter(private val dataSet: List<Product>) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -28,8 +28,8 @@ class ProductAdapter(private val dataSet: List<Product>) :
         override fun onCreateContextMenu(menu: ContextMenu, v: View?,
             menuInfo: ContextMenu.ContextMenuInfo?
         ) {
-            AddProduct.pos = adapterPosition
-            AddProduct.setPosi(layoutPosition)
+            Deets.posProduct = adapterPosition
+            Deets.setPosiProduct(layoutPosition)
         }
 
         val tvId: TextView
@@ -116,20 +116,35 @@ class ProductAdapter(private val dataSet: List<Product>) :
                             category?.text.toString(),
                             unit?.text.toString(),
                             unitAs?.text.toString(),
-                            AddProduct.encodeImage((ivItem?.drawable as BitmapDrawable).bitmap)
+                            Deets.encodeImage((ivItem?.drawable as BitmapDrawable).bitmap)
                         )
                         room?.productDao()?.delete(a)
 
-                        val arrr = Deets.arrProduct
-
-                        val adapter = ProductAdapter(arrr)
-
-                        AddProduct.recyclerView.setHasFixedSize(false)
-                        AddProduct.recyclerView.adapter = adapter
-                        AddProduct.recyclerView.layoutManager =
+                        val arrr = productDao?.getAll()
+                        val adapter = arrr?.let { ProductAdapter(it) }
+                        Deets.recyclerView.setHasFixedSize(false)
+                        Deets.recyclerView.adapter = adapter
+                        Deets.recyclerView.layoutManager =
                             LinearLayoutManager(view?.context)
+
+                        adapter?.notifyDataSetChanged()
+
                         room?.close()
 //                        Log.d("aaa menu", "DDDelete")
+
+                    }
+                    R.id.menu_update -> {
+                        Deets.upIdProduct = viewHolder.tvId.text.toString()
+                        Deets.upBarcode = viewHolder.tvBarcode?.text.toString()
+                        Deets.upName = viewHolder.tv_name?.text.toString()
+                        Deets.upStockQty = viewHolder.tv_stockQty?.text.toString()
+                        Deets.upPrice = viewHolder.tv_price?.text.toString()
+                        Deets.upCategory = viewHolder.tv_category?.text.toString()
+                        Deets.upUnit = viewHolder.tv_unit?.text.toString()
+                        Deets.upUnitAs = viewHolder.tv_unit_as?.text.toString()
+
+                        val intent = Intent(view.context, UpdateProduct::class.java)
+                        view.context.startActivity(intent)
 
                     }
 
