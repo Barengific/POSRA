@@ -298,9 +298,7 @@ class ViewProduct : AppCompatActivity() {
             var ivMore: ImageView
 
             @SuppressLint("ResourceType")
-            override fun onCreateContextMenu(
-                menu: ContextMenu,
-                v: View?,
+            override fun onCreateContextMenu(menu: ContextMenu, v: View?,
                 menuInfo: ContextMenu.ContextMenuInfo?
             ) {
                 pos = adapterPosition
@@ -458,11 +456,9 @@ class ViewProduct : AppCompatActivity() {
 //    fun getPosition(): Int {
 //        return position
 //    }
-
         private fun setPosition(position: Int) {
             this.position = position
         }
-
     }
 }
 
