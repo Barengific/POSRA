@@ -88,50 +88,50 @@ class RemoveProduct : AppCompatActivity() {
                 .build()
         val productDAO = room.productDao()
 
-        //recycle view
-        val arr = productDAO.getAll()
-        val adapter = AddProduct.CustomAdapter(arr)
-        AddProduct.recyclerView = binding.rvAddProduct
-        AddProduct.recyclerView.setHasFixedSize(false)
-        AddProduct.recyclerView.adapter = adapter
-        AddProduct.recyclerView.layoutManager = LinearLayoutManager(this)
-
-
-
-        binding.tvRemove.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (binding.ddProductRemoveFilled.editableText.toString().toIntOrNull() == null) {
-                    val arr = productDAO.getAll()
-                    val adapter = AddProduct.CustomAdapter(arr)
-                    AddProduct.recyclerView = binding.rvAddProduct
-                    AddProduct.recyclerView.setHasFixedSize(false)
-                    AddProduct.recyclerView.adapter = adapter
-                    AddProduct.recyclerView.layoutManager = LinearLayoutManager(instance)
-
-                } else if(binding.ddProductRemoveFilled.editableText.toString() == "ID") {
-                    val arr = productDAO.findByID(binding.tvRemove.editText!!.text.toString()) as List<Product>
-                    val adapter = AddProduct.CustomAdapter(arr)
-                    AddProduct.recyclerView = binding.rvAddProduct
-                    AddProduct.recyclerView.setHasFixedSize(false)
-                    AddProduct.recyclerView.adapter = adapter
-                    AddProduct.recyclerView.layoutManager = LinearLayoutManager(instance)
-
-                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Barcode") {
-
-                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Name") {
-
-                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Price") {
-
-                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Category") {
-
-                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Unit") {
-
-                }
-
-            }
-        })
+//        //recycle view
+//        val arr = productDAO.getAll()
+//        val adapter = AddProduct.CustomAdapter(arr)
+//        AddProduct.recyclerView = binding.rvAddProduct
+//        AddProduct.recyclerView.setHasFixedSize(false)
+//        AddProduct.recyclerView.adapter = adapter
+//        AddProduct.recyclerView.layoutManager = LinearLayoutManager(this)
+//
+//
+//
+//        binding.tvRemove.editText?.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(s: Editable) {}
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//                if (binding.ddProductRemoveFilled.editableText.toString().toIntOrNull() == null) {
+//                    val arr = productDAO.getAll()
+//                    val adapter = AddProduct.CustomAdapter(arr)
+//                    AddProduct.recyclerView = binding.rvAddProduct
+//                    AddProduct.recyclerView.setHasFixedSize(false)
+//                    AddProduct.recyclerView.adapter = adapter
+//                    AddProduct.recyclerView.layoutManager = LinearLayoutManager(instance)
+//
+//                } else if(binding.ddProductRemoveFilled.editableText.toString() == "ID") {
+//                    val arr = productDAO.findByID(binding.tvRemove.editText!!.text.toString()) as List<Product>
+//                    val adapter = AddProduct.CustomAdapter(arr)
+//                    AddProduct.recyclerView = binding.rvAddProduct
+//                    AddProduct.recyclerView.setHasFixedSize(false)
+//                    AddProduct.recyclerView.adapter = adapter
+//                    AddProduct.recyclerView.layoutManager = LinearLayoutManager(instance)
+//
+//                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Barcode") {
+//
+//                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Name") {
+//
+//                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Price") {
+//
+//                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Category") {
+//
+//                } else if(binding.ddProductRemoveFilled.editableText.toString() == "Unit") {
+//
+//                }
+//
+//            }
+//        })
 
     }
 }
