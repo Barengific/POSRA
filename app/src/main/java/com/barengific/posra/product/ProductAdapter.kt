@@ -67,8 +67,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(
-        viewHolder: ViewHolder,
+    override fun onBindViewHolder(viewHolder: ViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
         viewHolder.itemView.setOnLongClickListener {
@@ -172,7 +171,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
         return position
     }
 
-    private fun setPosition(position: Int) {
+    fun setPosition(position: Int) {
         this.position = position
     }
 
