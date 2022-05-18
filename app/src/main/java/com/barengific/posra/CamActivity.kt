@@ -138,7 +138,7 @@ class BarcodeAnalyzer : ImageAnalysis.Analyzer {
                                 println("aa")
                             }
                             MainActivity.mediaPlayer?.start()
-                            Deets.arrBasket.add(Basket(0,"2", barcodeValue, "222", "2222"))
+                            Deets.arrBasket?.add(Basket(0,"2", barcodeValue, "222", "2222"))
                             Deets.bc_value = barcodeValue
 //                            val value: String = barcodeValue // or just your string
                             val intent = Intent(context, AddProduct::class.java)
