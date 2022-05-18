@@ -10,12 +10,14 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -130,30 +132,60 @@ class AddProduct : AppCompatActivity() {
             binding.imageView.setImageBitmap(Deets.upImageBitmap)
         }
 
-        binding.btnSave.setOnClickListener {
-            val aa = Product(
-                0,
-                binding.tvBarcodes.editText?.text.toString(),
-                binding.tvName.editText?.text.toString(),
-                binding.tvStockQty.editText?.text.toString(),
-                binding.tvPrice.editText?.text.toString(),
-                binding.ddCate.editText?.text.toString(),
-                binding.ddUnit.editText?.text.toString(),
-                binding.tvUnitAs.editText?.text.toString(),
-                imageString
-            )
-            productDAO.insertAll(aa)
+        if(Deets.btnSaveUpdateState == "SAVE"){
+            binding.btnSave.setOnClickListener {
+                val aa = Product(
+                    0,
+                    binding.tvBarcodes.editText?.text.toString(),
+                    binding.tvName.editText?.text.toString(),
+                    binding.tvStockQty.editText?.text.toString(),
+                    binding.tvPrice.editText?.text.toString(),
+                    binding.ddCate.editText?.text.toString(),
+                    binding.ddUnit.editText?.text.toString(),
+                    binding.tvUnitAs.editText?.text.toString(),
+                    imageString
+                )
+                productDAO.insertAll(aa)
 
-            val arrr = productDAO.getAll()
-            val adapter = ProductAdapter(arrr)
-            recyclerView.setHasFixedSize(false)
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(this)
+                val arrr = productDAO.getAll()
+                val adapter = ProductAdapter(arrr)
+                recyclerView.setHasFixedSize(false)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(this)
 
-            runOnUiThread {
-                adapter.notifyDataSetChanged()
+                runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
+                //TODO check for duplicates
             }
-            //TODO check for duplicates
+        }else if (Deets.btnSaveUpdateState == "UPDATE"){
+            Log.d("aaaaaa", "inbupppdsate")
+            binding.btnSave.setOnClickListener {
+                val aa = Product(
+                    Deets.upIdProduct.toInt(),
+                    binding.tvBarcodes.editText?.text.toString(),
+                    binding.tvName.editText?.text.toString(),
+                    binding.tvStockQty.editText?.text.toString(),
+                    binding.tvPrice.editText?.text.toString(),
+                    binding.ddCate.editText?.text.toString(),
+                    binding.ddUnit.editText?.text.toString(),
+                    binding.tvUnitAs.editText?.text.toString(),
+                    encodeImage(binding.imageView.drawToBitmap())
+                )
+//                productDAO.insertAll(aa)
+                productDAO.updateProduct(aa)
+
+                val arrr = productDAO.getAll()
+                val adapter = ProductAdapter(arrr)
+                recyclerView.setHasFixedSize(false)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(this)
+
+                runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
+                //TODO check for duplicates
+            }
         }
 
         var linesCate = resources.getStringArray(R.array.dd_cate).toList()
