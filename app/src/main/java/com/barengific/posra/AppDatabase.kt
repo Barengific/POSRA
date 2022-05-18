@@ -26,9 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     }
 
-
     abstract fun staffDao(): StaffDAO
     abstract fun productDao(): ProductDAO
-
 
 }
