@@ -13,13 +13,19 @@ class Deets {
     companion object{
         var arrBasket: MutableList<Basket> = mutableListOf(Basket(0, "0", "", "", ""))
         var arrProduct: MutableList<Product> = mutableListOf(Product(0, "", "", "", "","","","",""))
-        var arrStaff: MutableList<Staff> = mutableListOf(Staff(0, "", "", "", "","","","",""))
+        var arrStaff: MutableList<Staff> = mutableListOf(Staff(0, "", "", "", "","","","","", ""))
         var bc_value = ""
 
-        var btnSaveUpdateState = "SAVE"
+        var btnSaveUpdateStateProduct = "SAVE"
+        var btnSaveUpdateStateStaff = "SAVE"
 
         var posProduct: Int = 0
         fun setPosiProduct(pos: Int) {
+            posProduct = pos
+        }
+
+        var posStaff: Int = 0
+        fun setPosiStaff(pos: Int) {
             posProduct = pos
         }
 
@@ -32,8 +38,8 @@ class Deets {
         var upCategory = ""
         var upUnit = ""
         var upUnitAs = ""
-        var upImage = ""
-        var upImageBitmap: Bitmap? = null
+        var upImageProduct = ""
+        var upImageBitmapProduct: Bitmap? = null
 
         //update staff row
         var upIdStaff = ""
@@ -45,6 +51,8 @@ class Deets {
         var upDateHired = ""
         var upLocation = ""
         var upJobTitle = ""
+        var upImageStaff = ""
+        var upImageBitmapStaff: Bitmap? = null
 
         lateinit var recyclerView: RecyclerView
 
