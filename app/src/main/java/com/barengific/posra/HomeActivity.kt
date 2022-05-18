@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import com.barengific.posra.databinding.HomeActivityBinding
 import com.barengific.posra.product.AddProduct
 import com.barengific.posra.product.ViewProduct
+import com.barengific.posra.staff.ViewStaff
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 
@@ -46,11 +47,8 @@ class HomeActivity : AppCompatActivity() {
 
         }
         binding.btnStaff.setOnClickListener {
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.putExtra("barcodeSca", message)
-//            startActivity(intent)
-
-
+            val intent = Intent(this, ViewStaff::class.java)
+            startActivity(intent)
         }
 
     }
