@@ -3,7 +3,6 @@ package com.barengific.posra.product
 import androidx.room.*
 import com.barengific.posra.product.Product
 
-
 @Dao
 interface ProductDAO {
     @Query("SELECT * FROM product")
