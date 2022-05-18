@@ -139,7 +139,7 @@ class StaffAdapter(private val dataSet: List<Staff>) :
 
                     }
                     R.id.menu_update -> {
-                        Deets.btnSaveUpdateStateProduct = "UPDATE"
+                        Deets.btnSaveUpdateStateStaff = "UPDATE"
 
                         Deets.upIdStaff = viewHolder.tv_id.text.toString()
                         Deets.upPus = viewHolder.tv_pus?.text.toString()
