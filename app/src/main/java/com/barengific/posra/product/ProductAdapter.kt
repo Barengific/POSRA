@@ -135,7 +135,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
 
                     }
                     R.id.menu_update -> {
-                        Deets.btnSaveUpdateState = "UPDATE"
+                        Deets.btnSaveUpdateStateProduct = "UPDATE"
 
                         Deets.upIdProduct = viewHolder.tvId.text.toString()
                         Deets.upBarcode = viewHolder.tvBarcode?.text.toString()
@@ -145,7 +145,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
                         Deets.upCategory = viewHolder.tv_category?.text.toString()
                         Deets.upUnit = viewHolder.tv_unit?.text.toString()
                         Deets.upUnitAs = viewHolder.tv_unit_as?.text.toString()
-                        Deets.upImageBitmap = viewHolder.ivItem.drawToBitmap()
+                        Deets.upImageBitmapProduct = viewHolder.ivItem.drawToBitmap()
 
                         val intent = Intent(view.context, AddProduct::class.java)
                         view.context.startActivity(intent)
