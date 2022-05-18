@@ -15,5 +15,6 @@ data class Staff (
     @ColumnInfo(name = "phoneNumber") var phoneNumber: String?,
     @ColumnInfo(name = "dateHired") var dateHired: String?,
     @ColumnInfo(name = "location") var location: String?,
-    @ColumnInfo(name = "jobTitle") var jobTitle: String?
+    @ColumnInfo(name = "jobTitle") var jobTitle: String?,
+    @ColumnInfo(name = "image") var image: String?
 )
