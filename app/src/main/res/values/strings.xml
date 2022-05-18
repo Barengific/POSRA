@@ -31,6 +31,13 @@
     <string name="remove_by">Remove By</string>
     <string name="btnUpdate">Update</string>
     <string name="staffSearch">Staff Search</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="jobtitle">Job Title</string>
+    <string name="location">Location</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
 
     <string-array name="dd_cate">
         <item>Dairy</item>
