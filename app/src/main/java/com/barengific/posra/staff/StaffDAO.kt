@@ -1,9 +1,7 @@
 package com.barengific.posra.staff
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.barengific.posra.product.Product
 import com.barengific.posra.staff.Staff
 
 @Dao
@@ -34,6 +32,9 @@ interface StaffDAO {
 
     @Query("SELECT * FROM staff WHERE jobTitle LIKE :k")
     fun findByJob(k: String): List<Staff>
+
+    @Update
+    fun updateStaff(staff: Staff?)
 
     @Insert
     fun insertAll(vararg staff: Staff)
