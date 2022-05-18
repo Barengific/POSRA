@@ -11,11 +11,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
-import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,7 +74,7 @@ class AddProduct : AppCompatActivity() {
         supportActionBar?.hide();
         actionBar?.hide();
 
-        binding.btnSave.text = Deets.btnSaveUpdateState
+        binding.btnSave.text = Deets.btnSaveUpdateStateProduct
 
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_add
@@ -88,7 +84,7 @@ class AddProduct : AppCompatActivity() {
                 startActivity(intent)
                 false
             } else if (menuItem.itemId == R.id.nav_add) {
-                Deets.btnSaveUpdateState = "SAVE"
+                Deets.btnSaveUpdateStateProduct = "SAVE"
                 val intent = Intent(this, AddProduct::class.java)
                 startActivity(intent)
                 true
@@ -121,7 +117,7 @@ class AddProduct : AppCompatActivity() {
 
         binding.tvBarcodes.editText?.setText(Deets.bc_value)
 
-        if(Deets.btnSaveUpdateState == "UPDATE"){
+        if(Deets.btnSaveUpdateStateProduct == "UPDATE"){
             binding.tvBarcodes.editText?.setText(Deets.upBarcode)
             binding.tvName.editText?.setText(Deets.upName)
             binding.tvStockQty.editText?.setText(Deets.upStockQty)
@@ -129,10 +125,10 @@ class AddProduct : AppCompatActivity() {
             binding.ddCateFilled.setText(Deets.upCategory)
             binding.ddUnitFilled.setText(Deets.upUnit)
             binding.tvUnitAs.editText?.setText(Deets.upUnitAs)
-            binding.imageView.setImageBitmap(Deets.upImageBitmap)
+            binding.imageView.setImageBitmap(Deets.upImageBitmapProduct)
         }
 
-        if(Deets.btnSaveUpdateState == "SAVE"){
+        if(Deets.btnSaveUpdateStateProduct == "SAVE"){
             binding.btnSave.setOnClickListener {
                 val aa = Product(
                     0,
@@ -158,7 +154,7 @@ class AddProduct : AppCompatActivity() {
                 }
                 //TODO check for duplicates
             }
-        }else if (Deets.btnSaveUpdateState == "UPDATE"){
+        }else if (Deets.btnSaveUpdateStateProduct == "UPDATE"){
             Log.d("aaaaaa", "inbupppdsate")
             binding.btnSave.setOnClickListener {
                 val aa = Product(
