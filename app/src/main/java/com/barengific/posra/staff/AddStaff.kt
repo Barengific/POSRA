@@ -183,11 +183,11 @@ class AddStaff : AppCompatActivity() {
             }
         }
 
-        var linesCate = resources.getStringArray(R.array.dd_cate).toList()
+        var linesCate = resources.getStringArray(R.array.dd_staff_location).toList()
         var adapterDDCate = ArrayAdapter(this, R.layout.dd_layout, linesCate)
         binding.ddLocationFilled.setAdapter(adapterDDCate)
 
-        var linesUnit = resources.getStringArray(R.array.dd_unit).toList()
+        var linesUnit = resources.getStringArray(R.array.dd_staff_job_title).toList()
         var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
         binding.ddJobFilled.setAdapter(adapterDDUnit)
 
