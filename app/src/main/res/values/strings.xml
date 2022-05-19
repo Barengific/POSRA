@@ -79,4 +79,21 @@
         <item>Hired Date</item>
         <item>Location</item>
     </string-array>
+
+    <string-array name="dd_staff_job_title">
+        <item>Regional Manager</item>
+        <item>Store Manager</item>
+        <item>Supervisor</item>
+        <item>Team Leader</item>
+        <item>Sales Advisor</item>
+    </string-array>
+
+    <string-array name="dd_staff_location">
+        <item>Erbil</item>
+        <item>Sulaymaniyah</item>
+        <item>Halabja</item>
+        <item>Ranya</item>
+        <item>Chamchamal</item>
+        <item>Duhok</item>
+    </string-array>
 </resources>
