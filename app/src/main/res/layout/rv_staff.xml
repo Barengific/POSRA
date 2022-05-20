@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_medium"
-    android:layout_marginRight="@dimen/margin_medium"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
     android:gravity="center_vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,19 +21,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_first_name"
-            android:layout_width="110dp"
+            android:id="@+id/tv_name_staff"
+            android:layout_width="150dp"
             android:layout_height="24dp"
-            android:text="firstname___________-"
+            android:text="Full____________name-"
             app:layout_constraintStart_toEndOf="@+id/tv_id_staff"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_last_name"
-            android:layout_width="110dp"
-            android:layout_height="24dp"
-            android:text="lastname___________-"
-            app:layout_constraintStart_toEndOf="@+id/tv_first_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -40,17 +33,8 @@
             android:layout_width="80dp"
             android:layout_height="24dp"
             android:text="phone_____-"
-            app:layout_constraintStart_toEndOf="@+id/tv_last_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_name_staff"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivMore"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            app:layout_constraintStart_toEndOf="@+id/tv_phone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -59,7 +43,7 @@
             android:layout_marginTop="10dp"
             android:text="email________________________-"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_id_staff" />
 
         <TextView
             android:id="@+id/tv_date_hired"
@@ -68,7 +52,7 @@
             android:layout_marginTop="10dp"
             android:text="date_____-"
             app:layout_constraintStart_toEndOf="@+id/tv_email"
-            app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_id_staff" />
 
         <TextView
             android:id="@+id/tv_location"
@@ -76,8 +60,8 @@
             android:layout_height="24dp"
             android:layout_marginTop="10dp"
             android:text="location_-"
-            app:layout_constraintStart_toEndOf="@+id/tv_date_hired"
-            app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
         <TextView
             android:id="@+id/tv_job_title"
@@ -86,24 +70,40 @@
             android:layout_marginTop="10dp"
             android:text="jobtitle_-"
             app:layout_constraintStart_toEndOf="@+id/tv_location"
-            app:layout_constraintTop_toBottomOf="@+id/tv_first_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_email"/>
 
         <ImageView
             android:id="@+id/ivItem"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_job_title"
+            app:layout_constraintStart_toEndOf="@+id/tv_phone"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@+id/ivItem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tvPus"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="" />
+        android:layout_height="0dp" />
+    <TextView
+        android:id="@+id/tv_first_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+    <TextView
+        android:id="@+id/tv_last_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
 </FrameLayout>
