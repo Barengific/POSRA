@@ -35,6 +35,7 @@ class StaffAdapter(private val dataSet: List<Staff>) :
 
         val tv_id: TextView
         val tv_pus: TextView?
+        val tv_name_staff: TextView?
         val tv_first_name: TextView?
         val tv_last_name: TextView?
         val tv_email: TextView?
@@ -51,6 +52,7 @@ class StaffAdapter(private val dataSet: List<Staff>) :
             // Define click listener for the ViewHolder's View.
             tv_id = view.findViewById(R.id.tv_id_staff)
             tv_pus = view.findViewById(R.id.tvPus)
+            tv_name_staff = view.findViewById(R.id.tv_name_staff)
             tv_first_name = view.findViewById(R.id.tv_first_name)
             tv_last_name = view.findViewById(R.id.tv_last_name)
             tv_email = view.findViewById(R.id.tv_email)
@@ -102,6 +104,7 @@ class StaffAdapter(private val dataSet: List<Staff>) :
 
                         val id: TextView = viewHolder.tv_id
                         val tvPus: TextView? = viewHolder.tv_pus
+                        val tv_name_staff: TextView? = viewHolder.tv_name_staff
                         val tv_first_name: TextView? = viewHolder.tv_first_name
                         val tv_last_name: TextView? = viewHolder.tv_last_name
                         val tv_email: TextView? = viewHolder.tv_email
@@ -173,6 +176,7 @@ class StaffAdapter(private val dataSet: List<Staff>) :
 
         viewHolder.tv_id.text = dataSet[position].id.toString()
         viewHolder.tv_pus?.text = dataSet[position].password.toString()
+        viewHolder.tv_name_staff?.text = dataSet[position].firstName + " " + dataSet[position].lastName
         viewHolder.tv_first_name?.text = dataSet[position].firstName.toString()
         viewHolder.tv_last_name?.text = dataSet[position].lastName.toString()
         viewHolder.tv_email?.text = dataSet[position].email.toString()
