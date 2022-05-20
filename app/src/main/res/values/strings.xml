@@ -38,6 +38,7 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="phone">Phone</string>
+    <string name="dateHired">Date Hired</string>
 
     <string-array name="dd_cate">
         <item>Dairy</item>
