@@ -13,8 +13,9 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.barengific.posra.basket.Basket
 import com.barengific.posra.databinding.CamActivityBinding
-import com.barengific.posra.product.AddProduct
+import com.barengific.posra.product.ProductAdd
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -141,7 +142,7 @@ class BarcodeAnalyzer : ImageAnalysis.Analyzer {
                             Deets.arrBasket?.add(Basket(0,"2", barcodeValue, "222", "2222"))
                             Deets.bc_value = barcodeValue
 //                            val value: String = barcodeValue // or just your string
-                            val intent = Intent(context, AddProduct::class.java)
+                            val intent = Intent(context, ProductAdd::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                            intent.putExtra("barcodeScanned", value)
                             context.startActivity(intent)
