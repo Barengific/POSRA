@@ -196,7 +196,7 @@ class AddStaff : AppCompatActivity() {
         var linesUnit = resources.getStringArray(R.array.dd_staff_job_title).toList()
         var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
         binding.ddJobFilled.setAdapter(adapterDDUnit)
-        
+
         binding.imageView.setOnClickListener {
             dispatchTakePictureIntent()
         }
@@ -208,13 +208,6 @@ class AddStaff : AppCompatActivity() {
             bb = "0$bb"
         }
         return bb
-    }
-    private fun removeZero(aa: String): Int{
-        var bb = aa
-        if (bb[0].toString() == "0"){
-            bb = bb[1].toString()
-        }
-        return bb.toInt()
     }
 
     val REQUEST_IMAGE_CAPTURE = 1
