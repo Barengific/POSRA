@@ -17,6 +17,9 @@ interface ProductDAO {
     @Query("SELECT * FROM product WHERE barcode LIKE '%' || :k || '%'")
     fun findByBarcode(k: String): List<Product>
 
+    @Query("SELECT * FROM product WHERE barcode LIKE :k")
+    fun findByBarcodeExact(k: String): Product
+
     @Query("SELECT * FROM product WHERE name LIKE '%' || :k || '%'")
     fun findByName(k: String): List<Product>
 
