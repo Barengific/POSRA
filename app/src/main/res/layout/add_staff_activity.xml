@@ -142,6 +142,7 @@
                     android:layout_width="200dp"
                     android:layout_height="55dp"
                     android:hint="@string/jobtitle"
+                    android:background="@drawable/border_colour_1"
                     app:startIconDrawable="@drawable/ic_baseline_view_list_24">
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/dd_job_filled"
@@ -155,6 +156,7 @@
                     android:layout_width="200dp"
                     android:layout_height="55dp"
                     android:hint="@string/location"
+                    android:background="@drawable/border_colour_1"
                     app:startIconDrawable="@drawable/ic_baseline_view_list_24">
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/dd_location_filled"
