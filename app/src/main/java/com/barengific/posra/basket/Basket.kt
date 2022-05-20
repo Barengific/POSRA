@@ -1,4 +1,4 @@
-package com.barengific.posra
+package com.barengific.posra.basket
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

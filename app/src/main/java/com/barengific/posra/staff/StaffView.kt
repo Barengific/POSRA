@@ -1,23 +1,16 @@
 package com.barengific.posra.staff
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.barengific.posra.AppDatabase
-import com.barengific.posra.Deets
 import com.barengific.posra.HomeActivity
 import com.barengific.posra.R
 import com.barengific.posra.databinding.ViewStaffActivityBinding
@@ -26,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 
-class ViewStaff : AppCompatActivity() {
+class StaffView : AppCompatActivity() {
     private lateinit var binding: ViewStaffActivityBinding
     lateinit var bottomNav: BottomNavigationView
 
@@ -39,7 +32,7 @@ class ViewStaff : AppCompatActivity() {
             Companion.pos = pos
         }
 
-        var instance: ViewStaff? = null
+        var instance: StaffView? = null
 
         fun applicationContext(): Context? {
             return instance?.applicationContext
@@ -66,7 +59,7 @@ class ViewStaff : AppCompatActivity() {
                 startActivity(intent)
                 false
             } else if (menuItem.itemId == R.id.nav_add) {
-                val intent = Intent(this, AddStaff::class.java)
+                val intent = Intent(this, StaffAdd::class.java)
                 startActivity(intent)
                 false
             } else if (menuItem.itemId == R.id.nav_view) {
@@ -93,30 +86,30 @@ class ViewStaff : AppCompatActivity() {
         //recycle view
         val arr = staffDao.getAll()
         val adapter = StaffAdapter(arr)
-        ViewStaff.recyclerView = binding.rvAddStaff
-        ViewStaff.recyclerView.setHasFixedSize(false)
-        ViewStaff.recyclerView.adapter = adapter
-        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(this)
+        StaffView.recyclerView = binding.rvAddStaff
+        StaffView.recyclerView.setHasFixedSize(false)
+        StaffView.recyclerView.adapter = adapter
+        StaffView.recyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.tvSearch.setStartIconOnClickListener {
             when {
                 binding.ddStaffSearchFilled.text.toString().isNullOrEmpty() == null -> {
                     val arr = staffDao.getAll()
                     val adapter = StaffAdapter(arr)
-                    ViewStaff.recyclerView = binding.rvAddStaff
-                    ViewStaff.recyclerView.setHasFixedSize(false)
-                    ViewStaff.recyclerView.adapter = adapter
-                    ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                    StaffView.recyclerView = binding.rvAddStaff
+                    StaffView.recyclerView.setHasFixedSize(false)
+                    StaffView.recyclerView.adapter = adapter
+                    StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
 
                 }
                 binding.ddStaffSearchFilled.text.toString() == "ID" -> {
                     val arr =
                         staffDao.findById(binding.tvSearch.editText?.text.toString().toInt())
                     val adapter = StaffAdapter(arr)
-                    ViewStaff.recyclerView = binding.rvAddStaff
-                    ViewStaff.recyclerView.setHasFixedSize(false)
-                    ViewStaff.recyclerView.adapter = adapter
-                    ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                    StaffView.recyclerView = binding.rvAddStaff
+                    StaffView.recyclerView.setHasFixedSize(false)
+                    StaffView.recyclerView.adapter = adapter
+                    StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                     runOnUiThread {
                         adapter.notifyDataSetChanged()
                     }
@@ -126,10 +119,10 @@ class ViewStaff : AppCompatActivity() {
                     val arr =
                         staffDao.findByFirstName(binding.tvSearch.editText!!.text.toString())
                     val adapter = StaffAdapter(arr)
-                    ViewStaff.recyclerView = binding.rvAddStaff
-                    ViewStaff.recyclerView.setHasFixedSize(false)
-                    ViewStaff.recyclerView.adapter = adapter
-                    ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                    StaffView.recyclerView = binding.rvAddStaff
+                    StaffView.recyclerView.setHasFixedSize(false)
+                    StaffView.recyclerView.adapter = adapter
+                    StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                     runOnUiThread {
                         adapter.notifyDataSetChanged()
                     }
@@ -139,10 +132,10 @@ class ViewStaff : AppCompatActivity() {
                     val arr =
                         staffDao.findByLastName(binding.tvSearch.editText!!.text.toString())
                     val adapter = StaffAdapter(arr)
-                    ViewStaff.recyclerView = binding.rvAddStaff
-                    ViewStaff.recyclerView.setHasFixedSize(false)
-                    ViewStaff.recyclerView.adapter = adapter
-                    ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                    StaffView.recyclerView = binding.rvAddStaff
+                    StaffView.recyclerView.setHasFixedSize(false)
+                    StaffView.recyclerView.adapter = adapter
+                    StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                     runOnUiThread {
                         adapter.notifyDataSetChanged()
                     }
@@ -152,10 +145,10 @@ class ViewStaff : AppCompatActivity() {
                     val arr =
                         staffDao.findByEmail(binding.tvSearch.editText!!.text.toString())
                     val adapter = StaffAdapter(arr)
-                    ViewStaff.recyclerView = binding.rvAddStaff
-                    ViewStaff.recyclerView.setHasFixedSize(false)
-                    ViewStaff.recyclerView.adapter = adapter
-                    ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                    StaffView.recyclerView = binding.rvAddStaff
+                    StaffView.recyclerView.setHasFixedSize(false)
+                    StaffView.recyclerView.adapter = adapter
+                    StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                     runOnUiThread {
                         adapter.notifyDataSetChanged()
                     }
@@ -165,10 +158,10 @@ class ViewStaff : AppCompatActivity() {
                     val arr =
                         staffDao.findByLocation(binding.tvSearch.editText!!.text.toString())
                     val adapter = StaffAdapter(arr)
-                    ViewStaff.recyclerView = binding.rvAddStaff
-                    ViewStaff.recyclerView.setHasFixedSize(false)
-                    ViewStaff.recyclerView.adapter = adapter
-                    ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                    StaffView.recyclerView = binding.rvAddStaff
+                    StaffView.recyclerView.setHasFixedSize(false)
+                    StaffView.recyclerView.adapter = adapter
+                    StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                     runOnUiThread {
                         adapter.notifyDataSetChanged()
                     }
@@ -178,10 +171,10 @@ class ViewStaff : AppCompatActivity() {
                     val arr =
                         staffDao.findByJob(binding.tvSearch.editText!!.text.toString())
                     val adapter = StaffAdapter(arr)
-                    ViewStaff.recyclerView = binding.rvAddStaff
-                    ViewStaff.recyclerView.setHasFixedSize(false)
-                    ViewStaff.recyclerView.adapter = adapter
-                    ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                    StaffView.recyclerView = binding.rvAddStaff
+                    StaffView.recyclerView.setHasFixedSize(false)
+                    StaffView.recyclerView.adapter = adapter
+                    StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
 
                     runOnUiThread {
                         adapter.notifyDataSetChanged()
@@ -200,20 +193,20 @@ class ViewStaff : AppCompatActivity() {
                     binding.ddStaffSearchFilled.text.toString().isNullOrEmpty() == null -> {
                         val arr = staffDao.getAll()
                         val adapter = StaffAdapter(arr)
-                        ViewStaff.recyclerView = binding.rvAddStaff
-                        ViewStaff.recyclerView.setHasFixedSize(false)
-                        ViewStaff.recyclerView.adapter = adapter
-                        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                        StaffView.recyclerView = binding.rvAddStaff
+                        StaffView.recyclerView.setHasFixedSize(false)
+                        StaffView.recyclerView.adapter = adapter
+                        StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
 
                     }
                     binding.ddStaffSearchFilled.text.toString() == "ID" -> {
                         val arr =
                             staffDao.findById(binding.tvSearch.editText?.text.toString().toInt())
                         val adapter = StaffAdapter(arr)
-                        ViewStaff.recyclerView = binding.rvAddStaff
-                        ViewStaff.recyclerView.setHasFixedSize(false)
-                        ViewStaff.recyclerView.adapter = adapter
-                        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                        StaffView.recyclerView = binding.rvAddStaff
+                        StaffView.recyclerView.setHasFixedSize(false)
+                        StaffView.recyclerView.adapter = adapter
+                        StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                         runOnUiThread {
                             adapter.notifyDataSetChanged()
                         }
@@ -223,10 +216,10 @@ class ViewStaff : AppCompatActivity() {
                         val arr =
                             staffDao.findByFirstName(binding.tvSearch.editText!!.text.toString())
                         val adapter = StaffAdapter(arr)
-                        ViewStaff.recyclerView = binding.rvAddStaff
-                        ViewStaff.recyclerView.setHasFixedSize(false)
-                        ViewStaff.recyclerView.adapter = adapter
-                        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                        StaffView.recyclerView = binding.rvAddStaff
+                        StaffView.recyclerView.setHasFixedSize(false)
+                        StaffView.recyclerView.adapter = adapter
+                        StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                         runOnUiThread {
                             adapter.notifyDataSetChanged()
                         }
@@ -236,10 +229,10 @@ class ViewStaff : AppCompatActivity() {
                         val arr =
                             staffDao.findByLastName(binding.tvSearch.editText!!.text.toString())
                         val adapter = StaffAdapter(arr)
-                        ViewStaff.recyclerView = binding.rvAddStaff
-                        ViewStaff.recyclerView.setHasFixedSize(false)
-                        ViewStaff.recyclerView.adapter = adapter
-                        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                        StaffView.recyclerView = binding.rvAddStaff
+                        StaffView.recyclerView.setHasFixedSize(false)
+                        StaffView.recyclerView.adapter = adapter
+                        StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                         runOnUiThread {
                             adapter.notifyDataSetChanged()
                         }
@@ -249,10 +242,10 @@ class ViewStaff : AppCompatActivity() {
                         val arr =
                             staffDao.findByEmail(binding.tvSearch.editText!!.text.toString())
                         val adapter = StaffAdapter(arr)
-                        ViewStaff.recyclerView = binding.rvAddStaff
-                        ViewStaff.recyclerView.setHasFixedSize(false)
-                        ViewStaff.recyclerView.adapter = adapter
-                        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                        StaffView.recyclerView = binding.rvAddStaff
+                        StaffView.recyclerView.setHasFixedSize(false)
+                        StaffView.recyclerView.adapter = adapter
+                        StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                         runOnUiThread {
                             adapter.notifyDataSetChanged()
                         }
@@ -262,10 +255,10 @@ class ViewStaff : AppCompatActivity() {
                         val arr =
                             staffDao.findByLocation(binding.tvSearch.editText!!.text.toString())
                         val adapter = StaffAdapter(arr)
-                        ViewStaff.recyclerView = binding.rvAddStaff
-                        ViewStaff.recyclerView.setHasFixedSize(false)
-                        ViewStaff.recyclerView.adapter = adapter
-                        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                        StaffView.recyclerView = binding.rvAddStaff
+                        StaffView.recyclerView.setHasFixedSize(false)
+                        StaffView.recyclerView.adapter = adapter
+                        StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
                         runOnUiThread {
                             adapter.notifyDataSetChanged()
                         }
@@ -275,10 +268,10 @@ class ViewStaff : AppCompatActivity() {
                         val arr =
                             staffDao.findByJob(binding.tvSearch.editText!!.text.toString())
                         val adapter = StaffAdapter(arr)
-                        ViewStaff.recyclerView = binding.rvAddStaff
-                        ViewStaff.recyclerView.setHasFixedSize(false)
-                        ViewStaff.recyclerView.adapter = adapter
-                        ViewStaff.recyclerView.layoutManager = LinearLayoutManager(instance)
+                        StaffView.recyclerView = binding.rvAddStaff
+                        StaffView.recyclerView.setHasFixedSize(false)
+                        StaffView.recyclerView.adapter = adapter
+                        StaffView.recyclerView.layoutManager = LinearLayoutManager(instance)
 
                         runOnUiThread {
                             adapter.notifyDataSetChanged()

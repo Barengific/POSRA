@@ -26,7 +26,7 @@ import net.sqlcipher.database.SupportFactory
 import java.io.ByteArrayOutputStream
 
 
-class AddProduct : AppCompatActivity() {
+class ProductAdd : AppCompatActivity() {
     companion object {
         var mediaPlayer: MediaPlayer? = null
         var pos: Int = 0
@@ -39,7 +39,7 @@ class AddProduct : AppCompatActivity() {
 
         var imageString = ""
         var imageBitmap: Bitmap? = null
-        private var instance: AddProduct? = null
+        private var instance: ProductAdd? = null
 
         fun applicationContext(): Context {
             return instance!!.applicationContext
@@ -85,11 +85,11 @@ class AddProduct : AppCompatActivity() {
                 false
             } else if (menuItem.itemId == R.id.nav_add) {
                 Deets.btnSaveUpdateStateProduct = "SAVE"
-                val intent = Intent(this, AddProduct::class.java)
+                val intent = Intent(this, ProductAdd::class.java)
                 startActivity(intent)
                 true
             } else if (menuItem.itemId == R.id.nav_view) {
-                val intent = Intent(this, ViewProduct::class.java)
+                val intent = Intent(this, ProductView::class.java)
                 startActivity(intent)
                 true
             } else {

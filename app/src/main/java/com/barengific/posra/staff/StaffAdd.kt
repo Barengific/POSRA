@@ -10,7 +10,6 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
@@ -25,7 +24,7 @@ import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import java.io.ByteArrayOutputStream
 
-class AddStaff : AppCompatActivity() {
+class StaffAdd : AppCompatActivity() {
     companion object {
         var mediaPlayer: MediaPlayer? = null
         var pos: Int = 0
@@ -38,7 +37,7 @@ class AddStaff : AppCompatActivity() {
 
         var imageString = ""
         var imageBitmap: Bitmap? = null
-        private var instance: AddStaff? = null
+        private var instance: StaffAdd? = null
 
         fun applicationContext(): Context {
             return instance!!.applicationContext
@@ -84,11 +83,11 @@ class AddStaff : AppCompatActivity() {
                 false
             } else if (menuItem.itemId == R.id.nav_add) {
                 Deets.btnSaveUpdateStateStaff = "SAVE"
-                val intent = Intent(this, AddStaff::class.java)
+                val intent = Intent(this, StaffAdd::class.java)
                 startActivity(intent)
                 true
             } else if (menuItem.itemId == R.id.nav_view) {
-                val intent = Intent(this, ViewStaff::class.java)
+                val intent = Intent(this, StaffView::class.java)
                 startActivity(intent)
                 true
             } else {

@@ -1,17 +1,12 @@
 package com.barengific.posra.product
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 
-class ViewProduct : AppCompatActivity() {
+class ProductView : AppCompatActivity() {
 
     private lateinit var binding: ViewProductActivityBinding
     lateinit var bottomNav: BottomNavigationView
@@ -38,7 +33,7 @@ class ViewProduct : AppCompatActivity() {
             Companion.pos = pos
         }
 
-        private var instance: ViewProduct? = null
+        private var instance: ProductView? = null
 
         fun applicationContext(): Context? {
             return instance?.applicationContext
@@ -65,7 +60,7 @@ class ViewProduct : AppCompatActivity() {
                 startActivity(intent)
                 false
             } else if (menuItem.itemId == R.id.nav_add) {
-                val intent = Intent(this, AddProduct::class.java)
+                val intent = Intent(this, ProductAdd::class.java)
                 startActivity(intent)
                 false
             } else if (menuItem.itemId == R.id.nav_view) {

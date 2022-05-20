@@ -1,4 +1,4 @@
-package com.barengific.posra
+package com.barengific.posra.basket
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,6 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.barengific.posra.AppDatabase
+import com.barengific.posra.Deets
+import com.barengific.posra.MainActivity
+import com.barengific.posra.R
 import net.sqlcipher.database.SupportFactory
 
 class BasketAdapter(private val dataSet: MutableList<Basket>) :
