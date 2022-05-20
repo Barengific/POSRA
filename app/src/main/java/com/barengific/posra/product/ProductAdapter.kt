@@ -147,7 +147,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
                         Deets.upUnitAs = viewHolder.tv_unit_as?.text.toString()
                         Deets.upImageBitmapProduct = viewHolder.ivItem.drawToBitmap()
 
-                        val intent = Intent(view.context, AddProduct::class.java)
+                        val intent = Intent(view.context, ProductAdd::class.java)
                         view.context.startActivity(intent)
 
                     }
@@ -173,7 +173,7 @@ class ProductAdapter(private val dataSet: List<Product>) :
         viewHolder.tv_category?.text = dataSet[position].category.toString()
         viewHolder.tv_unit?.text = dataSet[position].unit.toString()
         viewHolder.tv_unit_as?.text = dataSet[position].unit_as.toString()
-        viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { AddProduct.decodeImage(it) })
+        viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { ProductAdd.decodeImage(it) })
 
     }
 
