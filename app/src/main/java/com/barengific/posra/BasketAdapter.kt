@@ -129,9 +129,9 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
         // contents of the view with that element
         viewHolder.tv_id.text = dataSet[position].id.toString()
         viewHolder.tv_name.text = dataSet[position].name.toString()
-        viewHolder.tv_price.text = dataSet[position].price.toString()
-        viewHolder.tv_qty.text = dataSet[position].qty.toString()
-        viewHolder.tv_total.text = dataSet[position].total.toString()
+        viewHolder.tv_price.text = "d. " + dataSet[position].price.toString()
+        viewHolder.tv_qty.text = dataSet[position].qty.toString() + "x"
+        viewHolder.tv_total.text = "d. " + dataSet[position].total.toString()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
