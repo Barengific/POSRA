@@ -155,7 +155,7 @@ class StaffAdapter(private val dataSet: List<Staff>) :
                         Deets.upJobTitle = viewHolder.tv_job_title?.text.toString()
                         Deets.upImageBitmapStaff = viewHolder.ivItem.drawToBitmap()
 
-                        val intent = Intent(view.context, AddStaff::class.java)
+                        val intent = Intent(view.context, StaffAdd::class.java)
                         view.context.startActivity(intent)
 
                     }
@@ -184,7 +184,7 @@ class StaffAdapter(private val dataSet: List<Staff>) :
         viewHolder.tv_date_hired?.text = dataSet[position].dateHired.toString()
         viewHolder.tv_location?.text = dataSet[position].location.toString()
         viewHolder.tv_job_title?.text = dataSet[position].jobTitle.toString()
-        viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { AddStaff.decodeImage(it) })
+        viewHolder.ivItem.setImageBitmap(dataSet[position].image?.let { StaffAdd.decodeImage(it) })
 
     }
 
