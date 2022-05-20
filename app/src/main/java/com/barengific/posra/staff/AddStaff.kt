@@ -10,6 +10,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
@@ -113,17 +114,16 @@ class AddStaff : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-//        binding.tvBarcodes.editText?.setText(Deets.bc_value)
-
         if(Deets.btnSaveUpdateStateStaff == "UPDATE"){
             binding.tvPus.editText?.setText(Deets.upPus)
             binding.tvFirstName.editText?.setText(Deets.upFirst)
             binding.tvLastName.editText?.setText(Deets.upLast)
             binding.tvEmail.editText?.setText(Deets.upEmail)
             binding.tvPhone.editText?.setText(Deets.upPhone)
-            binding.tdDateHired.updateDate(Deets.upDateHired.subSequence(0,1).toString().toInt(),
-                Deets.upDateHired.subSequence(3,4).toString().toInt(),
-                Deets.upDateHired.subSequence(6,7).toString().toInt()) //
+            binding.tdDateHired.updateDate(
+                Deets.upDateHired.subSequence(6,10).toString().toInt(),
+                Deets.upDateHired.subSequence(3,5).toString().toInt(),
+                Deets.upDateHired.subSequence(0,2).toString().toInt()) //
             binding.ddLocation.editText?.setText(Deets.upLocation)
             binding.ddJobTitle.editText?.setText(Deets.upDateHired)
             binding.imageView.setImageBitmap(Deets.upImageBitmapStaff)
@@ -138,8 +138,8 @@ class AddStaff : AppCompatActivity() {
                     binding.tvLastName.editText?.text.toString(),
                     binding.tvEmail.editText?.text.toString(),
                     binding.tvPhone.editText?.text.toString(),
-                    binding.tdDateHired.dayOfMonth.toString() + "/" +
-                            binding.tdDateHired.month.toString() + "/" +
+                    addZero(binding.tdDateHired.dayOfMonth.toString()) + "/" +
+                            addZero(binding.tdDateHired.month.toString()) + "/" +
                             binding.tdDateHired.year.toString(),
                     binding.ddLocation.editText?.text.toString(),
                     binding.ddJobTitle.editText?.text.toString(),
@@ -167,8 +167,8 @@ class AddStaff : AppCompatActivity() {
                     binding.tvLastName.editText?.text.toString(),
                     binding.tvEmail.editText?.text.toString(),
                     binding.tvPhone.editText?.text.toString(),
-                    binding.tdDateHired.dayOfMonth.toString() + "/" +
-                            binding.tdDateHired.month.toString() + "/" +
+                    addZero(binding.tdDateHired.dayOfMonth.toString()) + "/" +
+                            addZero(binding.tdDateHired.month.toString()) + "/" +
                             binding.tdDateHired.year.toString(),
                     binding.ddLocation.editText?.text.toString(),
                     binding.ddJobTitle.editText?.text.toString(),
@@ -196,12 +196,25 @@ class AddStaff : AppCompatActivity() {
         var linesUnit = resources.getStringArray(R.array.dd_staff_job_title).toList()
         var adapterDDUnit = ArrayAdapter(this, R.layout.dd_layout, linesUnit)
         binding.ddJobFilled.setAdapter(adapterDDUnit)
-
-
+        
         binding.imageView.setOnClickListener {
             dispatchTakePictureIntent()
         }
 
+    }
+    private fun addZero(aa: String): String{
+        var bb = aa
+        if (bb.length == 1){
+            bb = "0$bb"
+        }
+        return bb
+    }
+    private fun removeZero(aa: String): Int{
+        var bb = aa
+        if (bb[0].toString() == "0"){
+            bb = bb[1].toString()
+        }
+        return bb.toInt()
     }
 
     val REQUEST_IMAGE_CAPTURE = 1
