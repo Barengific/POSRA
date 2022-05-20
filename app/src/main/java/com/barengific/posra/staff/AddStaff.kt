@@ -123,7 +123,8 @@ class AddStaff : AppCompatActivity() {
             binding.tvPhone.editText?.setText(Deets.upPhone)
             binding.ddJobTitle.editText?.setText(Deets.upDateHired)
             binding.ddLocation.editText?.setText(Deets.upLocation)
-            binding.tdDateHired.setText(Deets.upJobTitle)
+            //TODO set date
+            binding.tdDateHired.dayOfMonth.toString() + binding.tdDateHired.month.toString() + binding.tdDateHired.year.toString()
             binding.imageView.setImageBitmap(Deets.upImageBitmapStaff)
         }
 
@@ -165,7 +166,7 @@ class AddStaff : AppCompatActivity() {
                     binding.tvPhone.editText?.text.toString(),
                     binding.ddJobTitle.editText?.text.toString(),
                     binding.ddLocation.editText?.text.toString(),
-                    binding.tdDateHired.text.toString(),
+                    binding.tdDateHired.dayOfMonth.toString() + binding.tdDateHired.month.toString() + binding.tdDateHired.year.toString(),
                     encodeImage(binding.imageView.drawToBitmap())
                 )
                 staffDao.updateStaff(aa)
