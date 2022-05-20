@@ -32,11 +32,14 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.media.MediaPlayer
 import com.barengific.posra.MainActivity.Companion.mediaPlayer
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.common.Barcode
 
 class MainActivity : AppCompatActivity() {
     companion object {
         var mediaPlayer: MediaPlayer? = null
         var pos: Int = 0
+        var room: Room? = null
         lateinit var recyclerView: RecyclerView
         var posis: MutableList<Int> = mutableListOf(-1)
         fun getPosi(): Int = pos
@@ -85,13 +88,16 @@ class MainActivity : AppCompatActivity() {
         val passphrase: ByteArray =
             net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
         val factory = SupportFactory(passphrase)
-        val room =
-            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
+        room =
+            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")?
                 .openHelperFactory(factory)
                 .allowMainThreadQueries()
                 .build()
         val productDAO = room.productDao()
         val staffDAO = room.staffDao()
+//        val staffDAO = room.staffDao()
+//        val staffDAO = room.staffDao()
+
 
         //recycle view
 //        val arr = productDAO.getAll()
@@ -108,7 +114,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         cameraExecutor.shutdown()
     }
 
@@ -147,11 +152,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int,
+        permissions: Array<out String>,grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         checkIfCameraPermissionIsGranted()
     }
@@ -211,12 +213,14 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
         if (img != null) {
             val inputImage = InputImage.fromMediaImage(img, image.imageInfo.rotationDegrees)
 
-//            Process image searching for barcodes
-//            val options = BarcodeScannerOptions.Builder()
-//                .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
-//                .build()
-//            val scanner = BarcodeScanning.getClient(options)
-            val scanner = BarcodeScanning.getClient()
+            val options = BarcodeScannerOptions.Builder()
+                .setBarcodeFormats(
+                    Barcode.FORMAT_EAN_13,
+                    Barcode.FORMAT_EAN_8,
+                    Barcode.FORMAT_UPC_A,
+                    Barcode.FORMAT_UPC_E)
+                .build()
+            val scanner = BarcodeScanning.getClient(options)
 
             scanner.process(inputImage)
                 .addOnSuccessListener { barcodes ->
@@ -224,12 +228,10 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                         // Handle received barcodes...
                         val context: Context = MainActivity.applicationContext()
 
-                        Toast.makeText(
-                            context,
-                            "Value: " + barcode.rawValue,
+                        Toast.makeText(context, "Value: " + barcode.rawValue,
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
+
                         barcode.rawValue?.let { barcodeValue ->
                             mediaPlayer = MediaPlayer.create(context, R.raw.scanner)
                             mediaPlayer?.setOnPreparedListener{
