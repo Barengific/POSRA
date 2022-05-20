@@ -174,16 +174,18 @@
             <EditText
                 android:id="@+id/tdDateHired"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:ems="10"
                 android:inputType="date"
+                android:hint="@string/dateHired"
                 tools:layout_editor_absoluteX="74dp"
                 tools:layout_editor_absoluteY="385dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_job_location"
-                app:layout_constraintVertical_bias="0.01" />
+                app:layout_constraintVertical_bias="0.01"
+                android:background="@drawable/border_colour_1"/>
 
             <ImageView
                 android:id="@+id/imageView"
