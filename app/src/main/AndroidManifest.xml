@@ -43,28 +43,28 @@
         </activity>
 
         <activity
-            android:name=".product.AddProduct"
+            android:name=".product.ProductAdd"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.POSRA">
         </activity>
 
         <activity
-            android:name=".product.ViewProduct"
+            android:name=".product.ProductView"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.POSRA">
         </activity>
 
         <activity
-            android:name=".staff.AddStaff"
+            android:name=".staff.StaffAdd"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.POSRA">
         </activity>
 
         <activity
-            android:name=".staff.ViewStaff"
+            android:name=".staff.StaffView"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.POSRA">
