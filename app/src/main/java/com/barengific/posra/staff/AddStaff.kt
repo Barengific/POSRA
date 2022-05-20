@@ -138,7 +138,7 @@ class AddStaff : AppCompatActivity() {
                     binding.tvPhone.editText?.text.toString(),
                     binding.ddJobTitle.editText?.text.toString(),
                     binding.ddLocation.editText?.text.toString(),
-                    binding.tdDateHired.text.toString(),
+                    binding.tdDateHired.dayOfMonth.toString() + binding.tdDateHired.month.toString() + binding.tdDateHired.year.toString(),
                     imageString
                 )
                 staffDao.insertAll(aa)
