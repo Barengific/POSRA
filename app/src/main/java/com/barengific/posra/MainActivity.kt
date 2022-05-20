@@ -32,6 +32,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.media.MediaPlayer
 import com.barengific.posra.MainActivity.Companion.mediaPlayer
+import com.barengific.posra.product.Product
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.common.Barcode
 
@@ -39,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var mediaPlayer: MediaPlayer? = null
         var pos: Int = 0
-        var room: Room? = null
         lateinit var recyclerView: RecyclerView
         var posis: MutableList<Int> = mutableListOf(-1)
         fun getPosi(): Int = pos
@@ -54,19 +54,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    object Utilsz {
-        var context: Context? = applicationContext()
-            get() {
-                return applicationContext()
-            }
-            set(value) {
-                field = value?.applicationContext
-            }
-    }
-
     init {
         instance = this
     }
+
+    //TODO
+    //Order history list
+
 
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var binding: MainActivityBinding
@@ -88,8 +82,8 @@ class MainActivity : AppCompatActivity() {
         val passphrase: ByteArray =
             net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
         val factory = SupportFactory(passphrase)
-        room =
-            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")?
+        val room =
+            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-names")
                 .openHelperFactory(factory)
                 .allowMainThreadQueries()
                 .build()
@@ -234,12 +228,31 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
 
                         barcode.rawValue?.let { barcodeValue ->
                             mediaPlayer = MediaPlayer.create(context, R.raw.scanner)
-                            mediaPlayer?.setOnPreparedListener{
-                                println("aa")
-                            }
+                            mediaPlayer?.setOnPreparedListener{}
                             mediaPlayer?.start()
 
-                            Deets.arrBasket?.add(Basket(0,"2", barcodeValue, "222", "2222"))
+                            //db initialise
+                            val passphrase: ByteArray =
+                                net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+                            val factory = SupportFactory(passphrase)
+                            val room =
+                                Room.databaseBuilder(context, AppDatabase::class.java, "database-names")
+                                    .openHelperFactory(factory)
+                                    .allowMainThreadQueries()
+                                    .build()
+                            val productDAO = room.productDao()
+                            val staffDAO = room.staffDao()
+
+                            val itemA: Product = productDAO.findByBarcodeExact(barcodeValue)
+                            val itemTotal = itemA.price.toString().toInt() * 1
+
+                            //TODO
+                            //left-hand side item number should increment
+                            //find duplicate item in basket and increment qty and multiple total
+                            //
+                            //option for finishing with the order
+                            //option for cancel order
+                            Deets.arrBasket?.add(Basket(0,itemA.name, itemA.price, "1", itemTotal.toString()))
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent)
