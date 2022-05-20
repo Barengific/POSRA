@@ -121,10 +121,11 @@ class AddStaff : AppCompatActivity() {
             binding.tvLastName.editText?.setText(Deets.upLast)
             binding.tvEmail.editText?.setText(Deets.upEmail)
             binding.tvPhone.editText?.setText(Deets.upPhone)
-            binding.ddJobTitle.editText?.setText(Deets.upDateHired)
+            binding.tdDateHired.updateDate(Deets.upDateHired.subSequence(0,1).toString().toInt(),
+                Deets.upDateHired.subSequence(3,4).toString().toInt(),
+                Deets.upDateHired.subSequence(6,7).toString().toInt()) //
             binding.ddLocation.editText?.setText(Deets.upLocation)
-            //TODO set date
-            binding.tdDateHired.dayOfMonth.toString() + binding.tdDateHired.month.toString() + binding.tdDateHired.year.toString()
+            binding.ddJobTitle.editText?.setText(Deets.upDateHired)
             binding.imageView.setImageBitmap(Deets.upImageBitmapStaff)
         }
 
@@ -137,9 +138,11 @@ class AddStaff : AppCompatActivity() {
                     binding.tvLastName.editText?.text.toString(),
                     binding.tvEmail.editText?.text.toString(),
                     binding.tvPhone.editText?.text.toString(),
-                    binding.ddJobTitle.editText?.text.toString(),
+                    binding.tdDateHired.dayOfMonth.toString() + "/" +
+                            binding.tdDateHired.month.toString() + "/" +
+                            binding.tdDateHired.year.toString(),
                     binding.ddLocation.editText?.text.toString(),
-                    binding.tdDateHired.dayOfMonth.toString() + binding.tdDateHired.month.toString() + binding.tdDateHired.year.toString(),
+                    binding.ddJobTitle.editText?.text.toString(),
                     imageString
                 )
                 staffDao.insertAll(aa)
@@ -164,9 +167,11 @@ class AddStaff : AppCompatActivity() {
                     binding.tvLastName.editText?.text.toString(),
                     binding.tvEmail.editText?.text.toString(),
                     binding.tvPhone.editText?.text.toString(),
-                    binding.ddJobTitle.editText?.text.toString(),
+                    binding.tdDateHired.dayOfMonth.toString() + "/" +
+                            binding.tdDateHired.month.toString() + "/" +
+                            binding.tdDateHired.year.toString(),
                     binding.ddLocation.editText?.text.toString(),
-                    binding.tdDateHired.dayOfMonth.toString() + binding.tdDateHired.month.toString() + binding.tdDateHired.year.toString(),
+                    binding.ddJobTitle.editText?.text.toString(),
                     encodeImage(binding.imageView.drawToBitmap())
                 )
                 staffDao.updateStaff(aa)
