@@ -7,9 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -32,6 +29,8 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.media.MediaPlayer
 import com.barengific.posra.MainActivity.Companion.mediaPlayer
+import com.barengific.posra.basket.Basket
+import com.barengific.posra.basket.BasketAdapter
 import com.barengific.posra.product.Product
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.common.Barcode
