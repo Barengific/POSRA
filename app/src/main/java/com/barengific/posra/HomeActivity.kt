@@ -5,15 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.barengific.posra.databinding.HomeActivityBinding
-import com.barengific.posra.product.AddProduct
-import com.barengific.posra.product.ViewProduct
-import com.barengific.posra.staff.ViewStaff
+import com.barengific.posra.product.ProductView
+import com.barengific.posra.staff.StaffView
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 
@@ -41,13 +38,13 @@ class HomeActivity : AppCompatActivity() {
             setupPermissions()
         }
         binding.btnProduct.setOnClickListener {
-            val intent = Intent(this, ViewProduct::class.java)
+            val intent = Intent(this, ProductView::class.java)
 //            intent.putExtra("barcodeSca", message)
             startActivity(intent)
 
         }
         binding.btnStaff.setOnClickListener {
-            val intent = Intent(this, ViewStaff::class.java)
+            val intent = Intent(this, StaffView::class.java)
             startActivity(intent)
         }
 
