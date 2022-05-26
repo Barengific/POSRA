@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream
 
 class Deets {
     companion object{
-        var arrBasket: MutableList<Basket> = mutableListOf(Basket(0, "0", "", "", ""))
+        var arrBasket: MutableList<Basket> = mutableListOf(Basket(0, "0", "", "", "",""))
         var arrProduct: MutableList<Product> = mutableListOf(Product(0, "", "", "", "","","","",""))
         var arrStaff: MutableList<Staff> = mutableListOf(Staff(0, "", "", "", "","","","","", ""))
         var bc_value = ""
