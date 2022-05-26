@@ -28,6 +28,7 @@ import net.sqlcipher.database.SupportFactory
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.media.MediaPlayer
+import android.util.Log
 import com.barengific.posra.MainActivity.Companion.mediaPlayer
 import com.barengific.posra.basket.Basket
 import com.barengific.posra.basket.BasketAdapter
@@ -94,9 +95,10 @@ class MainActivity : AppCompatActivity() {
 
         //recycle view
 //        val arr = productDAO.getAll()
-        if(Deets.arrBasket[0].name.toString() == ("0")){
-            Deets.arrBasket.removeAt(0)
-        }
+
+//        if(Deets.arrBasket.size > 0 && Deets.arrBasket[0].name.toString() == ("0")){
+//            Deets.arrBasket.removeAt(0)
+//        }
         val adapter = Deets.arrBasket?.let { BasketAdapter(it) }
         recyclerView = findViewById<View>(R.id.rView) as RecyclerView
         recyclerView.setHasFixedSize(false)
@@ -240,7 +242,6 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                                     .allowMainThreadQueries()
                                     .build()
                             val productDAO = room.productDao()
-                            val staffDAO = room.staffDao()
 
                             val itemA: Product = productDAO.findByBarcodeExact(barcodeValue)
                             val itemTotal = itemA.price.toString().toInt() * 1
@@ -251,7 +252,40 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                             //
                             //option for finishing with the order
                             //option for cancel order
-                            Deets.arrBasket?.add(Basket(0,itemA.name, itemA.price, "1", itemTotal.toString()))
+                            val findSame : Basket? = Deets.arrBasket.firstOrNull() { it.barcode == barcode.rawValue }
+                            Log.d("aaaaa",findSame.toString())
+                            if(findSame == null || findSame?.barcode.toString() != barcode.rawValue){
+                                Log.d("aaaaa","not found sameeeee")
+                                Deets.arrBasket?.add(Basket(0,itemA.name, itemA.price, "1", itemTotal.toString(),itemA.barcode.toString()))
+                            }else{
+                                val findSameIndex = Deets.arrBasket.indexOf(findSame)
+                                val findSameQty = (Deets.arrBasket.get(findSameIndex).qty?.toInt()
+                                    ?.plus(1)).toString()
+
+                                Deets.arrBasket.set(findSameIndex, Basket(Deets.arrBasket.get(findSameIndex).id,
+                                    Deets.arrBasket.get(findSameIndex).name,
+                                    Deets.arrBasket.get(findSameIndex).price,
+                                    findSameQty,
+                                    (Deets.arrBasket.get(findSameIndex).price?.toDouble()
+                                        ?.times(findSameQty.toDouble())).toString(),
+                                    Deets.arrBasket.get(findSameIndex).barcode))
+                                Log.d("aaaaa","found!!! sameeeee")
+                            }
+//                            if(findSame != null && findSame.barcode.toString() != barcode.rawValue){
+//                                Log.d("aaaaa","not found sameeeee")
+//                                Deets.arrBasket?.add(Basket(0,itemA.name, itemA.price, "1", itemTotal.toString(),itemA.barcode.toString()))
+//                            }
+
+
+//                            Deets.arrBasket.find { barcoder -> barcode.equals(barcoder) }
+//                            Deets.arrBasket.first { it.barcode == barcode.rawValue }
+//
+//
+//                            Log.d("aaaaa",
+//                                Deets.arrBasket.first { it.barcode == barcode.rawValue }.toString()
+//                            )
+
+//                            val theFirstBatman = batmans.find { actor -> "Michael Keaton".equals(actor) }
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent)
