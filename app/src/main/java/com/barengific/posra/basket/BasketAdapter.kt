@@ -37,6 +37,7 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
         val tv_price: TextView
         val tv_qty: TextView
         val tv_total: TextView
+        val tv_barcode_basket: TextView
 
         init {
             ivMore = view.findViewById(R.id.ivMore) as ImageView
@@ -48,6 +49,7 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
             tv_price = view.findViewById(R.id.tv_price)
             tv_qty = view.findViewById(R.id.tv_qty)
             tv_total = view.findViewById(R.id.tv_total)
+            tv_barcode_basket = view.findViewById(R.id.tv_barcode_basket)
         }
 
     }
@@ -89,20 +91,21 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
                                 .allowMainThreadQueries()
                                 .build()
                         }
-                        val productDao = room?.productDao()
 
                         val id: TextView = viewHolder.tv_id
                         val name: TextView = viewHolder.tv_name
                         val price: TextView = viewHolder.tv_price
                         val qty: TextView = viewHolder.tv_qty
                         val total: TextView = viewHolder.tv_total
+                        val barcode: TextView = viewHolder.tv_barcode_basket
 
                         val a = Basket(
                             id.text.toString().toInt(),
                             name.text.toString(),
                             price.text.toString(),
                             qty.text.toString(),
-                            total.text.toString()
+                            total.text.toString(),
+                            barcode.text.toString(),
                         )
                         Deets.arrBasket?.remove(a)
                         val arrr = Deets.arrBasket
@@ -136,6 +139,7 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
         viewHolder.tv_price.text = "d. " + dataSet[position].price.toString()
         viewHolder.tv_qty.text = dataSet[position].qty.toString() + "x"
         viewHolder.tv_total.text = "d. " + dataSet[position].total.toString()
+        viewHolder.tv_barcode_basket.text = "d. " + dataSet[position].barcode.toString()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
