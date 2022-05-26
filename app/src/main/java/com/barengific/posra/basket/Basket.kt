@@ -10,5 +10,6 @@ data class Basket(
     @ColumnInfo(name = "name") var name: String?,
     @ColumnInfo(name = "price") var price: String?,
     @ColumnInfo(name = "qty") var qty: String?,
-    @ColumnInfo(name = "total") var total: String?
+    @ColumnInfo(name = "total") var total: String?,
+    @ColumnInfo(name = "barcode") var barcode: String?,
 )
