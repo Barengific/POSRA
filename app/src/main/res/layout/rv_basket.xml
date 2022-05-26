@@ -5,6 +5,7 @@
     android:layout_height="@dimen/rv_basket_item_height"
     android:layout_marginLeft="@dimen/margin_medium"
     android:layout_marginRight="@dimen/margin_medium"
+    android:background="@drawable/border_colour_1"
     android:gravity="center_vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +17,7 @@
             android:layout_width="30dp"
             android:layout_height="24dp"
             android:text="id"
+            android:layout_marginStart="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,11 +51,11 @@
 
         <TextView
             android:id="@+id/tv_total"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="24dp"
             android:text="total"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_qty"
+            app:layout_constraintEnd_toStartOf="@+id/ivMore"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -64,6 +66,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+
+        <TextView
+            android:id="@+id/tv_barcode_basket"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
