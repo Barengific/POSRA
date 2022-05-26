@@ -2,6 +2,7 @@ package com.barengific.posra.basket
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -82,16 +83,6 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_delete -> {
-                        val passphrase: ByteArray =
-                            net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
-                        val factory = SupportFactory(passphrase)
-                        val room = view?.context?.let {
-                            Room.databaseBuilder(it, AppDatabase::class.java, "database-names")
-                                .openHelperFactory(factory)
-                                .allowMainThreadQueries()
-                                .build()
-                        }
-
                         val id: TextView = viewHolder.tv_id
                         val name: TextView = viewHolder.tv_name
                         val price: TextView = viewHolder.tv_price
@@ -99,16 +90,26 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
                         val total: TextView = viewHolder.tv_total
                         val barcode: TextView = viewHolder.tv_barcode_basket
 
+                        val priceStr = price.text.drop(3)
+                        val qtyStr = qty.text.dropLast(1)
+                        val totalStr = total.text.drop(3)
+
                         val a = Basket(
                             id.text.toString().toInt(),
                             name.text.toString(),
-                            price.text.toString(),
-                            qty.text.toString(),
-                            total.text.toString(),
+                            priceStr.toString(), // remove d.
+                            qtyStr.toString(), // remove x
+                            totalStr.toString(), // remove d.
                             barcode.text.toString(),
                         )
+
                         Deets.arrBasket?.remove(a)
+                        val delIndex = Deets.arrBasket.indexOf(a)
+                        Log.d("aaaaaDELINDEX", delIndex.toString())
+//                        Deets.arrBasket.removeAt(delIndex)
+
                         val arrr = Deets.arrBasket
+                        Log.d("aaaaa", Deets.arrBasket.toString())
 
                         val adapter = arrr?.let { BasketAdapter(it) }
 
@@ -116,8 +117,9 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
                         MainActivity.recyclerView.adapter = adapter
                         MainActivity.recyclerView.layoutManager =
                             LinearLayoutManager(view?.context)
-                        room?.close()
 //                        Log.d("aaa menu", "DDDelete")
+
+                        adapter?.notifyDataSetChanged()
 
                     }
 
