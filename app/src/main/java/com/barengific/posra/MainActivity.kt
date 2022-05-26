@@ -89,9 +89,6 @@ class MainActivity : AppCompatActivity() {
                 .build()
         val productDAO = room.productDao()
         val staffDAO = room.staffDao()
-//        val staffDAO = room.staffDao()
-//        val staffDAO = room.staffDao()
-
 
         //recycle view
 //        val arr = productDAO.getAll()
@@ -104,6 +101,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val totalCost  = Deets.arrBasket.sumOf { it.total?.toDoubleOrNull()!! } //
+        val totalQty  = Deets.arrBasket.sumOf { it.qty?.toIntOrNull()!! } //
+        binding.tvTotalPrice.editText?.setText(totalCost.toString())
+        binding.tvTotalQty.editText?.setText(totalQty.toString())
+
 
     }
 
