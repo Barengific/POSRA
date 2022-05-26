@@ -96,9 +96,9 @@ class MainActivity : AppCompatActivity() {
         //recycle view
 //        val arr = productDAO.getAll()
 
-//        if(Deets.arrBasket.size > 0 && Deets.arrBasket[0].name.toString() == ("0")){
-//            Deets.arrBasket.removeAt(0)
-//        }
+        if(Deets.arrBasket.size > 0 && Deets.arrBasket[0].name.toString() == ("0")){
+            Deets.arrBasket.removeAt(0)
+        }
         val adapter = Deets.arrBasket?.let { BasketAdapter(it) }
         recyclerView = findViewById<View>(R.id.rView) as RecyclerView
         recyclerView.setHasFixedSize(false)
