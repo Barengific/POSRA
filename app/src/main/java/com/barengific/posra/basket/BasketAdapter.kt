@@ -110,6 +110,7 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
 
                         val arrr = Deets.arrBasket
                         Log.d("aaaaa", Deets.arrBasket.toString())
+                        Log.d("aaaaaAF", a.toString())
 
                         val adapter = arrr?.let { BasketAdapter(it) }
 
@@ -141,7 +142,7 @@ class BasketAdapter(private val dataSet: MutableList<Basket>) :
         viewHolder.tv_price.text = "d. " + dataSet[position].price.toString()
         viewHolder.tv_qty.text = dataSet[position].qty.toString() + "x"
         viewHolder.tv_total.text = "d. " + dataSet[position].total.toString()
-        viewHolder.tv_barcode_basket.text = "d. " + dataSet[position].barcode.toString()
+        viewHolder.tv_barcode_basket.text = dataSet[position].barcode.toString()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
