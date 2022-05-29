@@ -39,6 +39,8 @@
     <string name="email">Email</string>
     <string name="phone">Phone</string>
     <string name="dateHired">Date Hired</string>
+    <string name="deleteAll">Delete all</string>
+    <string name="deleteOne">Delete 1</string>
 
     <string-array name="dd_cate">
         <item>Dairy</item>
