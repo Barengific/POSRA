@@ -30,9 +30,13 @@ import net.sqlcipher.database.SupportFactory
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.media.MediaPlayer
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentTransaction
 import com.barengific.posra.MainActivity.Companion.mediaPlayer
@@ -91,6 +95,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide();
         actionBar?.hide();
 
+        binding.tvBarcodeMa.requestFocus();
+
         //db initialise
         val passphrase: ByteArray =
             net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
@@ -140,6 +146,118 @@ class MainActivity : AppCompatActivity() {
             }else {
                 false
             }
+        }
+
+        binding.tvBarcodeMa.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.tvBarcodeMa.editText?.text.toString().contains("\n")){
+                    Log.d("aaaaaaaOOGGG", binding.tvBarcodeMa.editText?.text.toString())
+                }
+            }
+        })
+
+        val inputs = EditText(this@MainActivity)
+        inputs.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            Log.d("aaaaaaaWWWW",v.toString())
+            Log.d("aaaaaaaWWWW",keyCode.toString())
+            Log.d("aaaaaaaWWWW",event.toString())
+
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                // your code here
+                Log.d("aaaaaaaWWWW",v.toString())
+                Log.d("aaaaaaaWWWW",keyCode.toString())
+                Log.d("aaaaaaaWWWW",event.toString())
+
+                true
+            }
+            false
+        })
+
+        val input = EditText(this@MainActivity)
+        input.setOnEditorActionListener { aaa, actionId, event ->
+            Log.d("aaaaaaaWWWW", actionId.toString())
+            Log.d("aaaaaaaWWWW", event.toString())
+            Log.d("aaaaaaaWWWW",aaa.toString())
+
+            // If triggered by an enter key, this is the event; otherwise, this is null.
+            // if shift key is down, then we want to insert the '\n' char in the TextView;
+            if (event == null || event.isShiftPressed) return@setOnEditorActionListener false
+            // TODO: your code goes here
+            return@setOnEditorActionListener true
+        }
+
+        binding.tvBarcodeMa.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            Log.d("aaaaaaaTTTT", keyCode.toString())
+            Log.d("aaaaaaaTTTT", v.toString())
+            Log.d("aaaaaaaTTTT", event.toString())
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                //Perform Code
+                return@OnKeyListener true
+            }
+            false
+        })
+
+        binding.tvBarcodeMa.setOnKeyListener { v, keyCode, event ->
+            Log.d("aaaaaaaHHHH", keyCode.toString())
+            Log.d("aaaaaaaHHHH", v.toString())
+            Log.d("aaaaaaaHHHH", event.toString())
+            when {
+                ((keyCode == KeyEvent.KEYCODE_ENTER) && (event.action == KeyEvent.ACTION_DOWN)) -> {
+                    Log.d("aaaaaaaHHHH", "aaaaaaaaaaaHERERERE")
+
+//                    val barcodeStr = binding.tvBarcodeMa.editText?.text.toString()
+//
+//                    //db initialise
+//                    val passphrase: ByteArray =
+//                        net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+//                    val factory = SupportFactory(passphrase)
+//                    val room =
+//                        Room.databaseBuilder(this, AppDatabase::class.java, "database-names")
+//                            .openHelperFactory(factory)
+//                            .allowMainThreadQueries()
+//                            .build()
+//                    val productDAO = room.productDao()
+//
+//                    val itemA: Product = productDAO.findByBarcodeExact(barcodeStr)
+//                    val itemTotal = itemA.price.toString().toInt() * 1
+//
+//                    //TODO
+//                    //left-hand side item number should increment
+//                    //find duplicate item in basket and increment qty and multiple total
+//                    //
+//                    //option for finishing with the order
+//                    //option for cancel order
+//                    val findSame : Basket? = Deets.arrBasket.firstOrNull() { it.barcode == barcodeStr }
+//                    Log.d("aaaaa",findSame.toString())
+//                    if(findSame == null || findSame?.barcode.toString() != barcodeStr){
+//                        Log.d("aaaaa","not found sameeeee")
+//                        Deets.arrBasket?.add(Basket(0,itemA.name, itemA.price, "1", itemTotal.toString(),itemA.barcode.toString()))
+//                    }else{
+//                        val findSameIndex = Deets.arrBasket.indexOf(findSame)
+//                        val findSameQty = (Deets.arrBasket.get(findSameIndex).qty?.toInt()
+//                            ?.plus(1)).toString()
+//
+//                        Deets.arrBasket.set(findSameIndex, Basket(Deets.arrBasket.get(findSameIndex).id,
+//                            Deets.arrBasket.get(findSameIndex).name,
+//                            Deets.arrBasket.get(findSameIndex).price,
+//                            findSameQty,
+//                            (Deets.arrBasket.get(findSameIndex).price?.toDouble()
+//                                ?.times(findSameQty.toDouble())).toString(),
+//                            Deets.arrBasket.get(findSameIndex).barcode))
+//                        Log.d("aaaaa","found!!! sameeeee")
+//                    }
+//                    room.close()
+
+
+                    //return true
+                    return@setOnKeyListener true
+                }
+                else -> false
+            }
+
+
         }
 
     }
@@ -234,6 +352,8 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
+
+
 }
 
 
