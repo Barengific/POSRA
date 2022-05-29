@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_totalPrice">
+        app:layout_constraintBottom_toTopOf="@id/tv_barcode_ma">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rView"
@@ -27,6 +27,27 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_barcode_ma"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="@string/barcode"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+        app:layout_constraintVertical_bias="0.01"
+        app:startIconDrawable="@drawable/ic_baseline_select_all_24"
+        tools:ignore="MissingClass,SpeakableTextPresentCheck">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:editable="false"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tv_totalPrice"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -36,9 +57,9 @@
         android:textStyle="normal|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@id/tv_barcode_ma"
         app:layout_constraintVertical_bias="0.01"
-        app:startIconDrawable="@drawable/ic_baseline_select_all_24"
+        app:startIconDrawable="@drawable/ic_baseline_monetization_on_24"
         tools:ignore="MissingClass,SpeakableTextPresentCheck">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
