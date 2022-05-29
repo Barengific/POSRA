@@ -2,7 +2,9 @@ package com.barengific.posra
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -29,14 +31,22 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.media.MediaPlayer
 import android.util.Log
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentTransaction
 import com.barengific.posra.MainActivity.Companion.mediaPlayer
 import com.barengific.posra.basket.Basket
 import com.barengific.posra.basket.BasketAdapter
 import com.barengific.posra.product.Product
+import com.barengific.posra.product.ProductAdd
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.common.Barcode
 
 class MainActivity : AppCompatActivity() {
+    lateinit var bottomNav: BottomNavigationView
+
     companion object {
         var mediaPlayer: MediaPlayer? = null
         var pos: Int = 0
@@ -61,10 +71,10 @@ class MainActivity : AppCompatActivity() {
     //TODO
     //Order history list
 
-
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var binding: MainActivityBinding
 
+    @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -74,6 +84,9 @@ class MainActivity : AppCompatActivity() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
         startCamera()
+
+        bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+//        bottomNav.selectedItemId = R.id.nav_view
 
         supportActionBar?.hide();
         actionBar?.hide();
@@ -107,6 +120,27 @@ class MainActivity : AppCompatActivity() {
         binding.tvTotalPrice.editText?.setText(totalCost.toString())
         binding.tvTotalQty.editText?.setText(totalQty.toString())
 
+        bottomNav.setOnItemSelectedListener { menuItem ->
+            if (menuItem.itemId == R.id.nav_home) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                false
+            } else if (menuItem.itemId == R.id.nav_finish) {
+                //
+                false
+            } else if (menuItem.itemId == R.id.nav_cancel) {
+                //
+                false
+            } else if (menuItem.itemId == R.id.nav_manual) {
+                val newDialogFragment = StartersDialogFragment()
+                val transaction: FragmentTransaction =
+                    this.supportFragmentManager.beginTransaction()
+                newDialogFragment.show(transaction, "New_Dialog_Fragment")
+                true
+            }else {
+                false
+            }
+        }
 
     }
 
@@ -300,5 +334,68 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
         }
 
         image.close()
+    }
+}
+
+class StartersDialogFragment : DialogFragment() {
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            val inflater = requireActivity().layoutInflater;
+            builder.setView(inflater.inflate(R.layout.manual_barcode_layout, null))
+                .setPositiveButton("Confirmsss"
+                ) { _, _ ->
+                    val context: Context = MainActivity.applicationContext()
+                    val dialogView = inflater.inflate(R.layout.manual_barcode_layout, null)
+                    val barcode = dialogView.findViewById<EditText>(R.id.dl_barcode)
+                    val barcodeStr = barcode.text.toString()
+
+                    //db initialise
+                    val passphrase: ByteArray =
+                        net.sqlcipher.database.SQLiteDatabase.getBytes("bob".toCharArray())
+                    val factory = SupportFactory(passphrase)
+                    val room =
+                        Room.databaseBuilder(context, AppDatabase::class.java, "database-names")
+                            .openHelperFactory(factory)
+                            .allowMainThreadQueries()
+                            .build()
+                    val productDAO = room.productDao()
+
+                    val itemA: Product = productDAO.findByBarcodeExact(barcodeStr)
+                    val itemTotal = itemA.price.toString().toInt() * 1
+
+                    //TODO
+                    //left-hand side item number should increment
+                    //find duplicate item in basket and increment qty and multiple total
+                    //
+                    //option for finishing with the order
+                    //option for cancel order
+                    val findSame : Basket? = Deets.arrBasket.firstOrNull() { it.barcode == barcodeStr }
+                    Log.d("aaaaa",findSame.toString())
+                    if(findSame == null || findSame?.barcode.toString() != barcodeStr){
+                        Log.d("aaaaa","not found sameeeee")
+                        Deets.arrBasket?.add(Basket(0,itemA.name, itemA.price, "1", itemTotal.toString(),itemA.barcode.toString()))
+                    }else{
+                        val findSameIndex = Deets.arrBasket.indexOf(findSame)
+                        val findSameQty = (Deets.arrBasket.get(findSameIndex).qty?.toInt()
+                            ?.plus(1)).toString()
+
+                        Deets.arrBasket.set(findSameIndex, Basket(Deets.arrBasket.get(findSameIndex).id,
+                            Deets.arrBasket.get(findSameIndex).name,
+                            Deets.arrBasket.get(findSameIndex).price,
+                            findSameQty,
+                            (Deets.arrBasket.get(findSameIndex).price?.toDouble()
+                                ?.times(findSameQty.toDouble())).toString(),
+                            Deets.arrBasket.get(findSameIndex).barcode))
+                        Log.d("aaaaa","found!!! sameeeee")
+                    }
+                }
+                .setNegativeButton(R.string.cancel
+                ) { _, _ ->
+                    dialog?.cancel()
+                }
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
 }
