@@ -92,27 +92,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide();
         actionBar?.hide();
 
-
-//        binding.root.hideKeyboard()
-//        binding.root.hideSoftInput()
-//        binding.root.hideKeyboards()
-
-//        binding.tvBarcodeMa.editText?.hideKeyboard()
-//        binding.tvBarcodeMa.editText?.hideKeyboards()
         binding.tvBarcodeMa.editText?.showSoftInputOnFocus = false;
-//        binding.tvBarcodeMa.editText?.isCursorVisible = false;
-
-//        binding.tvBarcodeMa.requestFocus();
-//        val editText: WeakReference<EditText>
-//        editText.get()?.postDelayed({ editText.get()?.hideKeyboard() }, 50)
-
-//        lifecycle.addObserver(
-//            EditTextKeyboardLifecycleObserver(
-//                WeakReference(binding.tvBarcodeMa.editText) //mEditText is the object(EditText)
-//            )
-//        )
-
-//        binding.tvBarcodeMa.editText?.inputType = InputType.TYPE_NULL;
 
         //db initialise
         val passphrase: ByteArray =
@@ -127,7 +107,6 @@ class MainActivity : AppCompatActivity() {
         val staffDAO = room.staffDao()
 
         //recycle view
-//        val arr = productDAO.getAll()
 
         if(Deets.arrBasket.size > 0 && Deets.arrBasket[0].name.toString() == ("0")){
             Deets.arrBasket.removeAt(0)
@@ -164,7 +143,6 @@ class MainActivity : AppCompatActivity() {
                 false
             }
         }
-//        binding.root.hideKeyboard()
 
         binding.tvBarcodeMa.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -210,45 +188,16 @@ class MainActivity : AppCompatActivity() {
                     binding.tvBarcodeMa.editText?.hideKeyboard()
 
                 }
-//                binding.tvBarcodeMa.editText?.hideKeyboard()
-//                binding.tvBarcodeMa.editText?.hideKeyboards()
+
             }
         })
 
-//        binding.tvBarcodeMa.editText?.showSoftInputOnFocus = false;
-//        binding.tvBarcodeMa.editText?.isCursorVisible = false;
-//        binding.tvBarcodeMa.editText?.showSoftInputOnFocus = false;
-
-//        hideSoftKeyboard()
 
     }
 
     private fun View.hideKeyboard() {
         val imm = ContextCompat.getSystemService(context, InputMethodManager::class.java) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-    private fun View.hideSoftInput() {
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
-    }
-
-    fun EditText.hideKeyboards(){
-        // since our app extends AppCompatActivity, it has access to context
-        val imm=getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        // we have to tell hide the keyboard from what. inorder to do is we have to pass window token
-        // all of our views,like message, name, button have access to same window token. since u have button
-        imm.hideSoftInputFromWindow(windowToken, 0)
-
-        // if you are using binding object
-        // imm.hideSoftInputFromWindow(binding.button.windowToken,0)
-
-    }
-
-    private fun hideSoftKeyboard() {
-        if (currentFocus != null) {
-            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-        }
     }
 
     override fun onDestroy() {
