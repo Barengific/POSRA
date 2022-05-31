@@ -178,7 +178,9 @@ class MainActivity : AppCompatActivity() {
 
                         }
                     }catch(ex: Exception){
-                        Log.d("aaaaaaQWERT", ex.toString())
+                            Toast.makeText(this@MainActivity, "Error! May be the item is non-existent",
+                                Toast.LENGTH_SHORT
+                            ).show()
                     }
                     binding.tvBarcodeMa.editText?.text?.clear()
                     runOnUiThread {
@@ -186,13 +188,16 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     binding.tvBarcodeMa.editText?.hideKeyboard()
+                    val totalCost  = Deets.arrBasket.sumOf { it.total?.toDoubleOrNull()!! } //
+                    val totalQty  = Deets.arrBasket.sumOf { it.qty?.toIntOrNull()!! } //
+                    binding.tvTotalPrice.editText?.setText(totalCost.toString())
+                    binding.tvTotalQty.editText?.setText(totalQty.toString())
 
                 }
 
             }
         })
-
-
+        
     }
 
     private fun View.hideKeyboard() {
@@ -366,21 +371,7 @@ class QrCodeAnalyzer : ImageAnalysis.Analyzer {
                                     Deets.arrBasket.get(findSameIndex).barcode))
                                 Log.d("aaaaa","found!!! sameeeee")
                             }
-//                            if(findSame != null && findSame.barcode.toString() != barcode.rawValue){
-//                                Log.d("aaaaa","not found sameeeee")
-//                                Deets.arrBasket?.add(Basket(0,itemA.name, itemA.price, "1", itemTotal.toString(),itemA.barcode.toString()))
-//                            }
 
-
-//                            Deets.arrBasket.find { barcoder -> barcode.equals(barcoder) }
-//                            Deets.arrBasket.first { it.barcode == barcode.rawValue }
-//
-//
-//                            Log.d("aaaaa",
-//                                Deets.arrBasket.first { it.barcode == barcode.rawValue }.toString()
-//                            )
-
-//                            val theFirstBatman = batmans.find { actor -> "Michael Keaton".equals(actor) }
                             val intent = Intent(context, PasserActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent)
