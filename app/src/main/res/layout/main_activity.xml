@@ -108,6 +108,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_basket_nav_menu" >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
