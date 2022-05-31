@@ -16,6 +16,9 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 @ExperimentalPermissionsApi
 class HomeActivity : AppCompatActivity() {
+    //TODO
+    //add/update store/shop details option
+
     private lateinit var binding: HomeActivityBinding
     private val PERMISSION_REQUEST_CODE = 200
 
