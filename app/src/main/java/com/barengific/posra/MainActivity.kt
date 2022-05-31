@@ -131,7 +131,17 @@ class MainActivity : AppCompatActivity() {
                 //
                 false
             } else if (menuItem.itemId == R.id.nav_cancel) {
-                //
+                // clear basket
+                Deets.arrBasket.clear()
+                Deets.totalPriceBasket = 0.0;
+                Deets.totalQtyBasket = 0
+                runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
+                binding.tvTotalPrice.editText?.setText(totalCost.toString())
+                binding.tvTotalQty.editText?.setText(totalQty.toString())
+
+
                 false
             } else if (menuItem.itemId == R.id.nav_manual) {
                 val newDialogFragment = StartersDialogFragment()
@@ -197,7 +207,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
-        
+
     }
 
     private fun View.hideKeyboard() {
