@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.barengific.posra.order.OrdersDAO
 import com.barengific.posra.product.Product
 import com.barengific.posra.product.ProductDAO
 import com.barengific.posra.staff.Staff
@@ -28,5 +29,6 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun staffDao(): StaffDAO
     abstract fun productDao(): ProductDAO
+    abstract fun ordersDao(): OrdersDAO
 
 }
