@@ -15,7 +15,9 @@ class Deets {
         var arrBasket: MutableList<Basket> = mutableListOf(Basket(0, "0", "", "", "",""))
         var totalPriceBasket = 0.0;
         var totalQtyBasket = 0;
-//        var arrBasket: MutableList<Basket> = mutableListOf(Basket(0, "Name", "Price", "Qty", "Total","Barcode"))
+        var arrOrder: MutableList<Basket> = mutableListOf(Basket(0, "0", "", "", "",""))
+
+        //        var arrBasket: MutableList<Basket> = mutableListOf(Basket(0, "Name", "Price", "Qty", "Total","Barcode"))
         var arrProduct: MutableList<Product> = mutableListOf(Product(0, "", "", "", "","","","",""))
         var arrStaff: MutableList<Staff> = mutableListOf(Staff(0, "", "", "", "","","","","", ""))
         var bc_value = ""
@@ -75,5 +77,12 @@ class Deets {
             return decodedByte
         }
     }
+
+    var storeName: String = ""
+    var storeLogo: String = ""
+    var storeMotto: String = ""
+    var storePhone1: String = ""
+    var storePhone2: String = ""
+    var storeAddress: String = ""
 
 }
