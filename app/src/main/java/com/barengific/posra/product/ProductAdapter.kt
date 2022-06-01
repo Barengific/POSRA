@@ -131,7 +131,6 @@ class ProductAdapter(private val dataSet: List<Product>) :
                         adapter?.notifyDataSetChanged()
 
                         room?.close()
-//                        Log.d("aaa menu", "DDDelete")
 
                     }
                     R.id.menu_update -> {
