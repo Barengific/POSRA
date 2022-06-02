@@ -1,8 +1,6 @@
 package com.barengific.posra.order
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.barengific.posra.basket.Basket
 
 @Entity
@@ -12,5 +10,6 @@ data class Orders (
     @ColumnInfo(name = "totalPrice") var totalPrice: Double?,
     @ColumnInfo(name = "totalDiscount") var totalDiscount: Double?,
     @ColumnInfo(name = "totalQty") var totalQty: Int?,
-    @ColumnInfo(name = "itemList") var itemList: MutableList<Basket>?,
-)
+    @TypeConverters(Basket::class)
+    @ColumnInfo(name = "itemList") var itemList: MutableList<Basket>?
+    )
